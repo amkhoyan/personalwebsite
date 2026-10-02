@@ -1,0 +1,194 @@
+# Decap CMS configuration — https://decapcms.org/docs/configuration-options/
+backend:
+  name: github
+  repo: amkhoyan/personalwebsite
+  branch: main
+
+# When running `npm run dev`, edits are saved straight to your local files instead of GitHub.
+local_backend: true
+
+media_folder: images/uploads
+public_folder: /images/uploads
+
+i18n:
+  structure: single_file
+  locales: [en, hy]
+  default_locale: en
+
+collections:
+  # ---------------------------------------------------------------- Projects
+  - name: projects
+    label: Projects
+    label_singular: Project
+    description: Everything you've worked on — product work and non-IT projects alike. Use the category to tell them apart.
+    folder: content/projects
+    extension: json
+    format: json
+    create: true
+    i18n: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{category}}, {{fields.year}}"
+    sortable_fields: [title, year, category]
+    view_filters:
+      - { label: Product, field: category, pattern: product }
+      - { label: Tech, field: category, pattern: tech }
+      - { label: Community, field: category, pattern: community }
+      - { label: Volunteering, field: category, pattern: volunteering }
+      - { label: Creative, field: category, pattern: creative }
+      - { label: Education, field: category, pattern: education }
+      - { label: Sport, field: category, pattern: sport }
+      - { label: Personal, field: category, pattern: personal }
+    editor: { preview: false }
+    fields:
+      - { label: Title, name: title, widget: string, i18n: true }
+      - { label: One-line summary, name: summary, widget: text, i18n: true, hint: "Shown in the project list." }
+      - label: Category
+        name: category
+        widget: select
+        i18n: duplicate
+        default: product
+        options:
+          - { label: "Product", value: product }
+          - { label: "Tech", value: tech }
+          - { label: "Community", value: community }
+          - { label: "Volunteering", value: volunteering }
+          - { label: "Creative", value: creative }
+          - { label: "Education", value: education }
+          - { label: "Sport", value: sport }
+          - { label: "Personal", value: personal }
+      - { label: Year, name: year, widget: string, i18n: duplicate, required: false, hint: "e.g. 2025 or 2023 — 2025" }
+      - { label: Your role, name: role, widget: string, i18n: true, required: false }
+      - label: Status
+        name: status
+        widget: select
+        i18n: duplicate
+        default: completed
+        options:
+          - { label: "Live", value: live }
+          - { label: "Ongoing", value: ongoing }
+          - { label: "Completed", value: completed }
+          - { label: "Archived", value: archived }
+      - { label: Featured on home page, name: featured, widget: boolean, i18n: duplicate, default: false, required: false }
+      - { label: Tags, name: tags, widget: list, i18n: true, required: false, hint: "Comma-separated" }
+      - { label: Link, name: link, widget: string, i18n: duplicate, required: false, hint: "Optional URL to the product, article, or photos." }
+      - { label: Cover image, name: image, widget: image, i18n: duplicate, required: false }
+      - &icons
+        label: Icon
+        name: icon
+        widget: select
+        i18n: duplicate
+        required: false
+        default: box
+        options: [box, target, users, chart, map, flag, rocket, heart, camera, trophy, book, globe, pen, doc, code, chat, mail, layout, server]
+      - &colors
+        label: Color
+        name: color
+        widget: select
+        i18n: duplicate
+        required: false
+        default: orange
+        options: [orange, blue, yellow, green, purple, pink, teal]
+      - { label: Details, name: body, widget: markdown, i18n: true, required: false, hint: "Optional longer story — shown when someone opens the project." }
+
+  # ---------------------------------------------------------------- Writing
+  - name: posts
+    label: Writing
+    label_singular: Post
+    folder: content/posts
+    extension: json
+    format: json
+    create: true
+    i18n: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} ({{date}})"
+    sortable_fields: [date, title]
+    editor: { preview: false }
+    fields:
+      - { label: Title, name: title, widget: string, i18n: true }
+      - { label: Date, name: date, widget: datetime, i18n: duplicate, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { label: Short summary, name: summary, widget: text, i18n: true, required: false }
+      - { label: Draft (hidden from site), name: draft, widget: boolean, i18n: duplicate, default: false, required: false }
+      - { label: Body, name: body, widget: markdown, i18n: true }
+
+  # ---------------------------------------------------------------- Site settings
+  - name: settings
+    label: Site settings
+    i18n: true
+    editor: { preview: false }
+    files:
+      - name: settings
+        label: Home, About, Resume & Contact
+        file: content/settings.json
+        format: json
+        i18n: true
+        fields:
+          # --- Identity (same in every language unless translated)
+          - { label: Full name, name: name, widget: string, i18n: true }
+          - { label: First name, name: short_name, widget: string, i18n: true }
+          - { label: Logo text, name: logo_text, widget: string, hint: "Shown top-left, e.g. aram.pm" }
+          - { label: Email, name: email, widget: string }
+          - { label: Photo, name: photo, widget: image, required: false, hint: "Optional. Leave empty to show the hedgehog." }
+          - label: Social links
+            name: links
+            widget: list
+            summary: "{{label}}"
+            fields:
+              - { label: Name, name: label, widget: string }
+              - { label: Handle, name: handle, widget: string, required: false }
+              - { label: URL, name: url, widget: string }
+              - *icons
+              - *colors
+          # --- Home
+          - { label: Greeting chip, name: eyebrow, widget: string, i18n: true }
+          - { label: Headline, name: headline, widget: string, i18n: true, hint: "Wrap a word in **double stars** to underline it in yellow." }
+          - { label: Tagline, name: tagline, widget: text, i18n: true }
+          - label: What I do
+            name: skills
+            widget: list
+            i18n: true
+            summary: "{{title}}"
+            hint: "Icon and colour can be left empty in Armenian — they're taken from English."
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: string }
+              - *icons
+              - *colors
+          - label: By the numbers
+            name: stats
+            widget: list
+            i18n: true
+            summary: "{{value}} {{label}}"
+            fields:
+              - { label: Number, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+          # --- About
+          - { label: About me, name: about, widget: markdown, i18n: true }
+          - { label: Location, name: location, widget: string, i18n: true }
+          - label: Right now
+            name: now
+            widget: list
+            i18n: true
+            summary: "{{label}}: {{value}}"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: string }
+          - label: Fun facts
+            name: facts
+            widget: list
+            i18n: true
+            summary: "{{text}}"
+            field: { label: Fact, name: text, widget: string }
+          # --- Resume
+          - label: Resume
+            name: resume
+            widget: list
+            i18n: true
+            summary: "{{when}} · {{role}} @ {{org}}"
+            fields:
+              - { label: When, name: when, widget: string }
+              - { label: Role / degree, name: role, widget: string }
+              - { label: Organisation, name: org, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+          - { label: Footer text, name: footer, widget: string, i18n: true }

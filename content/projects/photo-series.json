@@ -1,0 +1,22 @@
+{
+  "en": {
+    "title": "Street photography series",
+    "summary": "A year of photographing the same street every Sunday morning.",
+    "category": "creative",
+    "year": "2021",
+    "role": "",
+    "status": "completed",
+    "featured": false,
+    "tags": ["Photography", "Film"],
+    "link": "",
+    "image": "",
+    "icon": "camera",
+    "color": "yellow",
+    "body": ""
+  },
+  "hy": {
+    "title": "Փողոցային լուսանկարների շարք",
+    "summary": "Մեկ տարի ամեն կիրակի առավոտ լուսանկարում էի նույն փողոցը։",
+    "tags": ["Լուսանկարչություն", "Ժապավեն"]
+  }
+}

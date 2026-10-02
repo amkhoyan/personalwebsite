@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aram Mkhoyan</title>
+<meta name="description" content="Personal website of Aram Mkhoyan — product manager.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%94%3C/text%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="/?lang=en">
+<link rel="alternate" hreflang="hy" href="/?lang=hy">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<style>
+  :root {
+    --bg: #EEEFE9;
+    --surface: #FDFDF8;
+    --surface-2: #E5E7E0;
+    --text: #151515;
+    --muted: #65675E;
+    --border: #BFC1B7;
+    --border-light: #D0D1C9;
+    --btn: #EB9D2A;
+    --btn-shadow: #B17816;
+    --btn2: #FDFDF8;
+    --btn2-shadow: #BFC1B7;
+    --orange: #F54E00;
+    --blue: #1D4AFF;
+    --yellow: #F7A501;
+    --green: #6AA84F;
+    --purple: #B62AD9;
+    --teal: #1BB89C;
+    --pink: #E34C6F;
+    --highlight: rgba(235, 157, 42, .25);
+    --shadow: 0 10px 30px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
+    --spike: #6B3F1D;
+    --skin: #F3D9B1;
+    --dot: rgba(0,0,0,.07);
+  }
+  :root[data-theme="dark"] {
+    --bg: #1D1F27; --surface: #25272F; --surface-2: #2E3039; --text: #EEEFE9; --muted: #A6A79F;
+    --border: #4A4C56; --border-light: #3A3C45; --btn2: #2E3039; --btn2-shadow: #4A4C56;
+    --highlight: rgba(235, 157, 42, .3); --shadow: 0 10px 30px rgba(0,0,0,.45); --dot: rgba(255,255,255,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1D1F27; --surface: #25272F; --surface-2: #2E3039; --text: #EEEFE9; --muted: #A6A79F;
+      --border: #4A4C56; --border-light: #3A3C45; --btn2: #2E3039; --btn2-shadow: #4A4C56;
+      --highlight: rgba(235, 157, 42, .3); --shadow: 0 10px 30px rgba(0,0,0,.45); --dot: rgba(255,255,255,.06);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans", "Noto Sans Armenian", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--orange); text-decoration: none; font-weight: 600; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+  /* ---------- Menubar ---------- */
+  .menubar {
+    position: fixed; inset: 0 0 auto 0; height: 44px; z-index: 10000;
+    display: flex; align-items: center; gap: 4px; padding: 0 10px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+  }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; letter-spacing: -.02em; margin-right: 8px; cursor: pointer; background: none; border: 0; padding: 4px 6px; border-radius: 6px; white-space: nowrap; }
+  .logo svg { width: 30px; height: 24px; }
+  .menu-item { background: none; border: 0; padding: 5px 10px; border-radius: 6px; font-weight: 500; font-size: 14px; cursor: pointer; white-space: nowrap; }
+  .menu-item:hover, .logo:hover { background: var(--surface-2); }
+  .tabs { display: flex; gap: 4px; margin-left: 12px; overflow-x: auto; flex: 1; scrollbar-width: none; }
+  .tab {
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    border: 1px solid var(--border-light); background: var(--bg); border-radius: 6px;
+    padding: 3px 10px; font-size: 13px; cursor: pointer; max-width: 200px; overflow: hidden; text-overflow: ellipsis;
+  }
+  .tab.active { border-color: var(--border); background: var(--surface-2); font-weight: 600; }
+  .tab.min { opacity: .55; }
+  .menubar-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .icon-btn { width: 32px; height: 32px; display: grid; place-items: center; background: none; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+  .icon-btn:hover { background: var(--surface-2); border-color: var(--border-light); }
+  .clock { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .lang { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .lang button { border: 0; background: none; padding: 3px 9px; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--muted); }
+  .lang button + button { border-left: 1px solid var(--border); }
+  .lang button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+
+  /* ---------- Buttons (PostHog-style 3D) ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--btn); color: #151515; font-weight: 700; font-size: 15px; letter-spacing: -.01em;
+    border: 1.5px solid var(--btn-shadow); border-radius: 6px; padding: 8px 16px; cursor: pointer;
+    box-shadow: 0 3px 0 var(--btn-shadow); transform: translateY(-1px);
+    transition: transform .08s ease, box-shadow .08s ease; text-decoration: none !important; white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 0 var(--btn-shadow); }
+  .btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--btn-shadow); }
+  .btn.secondary { background: var(--btn2); color: var(--text); border-color: var(--btn2-shadow); box-shadow: 0 3px 0 var(--btn2-shadow); }
+  .btn.secondary:hover { box-shadow: 0 4px 0 var(--btn2-shadow); }
+  .btn.secondary:active { box-shadow: 0 1px 0 var(--btn2-shadow); }
+  .btn.sm { font-size: 13px; padding: 4px 10px; }
+
+  /* ---------- Desktop ---------- */
+  .desktop {
+    position: fixed; inset: 44px 0 0 0;
+    background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .icons { position: absolute; top: 16px; display: flex; flex-direction: column; gap: 6px; z-index: 1; }
+  .icons.left { left: 12px; }
+  .icons.right { right: 12px; }
+  .desk-icon {
+    width: 96px; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    background: none; border: 0; padding: 6px 4px; cursor: pointer; border-radius: 6px;
+  }
+  .desk-icon svg { width: 48px; height: 48px; filter: drop-shadow(0 2px 0 rgba(0,0,0,.08)); }
+  .desk-icon span { font-size: 12.5px; font-weight: 500; padding: 1px 6px; border-radius: 4px; text-align: center; line-height: 1.3; }
+  .desk-icon:hover span, .desk-icon:focus-visible span { background: var(--highlight); }
+  .desk-icon:focus { outline: none; }
+  .wallpaper { position: absolute; right: 120px; bottom: 28px; width: 260px; pointer-events: none; }
+  .wallpaper .bubble {
+    position: absolute; right: 150px; top: -14px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 8px 12px; font-size: 13px; font-weight: 600; white-space: nowrap; box-shadow: var(--shadow);
+  }
+  .status-msg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); text-align: center; padding: 20px; }
+
+  /* ---------- Windows ---------- */
+  .window {
+    position: absolute; display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: var(--shadow); min-width: 300px; overflow: hidden;
+    animation: pop .14s ease-out;
+  }
+  @keyframes pop { from { transform: scale(.97); opacity: 0; } to { transform: none; opacity: 1; } }
+  .window.min { display: none; }
+  .window.max { left: 8px !important; top: 8px !important; width: calc(100% - 16px) !important; height: calc(100% - 16px) !important; }
+  .window:not(.focused) .titlebar { background: var(--bg); }
+  .window:not(.focused) .titlebar .title { opacity: .6; }
+  .titlebar {
+    display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 6px 0 12px;
+    background: var(--surface-2); border-bottom: 1px solid var(--border);
+    cursor: grab; user-select: none; touch-action: none; flex-shrink: 0;
+  }
+  .titlebar:active { cursor: grabbing; }
+  .titlebar .title { font-size: 13px; font-weight: 600; flex: 1; display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; }
+  .titlebar .title span { overflow: hidden; text-overflow: ellipsis; }
+  .titlebar .title svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .ctrl { width: 26px; height: 26px; display: grid; place-items: center; border: 0; background: none; border-radius: 5px; cursor: pointer; color: var(--muted); }
+  .ctrl:hover { background: var(--border-light); color: var(--text); }
+  .ctrl.close:hover { background: var(--orange); color: #fff; }
+  .window-body { flex: 1; overflow: auto; padding: 28px 32px 36px; }
+
+  /* ---------- Content ---------- */
+  h1, h2, h3 { letter-spacing: -.025em; line-height: 1.15; margin: 0; }
+  :lang(hy) h1, :lang(hy) h2, :lang(hy) h3 { letter-spacing: -.01em; line-height: 1.25; }
+  h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; }
+  :lang(hy) h1 { font-size: clamp(26px, 3vw, 36px); }
+  h1.page { font-size: 32px; }
+  h2 { font-size: 22px; font-weight: 700; margin: 36px 0 14px; }
+  h3 { font-size: 16px; font-weight: 700; }
+  p { margin: 0 0 12px; }
+  .muted { color: var(--muted); }
+  .intro { color: var(--muted); margin: 8px 0 20px; }
+  .eyebrow { display: inline-block; font-size: 13px; font-weight: 600; color: var(--muted); border: 1px solid var(--border-light); border-radius: 999px; padding: 2px 10px; margin-bottom: 14px; }
+  .hl { text-decoration: underline wavy var(--yellow); text-underline-offset: 6px; text-decoration-thickness: 2px; text-decoration-skip-ink: none; }
+
+  .hero { display: grid; grid-template-columns: 1fr 200px; gap: 20px; align-items: center; }
+  .hero .lead { font-size: 17px; color: var(--muted); margin: 14px 0 22px; max-width: 48ch; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .card {
+    border: 1px solid var(--border-light); border-radius: 8px; padding: 14px; background: var(--bg);
+    transition: transform .12s, border-color .12s; text-align: left;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--border); }
+  button.card { cursor: pointer; width: 100%; }
+  .card p { font-size: 13.5px; color: var(--muted); margin: 4px 0 0; }
+  .tile { width: 34px; height: 34px; border-radius: 6px; display: grid; place-items: center; margin-bottom: 10px; color: #fff; flex-shrink: 0; }
+  .tile svg { width: 18px; height: 18px; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; }
+  .stat { padding: 16px; text-align: center; }
+  .stat + .stat { border-left: 1px solid var(--border-light); }
+  .stat b { display: block; font-size: 28px; letter-spacing: -.03em; }
+  .stat span { font-size: 13px; color: var(--muted); }
+
+  .dashed { border: 0; border-top: 1px dashed var(--border); margin: 30px 0 18px; }
+  .footer-note { font-size: 13px; color: var(--muted); text-align: center; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .section-head h2 { margin-bottom: 14px; }
+  .link-btn { background: none; border: 0; color: var(--orange); font-weight: 600; cursor: pointer; padding: 0; font-size: 14px; }
+  .link-btn:hover { text-decoration: underline; }
+
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip { border: 1px solid var(--border-light); background: var(--bg); border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .chip:hover { border-color: var(--border); }
+  .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .chip small { opacity: .6; font-size: 11.5px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+  .rows { border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 40px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; background: var(--surface); cursor: pointer; }
+  .row + .row { border-top: 1px solid var(--border-light); }
+  .row:hover { background: var(--bg); }
+  .row:focus-visible { outline: 2px solid var(--btn); outline-offset: -2px; }
+  .row .tile { margin: 0; }
+  .row p { margin: 2px 0 6px; font-size: 13.5px; color: var(--muted); }
+  .row-side { display: flex; flex-direction: column; align-items: end; gap: 6px; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-size: 11.5px; font-weight: 500; border: 1px solid var(--border-light); border-radius: 4px; padding: 0 6px; background: var(--bg); }
+  .pill.cat { display: inline-flex; align-items: center; gap: 5px; }
+  .status { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 4px; }
+  :lang(hy) .status { text-transform: none; letter-spacing: 0; }
+  .status.live { background: rgba(106,168,79,.18); color: var(--green); }
+  .status.ongoing { background: rgba(29,74,255,.12); color: var(--blue); }
+  .status.completed { background: rgba(247,165,1,.2); color: #B17816; }
+  .status.archived { background: var(--surface-2); color: var(--muted); }
+
+  .posts { width: 100%; border-collapse: collapse; }
+  .posts td { padding: 12px 8px; border-top: 1px solid var(--border-light); vertical-align: top; }
+  .posts tr:first-child td { border-top: 0; }
+  .posts tr { cursor: pointer; }
+  .posts tr:hover .post-title { color: var(--orange); }
+  .posts .date { color: var(--muted); font-size: 13px; white-space: nowrap; width: 120px; }
+  .posts .rt { color: var(--muted); font-size: 13px; text-align: right; white-space: nowrap; }
+  .post-title { font-weight: 600; }
+  .posts small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+  .about { display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: start; }
+  .avatar { width: 150px; height: 150px; border-radius: 50%; background: var(--yellow); display: grid; place-items: center; border: 3px solid var(--text); overflow: hidden; }
+  .avatar svg { width: 130px; margin-top: 20px; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; font-size: 14px; }
+  .kv > div { padding: 9px 14px; border-top: 1px solid var(--border-light); }
+  .kv > div:nth-child(-n+2) { border-top: 0; }
+  .kv > div:nth-child(odd) { color: var(--muted); font-weight: 500; background: var(--bg); }
+  ul.facts { padding-left: 20px; margin: 0; }
+  ul.facts li { margin-bottom: 6px; }
+
+  .timeline { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 22px; }
+  .tl-item { position: relative; margin-bottom: 24px; }
+  .tl-item::before { content: ""; position: absolute; left: -30px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--btn); border: 2px solid var(--btn-shadow); }
+  .tl-item .when { font-size: 12.5px; color: var(--muted); }
+  .tl-item p { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+
+  .links { display: grid; gap: 8px; }
+  .link-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border-light); border-radius: 8px; color: var(--text); background: var(--bg); }
+  .link-row:hover { border-color: var(--border); text-decoration: none; transform: translateX(2px); }
+  .link-row .arrow { margin-left: auto; color: var(--muted); }
+  .link-row .tile { margin: 0; width: 30px; height: 30px; }
+  .link-row small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+
+  .detail-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 18px; }
+  .cover { width: 100%; border-radius: 8px; border: 1px solid var(--border-light); margin-bottom: 18px; display: block; }
+  .back { margin-bottom: 14px; }
+
+  .prose { font-size: 15.5px; line-height: 1.65; max-width: 68ch; }
+  .prose h1, .prose h2, .prose h3 { margin: 26px 0 10px; }
+  .prose h2 { font-size: 20px; }
+  .prose p, .prose ul, .prose ol { margin: 0 0 14px; }
+  .prose ul, .prose ol { padding-left: 22px; }
+  .prose li { margin-bottom: 4px; }
+  .prose img { max-width: 100%; border-radius: 8px; }
+  .prose blockquote { margin: 0 0 14px; padding: 4px 16px; border-left: 3px solid var(--btn); color: var(--muted); }
+  .prose code { font-family: "IBM Plex Mono", monospace; font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+  .prose hr { border: 0; border-top: 1px dashed var(--border); margin: 24px 0; }
+
+  .empty { text-align: center; padding: 30px 10px; }
+  .empty svg { width: 160px; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 900px) { .menu-item { display: none; } }
+  @media (max-width: 768px) {
+    .clock, .wallpaper, .menubar .btn { display: none; }
+    .logo-name { display: none; }
+    .tabs { margin-left: 4px; }
+    .icons { position: static; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 16px; gap: 4px; }
+    .icons.right { padding-top: 0; }
+    .desk-icon { width: 84px; }
+    .desktop { overflow: auto; }
+    .window, .window.max { left: 8px !important; top: 8px !important; width: calc(100% - 16px) !important; height: calc(100% - 16px) !important; }
+    .titlebar { cursor: default; }
+    .ctrl.maximize { display: none; }
+    .window-body { padding: 20px 16px 28px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero .hog { display: none; }
+    .about { grid-template-columns: 1fr; }
+    .avatar { width: 110px; height: 110px; }
+    .avatar svg { width: 96px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat + .stat { border-left: 0; border-top: 1px solid var(--border-light); }
+    .kv { grid-template-columns: 110px 1fr; }
+    .posts .date { display: none; }
+    .row { grid-template-columns: 34px 1fr; }
+    .row-side { grid-column: 2; flex-direction: row; align-items: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="menubar">
+  <button class="logo" data-open="home" aria-label="Home"><span id="logo-mark"></span><span class="logo-name" id="logo-name"></span></button>
+  <button class="menu-item" data-open="about" data-t="about"></button>
+  <button class="menu-item" data-open="projects" data-t="projects"></button>
+  <button class="menu-item" data-open="writing" data-t="writing"></button>
+  <button class="menu-item" data-open="resume" data-t="resume"></button>
+  <nav class="tabs" id="tabs" aria-label="Open windows"></nav>
+  <div class="menubar-right">
+    <span class="clock mono" id="clock"></span>
+    <div class="lang" role="group" aria-label="Language">
+      <button data-lang="en" lang="en">EN</button>
+      <button data-lang="hy" lang="hy">ՀԱՅ</button>
+    </div>
+    <button class="icon-btn" id="theme" aria-label="Toggle dark mode"></button>
+    <button class="btn sm" data-open="contact" data-t="sayHi"></button>
+  </div>
+</header>
+
+<main class="desktop" id="desktop">
+  <div class="icons left" id="icons-left"></div>
+  <div class="icons right" id="icons-right"></div>
+  <div class="wallpaper" aria-hidden="true"><div class="bubble" data-t="bubble"></div><div id="wall-hog"></div></div>
+</main>
+
+<script>
+/* =====================================================================
+   Content is edited in the CMS (/admin) and loaded from content/index.json.
+   This file only holds the interface text (buttons, labels) per language.
+   ===================================================================== */
+const LANGS = ["en", "hy"];
+const DEFAULT_LANG = "en";
+
+const UI = {
+  en: {
+    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", sayHi: "Say hi",
+    bubble: "psst… click an icon",
+    files: { home: "home.mdx", about: "about-me.md", projects: "projects", writing: "writing", resume: "resume.pdf", contact: "contact.exe", trash: "Trash" },
+    seeWork: "See my work →", moreAbout: "More about me",
+    whatIDo: "What I do", numbers: "By the numbers", featured: "Featured projects", seeAll: "See all →",
+    projectsIntro: "Product work, side quests, and everything in between.",
+    all: "All", allProjects: "← All projects", allPosts: "← All posts", visit: "Visit →",
+    categories: { product: "Product", tech: "Tech", community: "Community", volunteering: "Volunteering", creative: "Creative", education: "Education", sport: "Sport", personal: "Personal" },
+    status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
+    writingIntro: "Notes on product, people, and the occasional side quest.",
+    minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
+    rightNow: "Right now", funFacts: "Fun facts", print: "Print",
+    contactTitle: "Say hi 👋", contactIntro: "I read everything. Email is the fastest way to reach me.", email: "Email",
+    trashEmpty: "Trash is empty", trashJoke: "I ship everything. Even the bad ideas.",
+    loadError: "Couldn't load the site content. If you're running it locally, start it with “npm run dev”.",
+    loading: "Loading…",
+  },
+  hy: {
+    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", sayHi: "Գրեք ինձ",
+    bubble: "պսս… սեղմեք պատկերակին",
+    files: { home: "գլխավոր.mdx", about: "իմ-մասին.md", projects: "նախագծեր", writing: "գրառումներ", resume: "ռեզյումե.pdf", contact: "կապ.exe", trash: "Աղբարկղ" },
+    seeWork: "Տեսնել աշխատանքներս →", moreAbout: "Ավելին իմ մասին",
+    whatIDo: "Ինչով եմ զբաղվում", numbers: "Թվերով", featured: "Ընտրված նախագծեր", seeAll: "Տեսնել բոլորը →",
+    projectsIntro: "Պրոդուկտային աշխատանք, կողմնակի նախագծեր և այն ամենը, ինչ դրանց միջև է։",
+    all: "Բոլորը", allProjects: "← Բոլոր նախագծերը", allPosts: "← Բոլոր գրառումները", visit: "Դիտել →",
+    categories: { product: "Պրոդուկտ", tech: "Տեխնոլոգիա", community: "Համայնք", volunteering: "Կամավորություն", creative: "Ստեղծագործական", education: "Կրթություն", sport: "Սպորտ", personal: "Անձնական" },
+    status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
+    writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։",
+    minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
+    rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
+    contactTitle: "Բարև 👋", contactIntro: "Կարդում եմ բոլոր նամակները։ Ամենաարագ ձևն էլ. փոստն է։", email: "Էլ. փոստ",
+    trashEmpty: "Աղբարկղը դատարկ է", trashJoke: "Ես թողարկում եմ ամեն ինչ։ Նույնիսկ վատ գաղափարները։",
+    loadError: "Չհաջողվեց բեռնել կայքի բովանդակությունը։",
+    loading: "Բեռնվում է…",
+  },
+};
+const CATEGORY_COLORS = { product: "orange", tech: "blue", community: "purple", volunteering: "pink", creative: "yellow", education: "teal", sport: "green", personal: "green" };
+
+/* =====================================================================
+   Language
+   ===================================================================== */
+const store = {
+  get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
+};
+function pickLang() {
+  const fromUrl = new URLSearchParams(location.search).get("lang");
+  if (LANGS.includes(fromUrl)) return fromUrl;
+  const saved = store.get("lang");
+  if (LANGS.includes(saved)) return saved;
+  return (navigator.language || "").toLowerCase().startsWith("hy") ? "hy" : DEFAULT_LANG;
+}
+let lang = pickLang();
+let T = UI[lang];
+
+const isObj = v => v && typeof v === "object" && !Array.isArray(v);
+const isEmpty = v => v == null || v === "" || (Array.isArray(v) && !v.length);
+// Untranslated fields fall back to English, item by item.
+function merge(base, cur) {
+  if (Array.isArray(base) || Array.isArray(cur)) {
+    if (!Array.isArray(cur) || !cur.length) return base;
+    return cur.map((c, i) => (isObj(c) && isObj(base?.[i]) ? merge(base[i], c) : c));
+  }
+  if (isObj(base) && isObj(cur)) {
+    const out = { ...base };
+    for (const k in cur) if (!isEmpty(cur[k])) out[k] = merge(base[k], cur[k]);
+    return out;
+  }
+  return isEmpty(cur) ? base : cur;
+}
+const loc = entry => merge(entry?.[DEFAULT_LANG] || {}, entry?.[lang] || {});
+
+/* =====================================================================
+   Helpers
+   ===================================================================== */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const md = s => (window.marked && window.DOMPurify ? DOMPurify.sanitize(marked.parse(s || "")) : `<p>${esc(s)}</p>`);
+const headline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<span class="hl">$1</span>');
+const color = c => `var(--${["orange", "blue", "yellow", "green", "purple", "pink", "teal"].includes(c) ? c : "orange"})`;
+const HY_MONTHS = ["հնվ", "փտվ", "մրտ", "ապր", "մյս", "հնս", "հլս", "օգս", "սեպ", "հոկ", "նոյ", "դեկ"];
+const fmtDate = d => {
+  const date = new Date(String(d).slice(0, 10) + "T00:00");
+  if (isNaN(date)) return esc(d);
+  // Not every browser ships Armenian date names, so format those by hand.
+  if (lang === "hy") return `${date.getDate()} ${HY_MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+};
+const minutes = body => Math.max(1, Math.round(String(body || "").split(/\s+/).length / 200));
+
+const I = {
+  box: '<path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="m3 7 9 5 9-5M12 12v10"/>',
+  layout: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
+  chart: '<path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/>',
+  server: '<rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/>',
+  pen: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
+  code: '<path d="m8 6-6 6 6 6M16 6l6 6-6 6"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-4.5-6.5"/>',
+  chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12Z"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  map: '<path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/>',
+  flag: '<path d="M4 22V4M4 4h13l-2 4 2 4H4"/>',
+  rocket: '<path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M9 15 6 12c1-4 5-9 15-9 0 10-5 14-9 15Z"/><circle cx="15" cy="9" r="1.5"/>',
+  heart: '<path d="M12 20s-8-4.7-8-10.5A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 8 3.5C20 15.3 12 20 12 20Z"/>',
+  camera: '<path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="4"/>',
+  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+  book: '<path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4ZM20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6Z"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  min: '<path d="M5 12h14"/>',
+  max: '<rect x="5" y="5" width="14" height="14" rx="1.5"/>',
+};
+const svg = (name, extra = "") =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${I[name] || I.box}</svg>`;
+const tile = (c, icon) => `<div class="tile" style="background:${color(c)}">${svg(icon)}</div>`;
+
+function hedgehog({ wave = false } = {}) {
+  const cx = 92, cy = 104, pts = [];
+  for (let i = 0, n = 26; i <= n; i++) {
+    const a = (172 + (208 * i) / n) * Math.PI / 180;
+    const r = i % 2 ? 60 : 80;
+    pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a) * .78).toFixed(1)}`);
+  }
+  return `<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="105" cy="150" rx="80" ry="7" fill="rgba(0,0,0,.08)"/>
+    <polygon points="${pts.join(" ")} 168,120 30,128" fill="var(--spike)"/>
+    <ellipse cx="102" cy="122" rx="72" ry="26" fill="var(--skin)"/>
+    <ellipse cx="150" cy="106" rx="40" ry="30" fill="var(--skin)"/>
+    <circle cx="160" cy="96" r="5" fill="#151515"/><circle cx="161.5" cy="94.5" r="1.6" fill="#fff"/>
+    <circle cx="190" cy="108" r="6" fill="#151515"/>
+    <circle cx="164" cy="112" r="7" fill="#F2A5A5" opacity=".7"/>
+    <path d="M172 118q6 5 12 0" stroke="#151515" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="70" cy="145" rx="13" ry="6" fill="var(--spike)"/><ellipse cx="135" cy="145" rx="13" ry="6" fill="var(--spike)"/>
+    ${wave ? '<path d="M128 116q10-28 30-36" stroke="var(--skin)" stroke-width="12" stroke-linecap="round" fill="none"/>' : ""}
+  </svg>`;
+}
+function fileIcon(c, glyph) {
+  return `<svg viewBox="0 0 48 48"><path d="M9 3h21l9 9v31a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" fill="#fff" stroke="#151515" stroke-width="1.5"/>
+    <path d="M30 3v9h9" fill="#E5E7E0" stroke="#151515" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="12" y="22" width="24" height="16" rx="3" fill="${color(c)}"/>
+    <g transform="translate(18 24) scale(.5)" stroke="#fff" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">${I[glyph] || I.box}</g></svg>`;
+}
+const folderIcon = fill => `<svg viewBox="0 0 48 48"><path d="M4 10a2 2 0 0 1 2-2h12l4 4h20a2 2 0 0 1 2 2v24a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" fill="${fill}" stroke="#151515" stroke-width="1.5"/><path d="M4 17h40" stroke="#151515" stroke-width="1.5" opacity=".35"/></svg>`;
+const trashIcon = () => `<svg viewBox="0 0 48 48"><path d="M11 14h26l-2.5 28a2 2 0 0 1-2 2h-17a2 2 0 0 1-2-2Z" fill="#E5E7E0" stroke="#151515" stroke-width="1.5"/><rect x="8" y="9" width="32" height="5" rx="1.5" fill="#BFC1B7" stroke="#151515" stroke-width="1.5"/><path d="M19 20v18M24 20v18M29 20v18" stroke="#151515" stroke-width="1.5" opacity=".5"/></svg>`;
+
+/* =====================================================================
+   Content
+   ===================================================================== */
+let DATA = { settings: {}, projects: [], posts: [] };
+const S = () => loc(DATA.settings);
+const projects = () => DATA.projects
+  .map(p => ({ slug: p.slug, ...loc(p) }))
+  .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || String(b.year || "").localeCompare(String(a.year || "")));
+const posts = () => DATA.posts
+  .map(p => ({ slug: p.slug, ...loc(p) }))
+  .filter(p => !p.draft)
+  .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+let projectFilter = "all";
+
+const projectRow = p => `
+  <div class="row" role="button" tabindex="0" data-open="project/${esc(p.slug)}">
+    ${tile(p.color, p.icon)}
+    <div>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.summary)}</p>
+      <div class="pills">
+        ${p.category ? `<span class="pill cat"><i class="dot" style="background:${color(CATEGORY_COLORS[p.category])}"></i>${esc(T.categories[p.category] || p.category)}</span>` : ""}
+        ${(p.tags || []).map(t => `<span class="pill mono">${esc(t)}</span>`).join("")}
+      </div>
+    </div>
+    <div class="row-side">
+      ${p.status ? `<span class="status ${esc(p.status)}">${esc(T.status[p.status] || p.status)}</span>` : ""}
+      ${p.year ? `<span class="mono">${esc(p.year)}</span>` : ""}
+    </div>
+  </div>`;
+
+const STATIC = {
+  home: {
+    icon: () => fileIcon("orange", "user"), w: 780, h: 640,
+    render: () => {
+      const s = S(), featured = projects().filter(p => p.featured).slice(0, 3);
+      return `
+      <div class="hero">
+        <div>
+          ${s.eyebrow ? `<span class="eyebrow">${esc(s.eyebrow)}</span>` : ""}
+          <h1>${headline(s.headline)}</h1>
+          <p class="lead">${esc(s.tagline)}</p>
+          <div class="ctas">
+            <button class="btn" data-open="projects">${T.seeWork}</button>
+            <button class="btn secondary" data-open="about">${T.moreAbout}</button>
+          </div>
+        </div>
+        <div class="hog">${hedgehog({ wave: true })}</div>
+      </div>
+      ${s.skills?.length ? `<h2>${T.whatIDo}</h2>
+      <div class="grid">${s.skills.map(k => `<div class="card">${tile(k.color, k.icon)}<h3>${esc(k.title)}</h3><p>${esc(k.description)}</p></div>`).join("")}</div>` : ""}
+      ${featured.length ? `<div class="section-head"><h2>${T.featured}</h2><button class="link-btn" data-open="projects">${T.seeAll}</button></div>
+      <div class="grid">${featured.map(p => `<button class="card" data-open="project/${esc(p.slug)}">${tile(p.color, p.icon)}<h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></button>`).join("")}</div>` : ""}
+      ${s.stats?.length ? `<h2>${T.numbers}</h2>
+      <div class="stats">${s.stats.map(x => `<div class="stat"><b>${esc(x.value)}</b><span>${esc(x.label)}</span></div>`).join("")}</div>` : ""}
+      <hr class="dashed">
+      <p class="footer-note">${esc(s.footer)} © ${new Date().getFullYear()} ${esc(s.name)}</p>`;
+    },
+  },
+  about: {
+    icon: () => fileIcon("blue", "user"), w: 660, h: 580,
+    render: () => {
+      const s = S();
+      return `
+      <div class="about">
+        <div class="avatar">${s.photo ? `<img src="${esc(s.photo)}" alt="${esc(s.name)}">` : hedgehog()}</div>
+        <div><h1 class="page" style="margin-bottom:12px">${T.about}</h1><div class="prose">${md(s.about)}</div></div>
+      </div>
+      ${s.now?.length ? `<h2>${T.rightNow}</h2><div class="kv">${s.now.map(n => `<div>${esc(n.label)}</div><div>${esc(n.value)}</div>`).join("")}</div>` : ""}
+      ${s.facts?.length ? `<h2>${T.funFacts}</h2><ul class="facts">${s.facts.map(f => `<li>${esc(f?.text ?? f)}</li>`).join("")}</ul>` : ""}`;
+    },
+  },
+  projects: {
+    icon: () => folderIcon("#F7A501"), w: 720, h: 580,
+    render: () => {
+      const all = projects();
+      const cats = Object.keys(T.categories).filter(c => all.some(p => p.category === c));
+      if (projectFilter !== "all" && !cats.includes(projectFilter)) projectFilter = "all";
+      const shown = projectFilter === "all" ? all : all.filter(p => p.category === projectFilter);
+      const chip = (val, label, n) => `<button class="chip" data-filter="${val}" aria-pressed="${projectFilter === val}">${label} <small>${n}</small></button>`;
+      return `
+      <h1 class="page">${T.projects}</h1>
+      <p class="intro">${T.projectsIntro}</p>
+      ${cats.length > 1 ? `<div class="chips">${chip("all", T.all, all.length)}${cats.map(c => chip(c, `<i class="dot" style="background:${color(CATEGORY_COLORS[c])}"></i>${T.categories[c]}`, all.filter(p => p.category === c).length)).join("")}</div>` : ""}
+      <div class="rows">${shown.map(projectRow).join("")}</div>`;
+    },
+  },
+  writing: {
+    icon: () => folderIcon("#1D4AFF"), w: 660, h: 480,
+    render: () => {
+      const list = posts();
+      return `
+      <h1 class="page">${T.writing}</h1>
+      <p class="intro">${T.writingIntro}</p>
+      ${list.length ? `<table class="posts">${list.map(p => `
+        <tr data-open="post/${esc(p.slug)}" tabindex="0"><td class="date mono">${fmtDate(p.date)}</td>
+        <td><span class="post-title">${esc(p.title)}</span>${p.summary ? `<small>${esc(p.summary)}</small>` : ""}</td>
+        <td class="rt">${T.minRead(minutes(p.body))}</td></tr>`).join("")}
+      </table>` : `<p class="muted">${T.noPosts}</p>`}`;
+    },
+  },
+  resume: {
+    icon: () => fileIcon("pink", "doc"), w: 580, h: 520,
+    render: () => {
+      const s = S();
+      return `
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+        <div><h1 class="page">${esc(s.name)}</h1><p class="muted" style="margin:4px 0 0">${[s.location, s.email].filter(Boolean).map(esc).join(" · ")}</p></div>
+        <button class="btn secondary sm" onclick="window.print()">${T.print}</button>
+      </div>
+      <div class="timeline">${(s.resume || []).map(r => `
+        <div class="tl-item"><div class="when mono">${esc(r.when)}</div><h3>${esc(r.role)} <span class="muted" style="font-weight:500">@ ${esc(r.org)}</span></h3>${r.description ? `<p>${esc(r.description)}</p>` : ""}</div>`).join("")}
+      </div>`;
+    },
+  },
+  contact: {
+    icon: () => fileIcon("green", "mail"), w: 480, h: 480,
+    render: () => {
+      const s = S();
+      return `
+      <h1 class="page">${T.contactTitle}</h1>
+      <p class="intro">${T.contactIntro}</p>
+      <div class="links">
+        ${s.email ? `<a class="link-row" href="mailto:${esc(s.email)}">${tile("orange", "mail")}<div><b>${T.email}</b><small class="mono">${esc(s.email)}</small></div><span class="arrow">→</span></a>` : ""}
+        ${(s.links || []).map(l => `<a class="link-row" href="${esc(l.url)}" target="_blank" rel="noopener">${tile(l.color, l.icon)}<div><b>${esc(l.label)}</b>${l.handle ? `<small class="mono">${esc(l.handle)}</small>` : ""}</div><span class="arrow">↗</span></a>`).join("")}
+      </div>`;
+    },
+  },
+  trash: {
+    icon: trashIcon, w: 400, h: 340,
+    render: () => `<div class="empty">${hedgehog()}<h3 style="margin-top:12px">${T.trashEmpty}</h3><p class="muted">${T.trashJoke}</p></div>`,
+  },
+};
+
+function getDef(id) {
+  if (STATIC[id]) return { ...STATIC[id], title: () => T.files[id] };
+  const [kind, slug] = id.split("/");
+  if (kind === "project") {
+    const raw = DATA.projects.find(p => p.slug === slug);
+    if (!raw) return null;
+    const p = () => ({ slug, ...loc(raw) });
+    return {
+      title: () => p().title, icon: () => fileIcon(p().color, p().icon), w: 640, h: 600,
+      render: () => {
+        const d = p();
+        return `
+        <button class="link-btn back" data-open="projects">${T.allProjects}</button>
+        ${d.image ? `<img class="cover" src="${esc(d.image)}" alt="">` : ""}
+        <h1 class="page">${esc(d.title)}</h1>
+        <div class="detail-meta">
+          ${d.category ? `<span class="pill cat"><i class="dot" style="background:${color(CATEGORY_COLORS[d.category])}"></i>${esc(T.categories[d.category] || d.category)}</span>` : ""}
+          ${d.status ? `<span class="status ${esc(d.status)}">${esc(T.status[d.status] || d.status)}</span>` : ""}
+          ${[d.role, d.year].filter(Boolean).map(x => `<span class="muted" style="font-size:14px">${esc(x)}</span>`).join('<span class="muted">·</span>')}
+        </div>
+        <p style="font-size:17px">${esc(d.summary)}</p>
+        ${d.body ? `<div class="prose">${md(d.body)}</div>` : ""}
+        ${(d.tags || []).length ? `<div class="pills" style="margin-top:16px">${d.tags.map(t => `<span class="pill mono">${esc(t)}</span>`).join("")}</div>` : ""}
+        ${d.link ? `<p style="margin-top:22px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">${T.visit}</a></p>` : ""}`;
+      },
+    };
+  }
+  if (kind === "post") {
+    const raw = DATA.posts.find(p => p.slug === slug);
+    if (!raw) return null;
+    const p = () => loc(raw);
+    return {
+      title: () => p().title, icon: () => fileIcon("blue", "doc"), w: 680, h: 620,
+      render: () => {
+        const d = p();
+        return `
+        <button class="link-btn back" data-open="writing">${T.allPosts}</button>
+        <h1 class="page">${esc(d.title)}</h1>
+        <p class="muted mono" style="font-size:13px;margin:10px 0 22px">${fmtDate(d.date)} · ${T.minRead(minutes(d.body))}</p>
+        <div class="prose">${md(d.body)}</div>`;
+      },
+    };
+  }
+  return null;
+}
+
+/* =====================================================================
+   Window manager
+   ===================================================================== */
+const desktop = document.getElementById("desktop");
+const tabsEl = document.getElementById("tabs");
+const isMobile = () => matchMedia("(max-width: 768px)").matches;
+const open = new Map(); // id -> { el, def }
+let z = 10, cascade = 0;
+
+function setHash(id) {
+  const url = new URL(location.href);
+  url.hash = id ? "#" + id : "";
+  history.replaceState(null, "", id ? url : url.pathname + url.search);
+}
+
+function focusWin(id) {
+  const w = open.get(id);
+  if (!w) return;
+  w.el.classList.remove("min");
+  w.el.style.zIndex = ++z;
+  open.forEach((o, k) => {
+    o.el.classList.toggle("focused", k === id);
+    if (isMobile() && k !== id) o.el.classList.add("min"); // one window at a time on phones
+  });
+  setHash(id);
+  renderTabs();
+}
+
+function paintWin(w) {
+  w.el.querySelector(".title").innerHTML = `${w.def.icon()}<span>${esc(w.def.title())}</span>`;
+  w.el.setAttribute("aria-label", w.def.title());
+  w.el.querySelector(".window-body").innerHTML = w.def.render();
+}
+
+function openWin(id) {
+  if (open.has(id)) return focusWin(id);
+  const def = getDef(id);
+  if (!def) return;
+
+  const el = document.createElement("section");
+  el.className = "window";
+  const dw = desktop.clientWidth, dh = desktop.clientHeight;
+  const w = Math.min(def.w, dw - 32), h = Math.min(def.h, dh - 32);
+  const offset = (cascade++ % 6) * 28;
+  el.style.width = w + "px";
+  el.style.height = h + "px";
+  el.style.left = Math.max(16, Math.min((dw - w) / 2 + offset - 40, dw - w - 16)) + "px";
+  el.style.top = Math.max(12, Math.min((dh - h) / 2 + offset - 30, dh - h - 12)) + "px";
+  el.innerHTML = `
+    <div class="titlebar">
+      <div class="title"></div>
+      <button class="ctrl minimize" aria-label="Minimize">${svg("min", 'width="14" height="14"')}</button>
+      <button class="ctrl maximize" aria-label="Maximize">${svg("max", 'width="13" height="13"')}</button>
+      <button class="ctrl close" aria-label="Close">${svg("close", 'width="14" height="14"')}</button>
+    </div>
+    <div class="window-body"></div>`;
+
+  el.addEventListener("pointerdown", () => focusWin(id));
+  el.querySelector(".close").onclick = e => { e.stopPropagation(); closeWin(id); };
+  el.querySelector(".minimize").onclick = e => { e.stopPropagation(); minimizeWin(id); };
+  el.querySelector(".maximize").onclick = () => el.classList.toggle("max");
+  el.querySelector(".titlebar").addEventListener("dblclick", e => { if (!e.target.closest(".ctrl")) el.classList.toggle("max"); });
+  makeDraggable(el);
+
+  const win = { el, def };
+  paintWin(win);
+  desktop.appendChild(el);
+  open.set(id, win);
+  focusWin(id);
+}
+
+function closeWin(id) {
+  open.get(id)?.el.remove();
+  open.delete(id);
+  focusTop();
+}
+
+function minimizeWin(id) {
+  const w = open.get(id);
+  if (!w) return;
+  w.el.classList.add("min");
+  w.el.classList.remove("focused");
+  focusTop();
+}
+
+function focusTop() {
+  let top = null, topZ = -1;
+  open.forEach((w, k) => { if (!w.el.classList.contains("min") && +w.el.style.zIndex > topZ) { top = k; topZ = +w.el.style.zIndex; } });
+  if (top) focusWin(top);
+  else { setHash(null); renderTabs(); }
+}
+
+function makeDraggable(el) {
+  const bar = el.querySelector(".titlebar");
+  bar.addEventListener("pointerdown", e => {
+    if (e.target.closest(".ctrl") || isMobile() || el.classList.contains("max")) return;
+    const sx = e.clientX - el.offsetLeft, sy = e.clientY - el.offsetTop;
+    bar.setPointerCapture(e.pointerId);
+    const move = ev => {
+      const maxX = desktop.clientWidth - 80, maxY = desktop.clientHeight - 36;
+      el.style.left = Math.max(-el.offsetWidth + 80, Math.min(ev.clientX - sx, maxX)) + "px";
+      el.style.top = Math.max(0, Math.min(ev.clientY - sy, maxY)) + "px";
+    };
+    const up = () => { bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", up); };
+    bar.addEventListener("pointermove", move);
+    bar.addEventListener("pointerup", up);
+  });
+}
+
+function renderTabs() {
+  tabsEl.innerHTML = "";
+  open.forEach((w, id) => {
+    const b = document.createElement("button");
+    b.className = "tab" + (w.el.classList.contains("focused") ? " active" : "") + (w.el.classList.contains("min") ? " min" : "");
+    b.textContent = w.def.title();
+    b.title = w.def.title();
+    b.onclick = () => (w.el.classList.contains("focused") ? minimizeWin(id) : focusWin(id));
+    tabsEl.appendChild(b);
+  });
+}
+
+/* =====================================================================
+   Chrome (menubar, icons) + language switching
+   ===================================================================== */
+const ICONS_LEFT = ["home", "about", "projects", "writing"];
+const ICONS_RIGHT = ["resume", "contact", "trash"];
+
+function renderChrome() {
+  const s = S();
+  document.documentElement.lang = lang;
+  document.title = s.name || "";
+  document.getElementById("logo-name").textContent = s.logo_text || s.name || "";
+  document.querySelectorAll("[data-t]").forEach(el => (el.textContent = T[el.dataset.t]));
+  document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+  const icon = id => `<button class="desk-icon" data-open="${id}">${STATIC[id].icon()}<span>${esc(T.files[id])}</span></button>`;
+  document.getElementById("icons-left").innerHTML = ICONS_LEFT.map(icon).join("");
+  document.getElementById("icons-right").innerHTML = ICONS_RIGHT.map(icon).join("");
+}
+
+function setLang(next) {
+  if (!LANGS.includes(next) || next === lang) return;
+  lang = next;
+  T = UI[lang];
+  store.set("lang", lang);
+  const url = new URL(location.href);
+  url.searchParams.set("lang", lang);
+  history.replaceState(null, "", url);
+  renderChrome();
+  open.forEach(paintWin);
+  renderTabs();
+}
+
+/* =====================================================================
+   Events
+   ===================================================================== */
+document.addEventListener("click", e => {
+  const langBtn = e.target.closest("[data-lang]");
+  if (langBtn) return setLang(langBtn.dataset.lang);
+  const filter = e.target.closest("[data-filter]");
+  if (filter) {
+    projectFilter = filter.dataset.filter;
+    const w = open.get("projects");
+    if (w) w.el.querySelector(".window-body").innerHTML = w.def.render();
+    return;
+  }
+  if (e.target.closest("a")) return;
+  const t = e.target.closest("[data-open]");
+  if (t) openWin(t.dataset.open);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    const focused = [...open].find(([, w]) => w.el.classList.contains("focused"));
+    if (focused) closeWin(focused[0]);
+  }
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches("[role=button][data-open], tr[data-open]")) {
+    e.preventDefault();
+    openWin(e.target.dataset.open);
+  }
+});
+window.addEventListener("hashchange", () => openWin(decodeURIComponent(location.hash.slice(1))));
+
+/* Theme */
+const themeBtn = document.getElementById("theme");
+const root = document.documentElement;
+const isDark = () => (root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches);
+const paintThemeBtn = () => (themeBtn.innerHTML = svg(isDark() ? "sun" : "moon", 'width="17" height="17"'));
+const savedTheme = store.get("theme");
+if (savedTheme) root.dataset.theme = savedTheme;
+paintThemeBtn();
+themeBtn.onclick = () => {
+  root.dataset.theme = isDark() ? "light" : "dark";
+  store.set("theme", root.dataset.theme);
+  paintThemeBtn();
+};
+
+/* Clock */
+const clock = document.getElementById("clock");
+const tick = () => (clock.textContent = new Date().toLocaleTimeString(lang === "hy" ? "hy-AM" : [], { hour: "numeric", minute: "2-digit" }));
+tick(); setInterval(tick, 15000);
+
+/* =====================================================================
+   Boot
+   ===================================================================== */
+document.getElementById("logo-mark").innerHTML = hedgehog();
+document.getElementById("wall-hog").innerHTML = hedgehog({ wave: true });
+renderChrome();
+
+(async () => {
+  const status = document.createElement("div");
+  status.className = "status-msg";
+  status.textContent = T.loading;
+  desktop.appendChild(status);
+  try {
+    const res = await fetch("content/index.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error(res.status);
+    DATA = await res.json();
+    status.remove();
+  } catch (err) {
+    status.textContent = T.loadError;
+    console.error(err);
+    return;
+  }
+  renderChrome();
+  const initial = decodeURIComponent(location.hash.slice(1));
+  if (initial && getDef(initial)) {
+    if (!STATIC[initial] && !isMobile()) openWin("home");
+    openWin(initial);
+  } else openWin("home");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+{
+  "en": {
+    "name": "Aram Mkhoyan",
+    "short_name": "Aram",
+    "logo_text": "aram.pm",
+    "email": "hello@example.com",
+    "photo": "",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "handle": "in/yourhandle",
+        "url": "https://www.linkedin.com/",
+        "icon": "users",
+        "color": "blue"
+      },
+      {
+        "label": "X / Twitter",
+        "handle": "@yourhandle",
+        "url": "https://x.com/",
+        "icon": "chat",
+        "color": "purple"
+      },
+      {
+        "label": "Medium",
+        "handle": "@yourhandle",
+        "url": "https://medium.com/",
+        "icon": "doc",
+        "color": "green"
+      }
+    ],
+    "eyebrow": "👋 hey, welcome to my corner of the internet",
+    "headline": "I'm Aram. I build **products** people actually love.",
+    "tagline": "Product manager who turns messy problems into clear roadmaps, and clear roadmaps into things people actually use.",
+    "location": "Somewhere with good coffee",
+    "skills": [
+      {
+        "title": "Product strategy",
+        "description": "Deciding what to build and, just as importantly, what not to.",
+        "icon": "target",
+        "color": "orange"
+      },
+      {
+        "title": "User research",
+        "description": "Talking to users until the problem becomes obvious.",
+        "icon": "users",
+        "color": "blue"
+      },
+      {
+        "title": "Data & experiments",
+        "description": "Metrics, A/B tests, and honest dashboards.",
+        "icon": "chart",
+        "color": "yellow"
+      },
+      {
+        "title": "Roadmapping",
+        "description": "Plans that survive contact with reality.",
+        "icon": "map",
+        "color": "green"
+      },
+      {
+        "title": "Team leadership",
+        "description": "Getting design, engineering, and business rowing in the same direction.",
+        "icon": "flag",
+        "color": "purple"
+      },
+      {
+        "title": "Shipping",
+        "description": "Done beats perfect. Shipped beats done.",
+        "icon": "rocket",
+        "color": "pink"
+      }
+    ],
+    "stats": [
+      {
+        "value": "5+",
+        "label": "years in product"
+      },
+      {
+        "value": "15+",
+        "label": "launches shipped"
+      },
+      {
+        "value": "∞",
+        "label": "user interviews"
+      }
+    ],
+    "about": "Hey! I'm Aram, a product manager. I care about the gap between \"it works\" and \"people love it.\"\n\nMost of my days are spent talking to users, untangling priorities, and helping teams ship in small, frequent steps. Outside of work you'll find me volunteering, working on side projects that have nothing to do with tech, and trying to touch grass.",
+    "now": [
+      {
+        "label": "Location",
+        "value": "Somewhere with good coffee"
+      },
+      {
+        "label": "Working on",
+        "value": "Something new — ask me"
+      },
+      {
+        "label": "Learning",
+        "value": "SQL, slowly"
+      },
+      {
+        "label": "Reading",
+        "value": "Inspired — Marty Cagan"
+      }
+    ],
+    "facts": [
+      "I've never met a spreadsheet I didn't want to turn into a dashboard.",
+      "Strongly held opinion: the best roadmap is the one the team actually believes in.",
+      "This website is an operating system. You're welcome."
+    ],
+    "resume": [
+      {
+        "when": "2024 — Present",
+        "role": "Product Manager",
+        "org": "Company Name",
+        "description": "What you own, what you shipped, and the impact it had."
+      },
+      {
+        "when": "2022 — 2024",
+        "role": "Associate Product Manager",
+        "org": "Previous Company",
+        "description": "A sentence or two about the product, the team, and the results."
+      },
+      {
+        "when": "2018 — 2022",
+        "role": "B.A. Business Administration",
+        "org": "University Name",
+        "description": "Relevant coursework, clubs, or that one legendary group project."
+      }
+    ],
+    "footer": "Built with HTML, CSS, and a mildly unhinged amount of enthusiasm."
+  },
+  "hy": {
+    "name": "Արամ Մխոյան",
+    "short_name": "Արամ",
+    "eyebrow": "👋 բարի գալուստ իմ փոքրիկ անկյուն համացանցում",
+    "headline": "Ես Արամն եմ։ Ստեղծում եմ **պրոդուկտներ**, որոնք մարդիկ իսկապես սիրում են։",
+    "tagline": "Պրոդուկտ մենեջեր, ով խառը խնդիրները վերածում է հստակ պլանների, իսկ պլանները՝ բաների, որոնցից մարդիկ իրականում օգտվում են։",
+    "location": "Այնտեղ, որտեղ լավ սուրճ կա",
+    "skills": [
+      {
+        "title": "Պրոդուկտի ռազմավարություն",
+        "description": "Որոշել, թե ինչ ստեղծել, և նույնքան կարևոր՝ ինչ չստեղծել։"
+      },
+      {
+        "title": "Օգտատերերի հետազոտություն",
+        "description": "Խոսել օգտատերերի հետ, մինչև խնդիրն ակնհայտ դառնա։"
+      },
+      {
+        "title": "Տվյալներ և փորձարկումներ",
+        "description": "Չափանիշներ, A/B թեստեր և ազնիվ վահանակներ։"
+      },
+      {
+        "title": "Ճանապարհային քարտեզ",
+        "description": "Պլաններ, որոնք դիմանում են իրականությանը։"
+      },
+      {
+        "title": "Թիմի ղեկավարում",
+        "description": "Դիզայնը, ինժեներիան և բիզնեսը մեկ ուղղությամբ տանել։"
+      },
+      {
+        "title": "Թողարկում",
+        "description": "Ավարտվածը լավ է կատարյալից։ Թողարկվածը՝ ավարտվածից։"
+      }
+    ],
+    "stats": [
+      {
+        "value": "5+",
+        "label": "տարի պրոդուկտում"
+      },
+      {
+        "value": "15+",
+        "label": "թողարկում"
+      },
+      {
+        "value": "∞",
+        "label": "հարցազրույց օգտատերերի հետ"
+      }
+    ],
+    "about": "Բարև։ Ես Արամն եմ՝ պրոդուկտ մենեջեր։ Ինձ համար կարևոր է «աշխատում է»-ի և «մարդիկ սիրում են»-ի միջև եղած տարածությունը։\n\nՕրերիս մեծ մասն անցնում է օգտատերերի հետ զրուցելով, առաջնահերթությունները կարգավորելով և թիմերին փոքր, հաճախակի քայլերով թողարկումներ անելու մեջ օգնելով։ Աշխատանքից դուրս կամավորություն եմ անում, զբաղվում եմ տեխնոլոգիաների հետ կապ չունեցող նախագծերով և փորձում եմ ավելի շատ ժամանակ անցկացնել բնության գրկում։",
+    "now": [
+      {
+        "label": "Գտնվելու վայր",
+        "value": "Այնտեղ, որտեղ լավ սուրճ կա"
+      },
+      {
+        "label": "Աշխատում եմ",
+        "value": "Նոր բանի վրա — հարցրեք"
+      },
+      {
+        "label": "Սովորում եմ",
+        "value": "SQL, դանդաղ"
+      },
+      {
+        "label": "Կարդում եմ",
+        "value": "Inspired — Marty Cagan"
+      }
+    ],
+    "facts": [
+      "Չկա մի աղյուսակ, որը չցանկանամ վահանակի վերածել։",
+      "Համոզմունք՝ լավագույն ճանապարհային քարտեզն այն է, որին թիմն իրականում հավատում է։",
+      "Այս կայքը օպերացիոն համակարգ է։ Խնդրեմ։"
+    ],
+    "resume": [
+      {
+        "when": "2024 — այսօր",
+        "role": "Պրոդուկտ մենեջեր",
+        "org": "Ընկերության անուն",
+        "description": "Ինչի համար եք պատասխանատու, ինչ եք թողարկել և ինչ արդյունք է այն տվել։"
+      },
+      {
+        "when": "2022 — 2024",
+        "role": "Կրտսեր պրոդուկտ մենեջեր",
+        "org": "Նախորդ ընկերություն",
+        "description": "Մեկ-երկու նախադասություն պրոդուկտի, թիմի և արդյունքների մասին։"
+      },
+      {
+        "when": "2018 — 2022",
+        "role": "Բակալավր, բիզնեսի կառավարում",
+        "org": "Համալսարանի անուն",
+        "description": "Առարկաներ, ակումբներ կամ այն լեգենդար խմբային նախագիծը։"
+      }
+    ],
+    "footer": "Ստեղծված է HTML-ով, CSS-ով և չափից դուրս ոգևորությամբ։"
+  }
+}
