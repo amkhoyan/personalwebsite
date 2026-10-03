@@ -6,8 +6,8 @@
 <title>Aram Mkhoyan</title>
 <meta name="description" content="Personal website of Aram Mkhoyan — product manager.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%94%3C/text%3E%3C/svg%3E">
-<link rel="alternate" hreflang="en" href="/?lang=en">
-<link rel="alternate" hreflang="hy" href="/?lang=hy">
+<link rel="alternate" hreflang="en" href="?lang=en">
+<link rel="alternate" hreflang="hy" href="?lang=hy">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -420,6 +420,8 @@ const loc = entry => merge(entry?.[DEFAULT_LANG] || {}, entry?.[lang] || {});
    Helpers
    ===================================================================== */
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Uploaded images are stored as /images/...; make them relative so the site also works from a sub-path.
+const asset = p => String(p || "").replace(/^\/+/, "");
 const md = s => (window.marked && window.DOMPurify ? DOMPurify.sanitize(marked.parse(s || "")) : `<p>${esc(s)}</p>`);
 const headline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<span class="hl">$1</span>');
 const color = c => `var(--${["orange", "blue", "yellow", "green", "purple", "pink", "teal"].includes(c) ? c : "orange"})`;
@@ -559,7 +561,7 @@ const STATIC = {
       const s = S();
       return `
       <div class="about">
-        <div class="avatar">${s.photo ? `<img src="${esc(s.photo)}" alt="${esc(s.name)}">` : hedgehog()}</div>
+        <div class="avatar">${s.photo ? `<img src="${esc(asset(s.photo))}" alt="${esc(s.name)}">` : hedgehog()}</div>
         <div><h1 class="page" style="margin-bottom:12px">${T.about}</h1><div class="prose">${md(s.about)}</div></div>
       </div>
       ${s.now?.length ? `<h2>${T.rightNow}</h2><div class="kv">${s.now.map(n => `<div>${esc(n.label)}</div><div>${esc(n.value)}</div>`).join("")}</div>` : ""}
@@ -641,7 +643,7 @@ function getDef(id) {
         const d = p();
         return `
         <button class="link-btn back" data-open="projects">${T.allProjects}</button>
-        ${d.image ? `<img class="cover" src="${esc(d.image)}" alt="">` : ""}
+        ${d.image ? `<img class="cover" src="${esc(asset(d.image))}" alt="">` : ""}
         <h1 class="page">${esc(d.title)}</h1>
         <div class="detail-meta">
           ${d.category ? `<span class="pill cat"><i class="dot" style="background:${color(CATEGORY_COLORS[d.category])}"></i>${esc(T.categories[d.category] || d.category)}</span>` : ""}

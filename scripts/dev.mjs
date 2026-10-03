@@ -1,9 +1,8 @@
-// Local preview: serves the site and runs the Decap CMS local backend,
-// so edits made at /admin are written straight to the files in content/.
+// Local preview of the site. The CMS at /admin can edit this folder directly
+// (click "Work with Local Repository" in Chrome or Edge).
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
-import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { buildIndex } from "./build-index.mjs";
 
@@ -42,17 +41,4 @@ createServer(async (req, res) => {
   .listen(PORT, () => {
     console.log(`\n  Website:  http://localhost:${PORT}`);
     console.log(`  CMS:      http://localhost:${PORT}/admin/\n`);
-    startCms();
   });
-
-// The CMS helper runs in its own process group so stopping this script stops it too.
-let cms;
-function startCms() {
-  cms = spawn("npx", ["--yes", "decap-server"], { cwd: ROOT, stdio: "inherit", detached: true, env: { ...process.env, PORT: "8081" } });
-}
-const stop = () => {
-  try { if (cms) process.kill(-cms.pid); } catch {}
-  process.exit();
-};
-process.on("SIGINT", stop);
-process.on("SIGTERM", stop);

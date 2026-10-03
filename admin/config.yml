@@ -1,11 +1,8 @@
-# Decap CMS configuration — https://decapcms.org/docs/configuration-options/
+# Sveltia CMS configuration (Decap-compatible) — https://sveltiacms.app/en/docs
 backend:
   name: github
   repo: amkhoyan/personalwebsite
   branch: main
-
-# When running `npm run dev`, edits are saved straight to your local files instead of GitHub.
-local_backend: true
 
 media_folder: images/uploads
 public_folder: /images/uploads
