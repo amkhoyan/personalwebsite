@@ -32,12 +32,27 @@ createServer(async (req, res) => {
     res.writeHead(404, { "content-type": "text/plain" });
     res.end("Not found");
   }
-}).listen(PORT, () => {
-  console.log(`\n  Website:  http://localhost:${PORT}`);
-  console.log(`  CMS:      http://localhost:${PORT}/admin/\n`);
-});
+})
+  .on("error", err => {
+    if (err.code !== "EADDRINUSE") throw err;
+    console.error(`\n  Port ${PORT} is already in use — another server is probably still running.`);
+    console.error(`  Stop it (Ctrl+C in its terminal), or use another port:  npm run dev -- ${PORT + 1}\n`);
+    process.exit(1);
+  })
+  .listen(PORT, () => {
+    console.log(`\n  Website:  http://localhost:${PORT}`);
+    console.log(`  CMS:      http://localhost:${PORT}/admin/\n`);
+    startCms();
+  });
 
-const cms = spawn("npx", ["--yes", "decap-server"], { cwd: ROOT, stdio: "inherit", env: { ...process.env, PORT: "8081" } });
-const stop = () => { cms.kill(); process.exit(); };
+// The CMS helper runs in its own process group so stopping this script stops it too.
+let cms;
+function startCms() {
+  cms = spawn("npx", ["--yes", "decap-server"], { cwd: ROOT, stdio: "inherit", detached: true, env: { ...process.env, PORT: "8081" } });
+}
+const stop = () => {
+  try { if (cms) process.kill(-cms.pid); } catch {}
+  process.exit();
+};
 process.on("SIGINT", stop);
 process.on("SIGTERM", stop);
