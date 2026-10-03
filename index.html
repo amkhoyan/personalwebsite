@@ -264,6 +264,7 @@
   .detail-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 18px; }
   .cover { width: 100%; border-radius: 8px; border: 1px solid var(--border-light); margin-bottom: 18px; display: block; }
   .back { margin-bottom: 14px; }
+  .notice { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; border: 1px dashed var(--btn-shadow); background: var(--highlight); border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; font-size: 14px; }
 
   .prose { font-size: 15.5px; line-height: 1.65; max-width: 68ch; }
   .prose h1, .prose h2, .prose h3 { margin: 26px 0 10px; }
@@ -355,6 +356,7 @@ const UI = {
     status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
     writingIntro: "Notes on product, people, and the occasional side quest.",
     minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
+    notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
     contactTitle: "Say hi 👋", contactIntro: "I read everything. Email is the fastest way to reach me.", email: "Email",
     trashEmpty: "Trash is empty", trashJoke: "I ship everything. Even the bad ideas.",
@@ -373,6 +375,7 @@ const UI = {
     status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
     writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։",
     minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
+    notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
     contactTitle: "Բարև 👋", contactIntro: "Կարդում եմ բոլոր նամակները։ Ամենաարագ ձևն էլ. փոստն է։", email: "Էլ. փոստ",
     trashEmpty: "Աղբարկղը դատարկ է", trashJoke: "Ես թողարկում եմ ամեն ինչ։ Նույնիսկ վատ գաղափարները։",
@@ -415,6 +418,19 @@ function merge(base, cur) {
   return isEmpty(cur) ? base : cur;
 }
 const loc = entry => merge(entry?.[DEFAULT_LANG] || {}, entry?.[lang] || {});
+// Projects and posts can be written in just one language. An entry exists in a
+// language when it has a title there; it's hidden from that language's lists.
+const hasLang = (entry, l = lang) => !isEmpty(entry?.[l]?.title);
+const otherLang = entry => LANGS.find(l => hasLang(entry, l));
+const locEntry = entry => {
+  if (hasLang(entry)) return loc(entry);
+  const l = otherLang(entry);
+  return l ? merge(entry?.[DEFAULT_LANG] || {}, entry[l]) : loc(entry);
+};
+const notInLang = raw => {
+  const l = otherLang(raw);
+  return l ? `<div class="notice">${T.notInLang} <button class="link-btn" data-lang="${l}" lang="${l}">${UI[l].readIn}</button></div>` : "";
+};
 
 /* =====================================================================
    Helpers
@@ -501,9 +517,11 @@ const trashIcon = () => `<svg viewBox="0 0 48 48"><path d="M11 14h26l-2.5 28a2 2
 let DATA = { settings: {}, projects: [], posts: [] };
 const S = () => loc(DATA.settings);
 const projects = () => DATA.projects
+  .filter(p => hasLang(p))
   .map(p => ({ slug: p.slug, ...loc(p) }))
   .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || String(b.year || "").localeCompare(String(a.year || "")));
 const posts = () => DATA.posts
+  .filter(p => hasLang(p))
   .map(p => ({ slug: p.slug, ...loc(p) }))
   .filter(p => !p.draft)
   .sort((a, b) => String(b.date).localeCompare(String(a.date)));
@@ -636,13 +654,14 @@ function getDef(id) {
   if (kind === "project") {
     const raw = DATA.projects.find(p => p.slug === slug);
     if (!raw) return null;
-    const p = () => ({ slug, ...loc(raw) });
+    const p = () => ({ slug, ...locEntry(raw) });
     return {
       title: () => p().title, icon: () => fileIcon(p().color, p().icon), w: 640, h: 600,
       render: () => {
         const d = p();
         return `
         <button class="link-btn back" data-open="projects">${T.allProjects}</button>
+        ${hasLang(raw) ? "" : notInLang(raw)}
         ${d.image ? `<img class="cover" src="${esc(asset(d.image))}" alt="">` : ""}
         <h1 class="page">${esc(d.title)}</h1>
         <div class="detail-meta">
@@ -660,13 +679,14 @@ function getDef(id) {
   if (kind === "post") {
     const raw = DATA.posts.find(p => p.slug === slug);
     if (!raw) return null;
-    const p = () => loc(raw);
+    const p = () => locEntry(raw);
     return {
       title: () => p().title, icon: () => fileIcon("blue", "doc"), w: 680, h: 620,
       render: () => {
         const d = p();
         return `
         <button class="link-btn back" data-open="writing">${T.allPosts}</button>
+        ${hasLang(raw) ? "" : notInLang(raw)}
         <h1 class="page">${esc(d.title)}</h1>
         <p class="muted mono" style="font-size:13px;margin:10px 0 22px">${fmtDate(d.date)} · ${T.minRead(minutes(d.body))}</p>
         <div class="prose">${md(d.body)}</div>`;
