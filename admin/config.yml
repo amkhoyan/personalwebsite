@@ -38,6 +38,7 @@ collections:
       - { label: Education, field: category, pattern: education }
       - { label: Sport, field: category, pattern: sport }
       - { label: Personal, field: category, pattern: personal }
+      - { label: For the love of it, field: category, pattern: love }
     editor: { preview: false }
     fields:
       - { label: Title, name: title, widget: string, i18n: true, required: false, hint: "Fill in English, Armenian, or both. The project only appears in the languages that have a title." }
@@ -56,6 +57,7 @@ collections:
           - { label: "Education", value: education }
           - { label: "Sport", value: sport }
           - { label: "Personal", value: personal }
+          - { label: "For the love of it", value: love }
       - { label: Year, name: year, widget: string, i18n: duplicate, required: false, hint: "e.g. 2025 or 2023 — 2025" }
       - { label: Your role, name: role, widget: string, i18n: true, required: false }
       - label: Status
@@ -87,7 +89,7 @@ collections:
         i18n: duplicate
         required: false
         default: orange
-        options: [orange, blue, yellow, green, purple, pink, teal]
+        options: [orange, blue, yellow, green, purple, pink, teal, red]
       - { label: Details, name: body, widget: markdown, i18n: true, required: false, hint: "Optional longer story — shown when someone opens the project." }
 
   # ---------------------------------------------------------------- Writing
@@ -128,7 +130,7 @@ collections:
           - { label: First name, name: short_name, widget: string, i18n: true }
           - { label: Logo text, name: logo_text, widget: string, hint: "Shown top-left, e.g. aram.pm" }
           - { label: Email, name: email, widget: string }
-          - { label: Photo, name: photo, widget: image, required: false, hint: "Optional. Leave empty to show the hedgehog." }
+          - { label: Photo, name: photo, widget: image, required: false, hint: "Optional. Leave empty to show the dragon." }
           - label: Social links
             name: links
             widget: list
@@ -190,4 +192,3 @@ collections:
               - { label: Role / degree, name: role, widget: string }
               - { label: Organisation, name: org, widget: string }
               - { label: Description, name: description, widget: text, required: false }
-          - { label: Footer text, name: footer, widget: string, i18n: true }

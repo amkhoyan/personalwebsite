@@ -8,7 +8,7 @@ Go to **`https://<your-site>/admin`** and click **Sign In Using Access Token** (
 
 | Section | What's in it |
 |---|---|
-| **Projects** | Everything you've worked on. Pick a **category** (Product, Tech, Community, Volunteering, Creative, Education, Sport, Personal) — non-IT projects are first-class. Tick **Featured** to show it on the home page. |
+| **Projects** | Everything you've worked on. Pick a **category** (Product, Tech, Community, Volunteering, Creative, Education, Sport, Personal, For the love of it) — non-IT projects are first-class. Tick **Featured** to show it on the home page. |
 | **Writing** | Blog posts. Tick **Draft** to hide one until it's ready. |
 | **Site settings** | Your name, headline, "What I do", stats, About, Right now, Fun facts, Resume, email and social links. |
 
@@ -18,7 +18,7 @@ When you click **Save**, the CMS saves the change to GitHub and the site updates
 
 **Tips**
 - In the headline, wrap a word in `**double stars**` to give it the yellow squiggle.
-- Upload a **Photo** in Site settings to replace the hedgehog avatar.
+- Upload a **Photo** in Site settings to replace the dragon avatar.
 - Links can open straight to a window or language, e.g. `/?lang=hy#projects` or `/#project/onboarding-revamp`.
 
 ## Running it on your computer

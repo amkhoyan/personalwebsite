@@ -113,8 +113,7 @@
         "org": "University Name",
         "description": "Relevant coursework, clubs, or that one legendary group project."
       }
-    ],
-    "footer": "Built with HTML, CSS, and a mildly unhinged amount of enthusiasm."
+    ]
   },
   "hy": {
     "name": "Արամ Մխոյան",
@@ -232,7 +231,6 @@
         "org": "Համալսարանի անուն",
         "description": "Առարկաներ, ակումբներ կամ այն լեգենդար խմբային նախագիծը։"
       }
-    ],
-    "footer": "Ստեղծված է HTML-ով, CSS-ով և չափից դուրս ոգևորությամբ։"
+    ]
   }
 }
