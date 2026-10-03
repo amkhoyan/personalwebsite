@@ -188,7 +188,7 @@ collections:
             i18n: true
             summary: "{{when}} · {{role}} @ {{org}}"
             fields:
-              - { label: When, name: when, widget: string }
+              - { label: When, name: when, widget: string, required: false }
               - { label: Role / degree, name: role, widget: string }
               - { label: Organisation, name: org, widget: string }
-              - { label: Description, name: description, widget: text, required: false }
+              - { label: Description, name: description, widget: text, required: false, hint: "Start a line with “- ” to make a bullet point." }

@@ -96,22 +96,34 @@
     ],
     "resume": [
       {
-        "when": "2024 — Present",
+        "when": "Oct 2024 — Jun 2026",
+        "role": "Product Manager, Field Mobile App",
+        "org": "ServiceTitan",
+        "description": "The all-in-one iOS, iPadOS and Android app field technicians use to manage jobs, build estimates, capture work and collect payment.\n\n- Owned the app's operations features (after owning its roofing features), from discovery through delivery\n- Shipped features that unblocked customers' migration from the legacy app, helping grow adoption from ~100 to ~5,000 businesses\n- Ran customer discovery and technician ride-alongs, turning field pain points into prioritized requirements and user stories\n- Defined and tracked success metrics for owned features, using adoption and usage data to guide prioritization\n- Used Claude Code, Cursor and MCP integrations (Snowflake, FullStory, Kibana, Gong) to cut cross-team research from days to minutes — enabling up to three major features in a single sprint"
+      },
+      {
+        "when": "Jun 2023 — Oct 2024",
+        "role": "Product Manager, Internal Tools",
+        "org": "CreedRoomz (SoftConstruct)",
+        "description": "Live casino provider with 1,000+ partners worldwide.\n\n- Owned the roadmap for the internal tools that run Live Casino and its studio operations\n- Gathered requirements from operations and engineering, prioritized the backlog, and coordinated cross-functional teams to deliver releases on schedule"
+      },
+      {
+        "when": "Mar 2021 — Mar 2023",
         "role": "Product Manager",
-        "org": "Company Name",
-        "description": "What you own, what you shipped, and the impact it had."
+        "org": "HiLearn / MoneyLion",
+        "description": "Fintech building algorithmic financial advice and marketplace products for MoneyLion.\n\n- Grew MoneyLion's marketplace / affiliate business to over $1M in monthly revenue by coordinating cross-team efforts\n- Built and ran an A/B testing program, designing cross-channel experiments and standardizing testing to optimize conversion\n- Led customer discovery to define requirements, specifications and value-based proposals for B2B partners\n- Ran market and competitive research to inform roadmap decisions"
       },
       {
-        "when": "2022 — 2024",
-        "role": "Associate Product Manager",
-        "org": "Previous Company",
-        "description": "A sentence or two about the product, the team, and the results."
+        "when": "Oct 2015 — Feb 2021",
+        "role": "Software Developer",
+        "org": "Praemium",
+        "description": "Global asset-management platform serving 500,000+ investors.\n\n- Designed, built and launched an internal continuous-integration tool for Microsoft Dynamics 365 that monitored 20+ client instances\n- Partnered with teams in the UK, Australia, China and Dubai on the monolith-to-microservices migration"
       },
       {
-        "when": "2018 — 2022",
-        "role": "B.A. Business Administration",
-        "org": "University Name",
-        "description": "Relevant coursework, clubs, or that one legendary group project."
+        "when": "",
+        "role": "Bachelor of Philosophy",
+        "org": "Yerevan State University",
+        "description": "Languages: Armenian (native), Russian (native / bilingual), English (full professional proficiency)"
       }
     ]
   },
@@ -214,22 +226,34 @@
     ],
     "resume": [
       {
-        "when": "2024 — այսօր",
+        "when": "հոկ 2024 — հնս 2026",
+        "role": "Պրոդուկտ մենեջեր, Field Mobile App",
+        "org": "ServiceTitan",
+        "description": "iOS, iPadOS և Android հավելված, որով դաշտային տեխնիկները կառավարում են պատվերները, կազմում նախահաշիվներ, փաստագրում աշխատանքը և ընդունում վճարումներ։\n\n- Պատասխանատու էի հավելվածի գործառնական ֆունկցիաների համար (մինչ այդ՝ տանիքային աշխատանքների ֆունկցիաների), բացահայտումից մինչև թողարկում\n- Թողարկեցի ֆունկցիաներ, որոնք հնարավոր դարձրին հաճախորդների անցումը հին հավելվածից՝ օգնելով օգտագործող բիզնեսների թիվը ~100-ից հասցնել ~5000-ի\n- Անցկացրի հաճախորդների հետազոտություններ և դաշտային այցեր տեխնիկների հետ՝ խնդիրները վերածելով առաջնահերթացված պահանջների և user story-ների\n- Սահմանեցի և հետևեցի իմ ֆունկցիաների հաջողության չափանիշներին՝ առաջնահերթությունները որոշելով օգտագործման տվյալներով\n- Claude Code-ի, Cursor-ի և MCP ինտեգրացիաների (Snowflake, FullStory, Kibana, Gong) միջոցով միջթիմային հետազոտությունը օրերից կրճատեցի րոպեների՝ հնարավոր դարձնելով մինչև երեք խոշոր ֆունկցիա մեկ սպրինտում"
+      },
+      {
+        "when": "հնս 2023 — հոկ 2024",
+        "role": "Պրոդուկտ մենեջեր, ներքին գործիքներ",
+        "org": "CreedRoomz (SoftConstruct)",
+        "description": "Live casino պրովայդեր՝ աշխարհում 1000+ գործընկերներով։\n\n- Պատասխանատու էի Live Casino-ն և ստուդիայի աշխատանքը սպասարկող ներքին գործիքների ճանապարհային քարտեզի համար\n- Հավաքում էի պահանջները գործառնական և ինժեներական թիմերից, առաջնահերթացնում backlog-ը և համակարգում միջֆունկցիոնալ թիմերը՝ թողարկումները ժամանակին ապահովելու համար"
+      },
+      {
+        "when": "մրտ 2021 — մրտ 2023",
         "role": "Պրոդուկտ մենեջեր",
-        "org": "Ընկերության անուն",
-        "description": "Ինչի համար եք պատասխանատու, ինչ եք թողարկել և ինչ արդյունք է այն տվել։"
+        "org": "HiLearn / MoneyLion",
+        "description": "Ֆինտեխ ընկերություն, որը MoneyLion-ի համար ստեղծում էր ալգորիթմական ֆինանսական խորհրդատվության և marketplace պրոդուկտներ։\n\n- Միջթիմային աշխատանքի համակարգմամբ MoneyLion-ի marketplace / affiliate բիզնեսի ամսական եկամուտը հասցրի ավելի քան $1M-ի\n- Ստեղծեցի և ղեկավարեցի A/B թեստավորման ծրագիր՝ տարբեր ալիքներում փորձարկումներ նախագծելով և թեստավորման գործընթացը ստանդարտացնելով\n- Ղեկավարեցի հաճախորդների հետազոտությունը՝ պահանջներ, սպեցիֆիկացիաներ և արժեքային առաջարկներ սահմանելով B2B գործընկերների համար\n- Անցկացրի շուկայի և մրցակիցների հետազոտություն՝ ճանապարհային քարտեզի որոշումների համար"
       },
       {
-        "when": "2022 — 2024",
-        "role": "Կրտսեր պրոդուկտ մենեջեր",
-        "org": "Նախորդ ընկերություն",
-        "description": "Մեկ-երկու նախադասություն պրոդուկտի, թիմի և արդյունքների մասին։"
+        "when": "հոկ 2015 — փտվ 2021",
+        "role": "Ծրագրավորող",
+        "org": "Praemium",
+        "description": "Ակտիվների կառավարման գլոբալ հարթակ՝ 500,000+ ներդրողներով։\n\n- Նախագծեցի, մշակեցի և գործարկեցի ներքին continuous integration գործիք Microsoft Dynamics 365-ի համար, որը վերահսկում էր 20+ հաճախորդային միջավայր\n- Մեծ Բրիտանիայի, Ավստրալիայի, Չինաստանի և Դուբայի թիմերի հետ աշխատեցի մոնոլիթից միկրոսերվիսների անցման վրա"
       },
       {
-        "when": "2018 — 2022",
-        "role": "Բակալավր, բիզնեսի կառավարում",
-        "org": "Համալսարանի անուն",
-        "description": "Առարկաներ, ակումբներ կամ այն լեգենդար խմբային նախագիծը։"
+        "when": "",
+        "role": "Փիլիսոփայության բակալավր",
+        "org": "Երևանի պետական համալսարան",
+        "description": "Լեզուներ՝ հայերեն (մայրենի), ռուսերեն (մայրենի / երկլեզու), անգլերեն (լիարժեք մասնագիտական իմացություն)"
       }
     ]
   }
