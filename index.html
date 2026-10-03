@@ -737,7 +737,33 @@ const STATIC = {
   },
 };
 
+// Each section can have its translation switched off in the CMS (Site settings →
+// Translations). Visitors then see that section in English, whatever is filled in.
+const SECTIONS = ["home", "about", "projects", "writing", "resume", "contact"];
+const sectionOf = id => ({ project: "projects", post: "writing" })[id.split("/")[0]] || id;
+const sectionLang = id => {
+  const on = DATA.settings?.[DEFAULT_LANG]?.translations?.[sectionOf(id)];
+  return lang !== DEFAULT_LANG && SECTIONS.includes(sectionOf(id)) && on === false ? DEFAULT_LANG : lang;
+};
+function withLang(l, fn) {
+  const prev = [lang, T];
+  lang = l; T = UI[l];
+  try { return fn(); } finally { [lang, T] = prev; }
+}
+
 function getDef(id) {
+  const def = buildDef(id);
+  if (!def) return null;
+  return {
+    ...def,
+    lang: () => sectionLang(id),
+    title: () => withLang(sectionLang(id), def.title),
+    icon: () => withLang(sectionLang(id), def.icon),
+    render: () => withLang(sectionLang(id), def.render),
+  };
+}
+
+function buildDef(id) {
   if (STATIC[id]) return { ...STATIC[id], title: () => T.files[id] };
   const [kind, slug] = id.split("/");
   if (kind === "project") {
@@ -816,7 +842,12 @@ function focusWin(id) {
 function paintWin(w) {
   w.el.querySelector(".title").innerHTML = `${w.def.icon()}<span>${esc(w.def.title())}</span>`;
   w.el.setAttribute("aria-label", w.def.title());
-  w.el.querySelector(".window-body").innerHTML = w.def.render();
+  renderBody(w);
+}
+function renderBody(w) {
+  const body = w.el.querySelector(".window-body");
+  body.lang = w.def.lang();
+  body.innerHTML = w.def.render();
 }
 
 function openWin(id) {
@@ -948,7 +979,7 @@ document.addEventListener("click", e => {
   if (filter) {
     projectFilter = filter.dataset.filter;
     const w = open.get("projects");
-    if (w) w.el.querySelector(".window-body").innerHTML = w.def.render();
+    if (w) renderBody(w);
     return;
   }
   if (e.target.closest("a")) return;

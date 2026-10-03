@@ -141,6 +141,20 @@ collections:
               - { label: URL, name: url, widget: string }
               - *icons
               - *colors
+          # --- Translations
+          - label: Armenian translation
+            name: translations
+            widget: object
+            required: false
+            collapsed: false
+            hint: "Switch a section off to show it in English to Armenian visitors, even if the Armenian text is filled in. Your Armenian text is kept."
+            fields:
+              - { label: Home, name: home, widget: boolean, default: true, required: false }
+              - { label: About, name: about, widget: boolean, default: true, required: false }
+              - { label: Projects, name: projects, widget: boolean, default: true, required: false }
+              - { label: Writing, name: writing, widget: boolean, default: true, required: false }
+              - { label: Resume, name: resume, widget: boolean, default: true, required: false }
+              - { label: Contact, name: contact, widget: boolean, default: true, required: false }
           # --- Home
           - { label: Greeting chip, name: eyebrow, widget: string, i18n: true }
           - { label: Headline, name: headline, widget: string, i18n: true, hint: "Wrap a word in **double stars** to underline it in yellow." }

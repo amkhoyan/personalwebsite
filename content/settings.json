@@ -14,6 +14,14 @@
         "color": "orange"
       }
     ],
+    "translations": {
+      "home": true,
+      "about": true,
+      "projects": true,
+      "writing": true,
+      "resume": true,
+      "contact": true
+    },
     "eyebrow": "👋 hey, welcome to my corner of the internet",
     "headline": "I'm Aram. I build **products** people actually love.",
     "tagline": "Product manager who turns messy problems into clear roadmaps, and clear roadmaps into things people actually use.",
