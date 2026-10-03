@@ -7,11 +7,11 @@
     "photo": "",
     "links": [
       {
-        "label": "test",
-        "handle": "",
-        "url": "test",
-        "icon": "pen",
-        "color": "orange"
+        "label": "LinkedIn",
+        "handle": "in/aram-mkhoyan",
+        "url": "https://www.linkedin.com/in/aram-mkhoyan/",
+        "icon": "users",
+        "color": "blue"
       }
     ],
     "translations": {
@@ -69,39 +69,23 @@
         "label": "years in product"
       },
       {
-        "value": "15+",
-        "label": "launches shipped"
+        "value": "10+",
+        "label": "years in tech"
       },
       {
-        "value": "∞",
-        "label": "user interviews"
+        "value": "~5,000",
+        "label": "businesses on an app I helped grow"
       }
     ],
-    "about": "Hey! I'm Aram, a product manager. I care about the gap between \"it works\" and \"people love it.\"\n\nMost of my days are spent talking to users, untangling priorities, and helping teams ship in small, frequent steps. Outside of work you'll find me volunteering, working on side projects that have nothing to do with tech, and trying to touch grass.",
-    "location": "Somewhere with good coffee",
+    "about": "I'm Aram, a product manager based in Yerevan. I've spent 5+ years owning mobile, fintech and internal-tool products — most recently the Field Mobile App at ServiceTitan — after nearly a decade in software engineering.\n\nI like getting close to the problem: customer discovery, ride-alongs with the people who use the product, and turning what I learn into clear priorities for the team. Outside of work I make things just for the love of it, like Kinoarvest, a self-funded series of booklets about art-house film directors.",
+    "location": "Yerevan, Armenia",
     "now": [
       {
         "label": "Location",
-        "value": "Somewhere with good coffee"
-      },
-      {
-        "label": "Working on",
-        "value": "Something new — ask me"
-      },
-      {
-        "label": "Learning",
-        "value": "SQL, slowly"
-      },
-      {
-        "label": "Reading",
-        "value": "Inspired — Marty Cagan"
+        "value": "Yerevan, Armenia"
       }
     ],
-    "facts": [
-      "I've never met a spreadsheet I didn't want to turn into a dashboard.",
-      "Strongly held opinion: the best roadmap is the one the team actually believes in.",
-      "This website is an operating system. You're welcome."
-    ],
+    "facts": [],
     "resume_title": "Product Manager · Mobile, Fintech & Internal Tools · Ex-Software Engineer",
     "resume_summary": "Product Manager with 5+ years of experience owning mobile, fintech, and internal-tooling products, built on nearly a decade in software engineering. I drive customer discovery, experimentation, and roadmap prioritization to ship features that lift adoption and operational efficiency — and use AI-assisted workflows (Claude Code, Cursor, MCP) to turn raw customer signals into engineering-ready requirements in minutes, not days.",
     "resume": [
@@ -210,20 +194,6 @@
   "hy": {
     "name": "Արամ Մխոյան",
     "short_name": "Արամ",
-    "links": [
-      {
-        "icon": "pen",
-        "color": "orange"
-      },
-      {
-        "icon": "chat",
-        "color": "purple"
-      },
-      {
-        "icon": "doc",
-        "color": "green"
-      }
-    ],
     "eyebrow": "👋 բարի գալուստ իմ փոքրիկ անկյուն համացանցում",
     "headline": "Ես Արամն եմ։ Ստեղծում եմ **պրոդուկտներ**, որոնք մարդիկ իսկապես սիրում են։",
     "tagline": "Պրոդուկտ մենեջեր, ով խառը խնդիրները վերածում է հստակ պլանների, իսկ պլանները՝ բաների, որոնցից մարդիկ իրականում օգտվում են։",
@@ -271,39 +241,23 @@
         "label": "տարի պրոդուկտում"
       },
       {
-        "value": "15+",
-        "label": "թողարկում"
+        "value": "10+",
+        "label": "տարի տեխնոլոգիաներում"
       },
       {
-        "value": "∞",
-        "label": "հարցազրույց օգտատերերի հետ"
+        "value": "~5000",
+        "label": "բիզնես՝ իմ աճեցրած հավելվածում"
       }
     ],
-    "about": "Բարև։ Ես Արամն եմ՝ պրոդուկտ մենեջեր։ Ինձ համար կարևոր է «աշխատում է»-ի և «մարդիկ սիրում են»-ի միջև եղած տարածությունը։\n\nՕրերիս մեծ մասն անցնում է օգտատերերի հետ զրուցելով, առաջնահերթությունները կարգավորելով և թիմերին փոքր, հաճախակի քայլերով թողարկումներ անելու մեջ օգնելով։ Աշխատանքից դուրս կամավորություն եմ անում, զբաղվում եմ տեխնոլոգիաների հետ կապ չունեցող նախագծերով և փորձում եմ ավելի շատ ժամանակ անցկացնել բնության գրկում։",
-    "location": "Այնտեղ, որտեղ լավ սուրճ կա",
+    "about": "Ես Արամն եմ՝ պրոդուկտ մենեջեր Երևանից։ 5+ տարի պատասխանատու եմ եղել մոբայլ, ֆինտեխ և ներքին գործիքների պրոդուկտների համար (վերջինը՝ ServiceTitan-ի Field Mobile App-ը)՝ մինչ այդ գրեթե տասը տարի աշխատելով ծրագրային ապահովման ոլորտում։\n\nՍիրում եմ մոտ լինել խնդրին՝ հաճախորդների հետազոտություն, դաշտային այցեր պրոդուկտն օգտագործող մարդկանց հետ, և սովորածը վերածել թիմի համար հստակ առաջնահերթությունների։ Աշխատանքից դուրս ստեղծում եմ բաներ պարզապես հոգու համար, օրինակ՝ Kinoarvest-ը՝ արթհաուս կինոռեժիսորներին նվիրված գրքույկների ինքնաֆինանսավորվող շարք։",
+    "location": "Երևան, Հայաստան",
     "now": [
       {
         "label": "Գտնվելու վայր",
-        "value": "Այնտեղ, որտեղ լավ սուրճ կա"
-      },
-      {
-        "label": "Աշխատում եմ",
-        "value": "Նոր բանի վրա — հարցրեք"
-      },
-      {
-        "label": "Սովորում եմ",
-        "value": "SQL, դանդաղ"
-      },
-      {
-        "label": "Կարդում եմ",
-        "value": "Inspired — Marty Cagan"
+        "value": "Երևան, Հայաստան"
       }
     ],
-    "facts": [
-      "Չկա մի աղյուսակ, որը չցանկանամ վահանակի վերածել։",
-      "Համոզմունք՝ լավագույն ճանապարհային քարտեզն այն է, որին թիմն իրականում հավատում է։",
-      "Այս կայքը օպերացիոն համակարգ է։ Խնդրեմ։"
-    ],
+    "facts": [],
     "resume_title": "Պրոդուկտ մենեջեր · Մոբայլ, ֆինտեխ և ներքին գործիքներ · Նախկին ծրագրավորող",
     "resume_summary": "Պրոդուկտ մենեջեր՝ մոբայլ, ֆինտեխ և ներքին գործիքների պրոդուկտների 5+ տարվա փորձով, որը հիմնված է ծրագրային ապահովման ոլորտում գրեթե տասը տարվա աշխատանքի վրա։ Ղեկավարում եմ հաճախորդների հետազոտությունը, փորձարկումները և ճանապարհային քարտեզի առաջնահերթացումը՝ թողարկելով ֆունկցիաներ, որոնք բարձրացնում են օգտագործումը և գործառնական արդյունավետությունը։ AI գործիքների (Claude Code, Cursor, MCP) միջոցով հաճախորդների ազդանշանները րոպեների ընթացքում վերածում եմ ինժեներական թիմի համար պատրաստ պահանջների։",
     "resume": [

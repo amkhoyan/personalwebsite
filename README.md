@@ -19,7 +19,7 @@ When you click **Save**, the CMS saves the change to GitHub and the site updates
 **Tips**
 - In the headline, wrap a word in `**double stars**` to give it the yellow squiggle.
 - Upload a **Photo** in Site settings to replace the dragon avatar.
-- Links can open straight to a window or language, e.g. `/?lang=hy#projects` or `/#project/onboarding-revamp`.
+- Links can open straight to a window or language, e.g. `/?lang=hy#projects` or `/#project/<file-name>`.
 
 ## Running it on your computer
 

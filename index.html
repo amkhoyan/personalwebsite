@@ -398,7 +398,7 @@ const UI = {
     all: "All", allProjects: "← All projects", allPosts: "← All posts", visit: "Visit →",
     categories: { product: "Product", tech: "Tech", community: "Community", volunteering: "Volunteering", creative: "Creative", education: "Education", sport: "Sport", personal: "Personal", love: "For the love of it" },
     status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
-    writingIntro: "Notes on product, people, and the occasional side quest.",
+    writingIntro: "Notes on product, people, and the occasional side quest.", noProjects: "Nothing here yet — check back soon.",
     minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
     notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
@@ -418,7 +418,7 @@ const UI = {
     all: "Բոլորը", allProjects: "← Բոլոր նախագծերը", allPosts: "← Բոլոր գրառումները", visit: "Դիտել →",
     categories: { product: "Պրոդուկտ", tech: "Տեխնոլոգիա", community: "Համայնք", volunteering: "Կամավորություն", creative: "Ստեղծագործական", education: "Կրթություն", sport: "Սպորտ", personal: "Անձնական", love: "Հոգու համար" },
     status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
-    writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։",
+    writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։", noProjects: "Դեռ ոչինչ չկա — շուտով։",
     minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
     notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
@@ -652,7 +652,7 @@ const STATIC = {
       <h1 class="page">${T.projects}</h1>
       <p class="intro">${T.projectsIntro}</p>
       ${cats.length > 1 ? `<div class="chips">${chip("all", T.all, all.length)}${cats.map(c => chip(c, `<i class="dot" style="background:${color(CATEGORY_COLORS[c])}"></i>${T.categories[c]}`, all.filter(p => p.category === c).length)).join("")}</div>` : ""}
-      <div class="rows">${shown.map(projectRow).join("")}</div>`;
+      ${shown.length ? `<div class="rows">${shown.map(projectRow).join("")}</div>` : `<p class="muted">${T.noProjects}</p>`}`;
     },
   },
   writing: {
