@@ -2,14 +2,14 @@
   "en": {
     "name": "Aram Mkhoyan",
     "short_name": "Aram",
-    "logo_text": "aram.pm",
-    "email": "hello@example.com",
+    "logo_text": "mkhm.xyz",
+    "email": "mkhnaram@gmail.com",
     "photo": "",
     "links": [
       {
-        "label": "LinkedIn",
-        "handle": "in/yourhandle",
-        "url": "https://www.linkedin.com/",
+        "label": "Linkedin",
+        "handle": "",
+        "url": "https://www.linkedin.com/in/aram-mkhoyan/",
         "icon": "users",
         "color": "blue"
       },
@@ -31,7 +31,6 @@
     "eyebrow": "👋 hey, welcome to my corner of the internet",
     "headline": "I'm Aram. I build **products** people actually love.",
     "tagline": "Product manager who turns messy problems into clear roadmaps, and clear roadmaps into things people actually use.",
-    "location": "Somewhere with good coffee",
     "skills": [
       {
         "title": "Product strategy",
@@ -85,6 +84,7 @@
       }
     ],
     "about": "Hey! I'm Aram, a product manager. I care about the gap between \"it works\" and \"people love it.\"\n\nMost of my days are spent talking to users, untangling priorities, and helping teams ship in small, frequent steps. Outside of work you'll find me volunteering, working on side projects that have nothing to do with tech, and trying to touch grass.",
+    "location": "Somewhere with good coffee",
     "now": [
       {
         "label": "Location",
@@ -133,34 +133,59 @@
   "hy": {
     "name": "Արամ Մխոյան",
     "short_name": "Արամ",
+    "links": [
+      {
+        "icon": "users",
+        "color": "blue"
+      },
+      {
+        "icon": "chat",
+        "color": "purple"
+      },
+      {
+        "icon": "doc",
+        "color": "green"
+      }
+    ],
     "eyebrow": "👋 բարի գալուստ իմ փոքրիկ անկյուն համացանցում",
     "headline": "Ես Արամն եմ։ Ստեղծում եմ **պրոդուկտներ**, որոնք մարդիկ իսկապես սիրում են։",
     "tagline": "Պրոդուկտ մենեջեր, ով խառը խնդիրները վերածում է հստակ պլանների, իսկ պլանները՝ բաների, որոնցից մարդիկ իրականում օգտվում են։",
-    "location": "Այնտեղ, որտեղ լավ սուրճ կա",
     "skills": [
       {
         "title": "Պրոդուկտի ռազմավարություն",
-        "description": "Որոշել, թե ինչ ստեղծել, և նույնքան կարևոր՝ ինչ չստեղծել։"
+        "description": "Որոշել, թե ինչ ստեղծել, և նույնքան կարևոր՝ ինչ չստեղծել։",
+        "icon": "target",
+        "color": "orange"
       },
       {
         "title": "Օգտատերերի հետազոտություն",
-        "description": "Խոսել օգտատերերի հետ, մինչև խնդիրն ակնհայտ դառնա։"
+        "description": "Խոսել օգտատերերի հետ, մինչև խնդիրն ակնհայտ դառնա։",
+        "icon": "users",
+        "color": "blue"
       },
       {
         "title": "Տվյալներ և փորձարկումներ",
-        "description": "Չափանիշներ, A/B թեստեր և ազնիվ վահանակներ։"
+        "description": "Չափանիշներ, A/B թեստեր և ազնիվ վահանակներ։",
+        "icon": "chart",
+        "color": "yellow"
       },
       {
         "title": "Ճանապարհային քարտեզ",
-        "description": "Պլաններ, որոնք դիմանում են իրականությանը։"
+        "description": "Պլաններ, որոնք դիմանում են իրականությանը։",
+        "icon": "map",
+        "color": "green"
       },
       {
         "title": "Թիմի ղեկավարում",
-        "description": "Դիզայնը, ինժեներիան և բիզնեսը մեկ ուղղությամբ տանել։"
+        "description": "Դիզայնը, ինժեներիան և բիզնեսը մեկ ուղղությամբ տանել։",
+        "icon": "flag",
+        "color": "purple"
       },
       {
         "title": "Թողարկում",
-        "description": "Ավարտվածը լավ է կատարյալից։ Թողարկվածը՝ ավարտվածից։"
+        "description": "Ավարտվածը լավ է կատարյալից։ Թողարկվածը՝ ավարտվածից։",
+        "icon": "rocket",
+        "color": "pink"
       }
     ],
     "stats": [
@@ -178,6 +203,7 @@
       }
     ],
     "about": "Բարև։ Ես Արամն եմ՝ պրոդուկտ մենեջեր։ Ինձ համար կարևոր է «աշխատում է»-ի և «մարդիկ սիրում են»-ի միջև եղած տարածությունը։\n\nՕրերիս մեծ մասն անցնում է օգտատերերի հետ զրուցելով, առաջնահերթությունները կարգավորելով և թիմերին փոքր, հաճախակի քայլերով թողարկումներ անելու մեջ օգնելով։ Աշխատանքից դուրս կամավորություն եմ անում, զբաղվում եմ տեխնոլոգիաների հետ կապ չունեցող նախագծերով և փորձում եմ ավելի շատ ժամանակ անցկացնել բնության գրկում։",
+    "location": "Այնտեղ, որտեղ լավ սուրճ կա",
     "now": [
       {
         "label": "Գտնվելու վայր",
