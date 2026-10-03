@@ -7,25 +7,11 @@
     "photo": "",
     "links": [
       {
-        "label": "Linkedin",
+        "label": "test",
         "handle": "",
-        "url": "https://www.linkedin.com/in/aram-mkhoyan/",
-        "icon": "users",
-        "color": "blue"
-      },
-      {
-        "label": "X / Twitter",
-        "handle": "@yourhandle",
-        "url": "https://x.com/",
-        "icon": "chat",
-        "color": "purple"
-      },
-      {
-        "label": "Medium",
-        "handle": "@yourhandle",
-        "url": "https://medium.com/",
-        "icon": "doc",
-        "color": "green"
+        "url": "test",
+        "icon": "pen",
+        "color": "orange"
       }
     ],
     "eyebrow": "👋 hey, welcome to my corner of the internet",
@@ -135,8 +121,8 @@
     "short_name": "Արամ",
     "links": [
       {
-        "icon": "users",
-        "color": "blue"
+        "icon": "pen",
+        "color": "orange"
       },
       {
         "icon": "chat",
