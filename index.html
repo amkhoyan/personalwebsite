@@ -253,14 +253,49 @@
   ul.facts { padding-left: 20px; margin: 0; }
   ul.facts li { margin-bottom: 6px; }
 
-  .timeline { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 22px; }
-  .tl-item { position: relative; margin-bottom: 24px; }
-  .tl-item::before { content: ""; position: absolute; left: -30px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--btn); border: 2px solid var(--btn-shadow); }
-  .tl-item .when { font-size: 12.5px; color: var(--muted); }
-  .tl-desc { font-size: 14px; color: var(--muted); margin-top: 6px; }
-  .tl-desc p { margin: 0 0 6px; }
-  .tl-desc ul { margin: 0; padding-left: 18px; }
-  .tl-desc li { margin-bottom: 4px; }
+  .cv-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .cv-title { font-size: 16px; font-weight: 600; margin: 6px 0 2px; }
+  .cv-contact { font-size: 14px; margin: 0; }
+  .cv-actions { display: flex; gap: 10px; }
+  .cv-summary { margin: 18px 0 0; padding: 14px 16px; background: var(--bg); border: 1px solid var(--border-light); border-radius: 8px; font-size: 14.5px; line-height: 1.6; }
+  .cv-grid { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; margin-top: 8px; align-items: start; }
+  .cv-h { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 22px 0 10px; }
+  :lang(hy) .cv-h { text-transform: none; letter-spacing: 0; font-size: 14px; }
+  .jobs { display: grid; gap: 0; }
+  .job { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; padding: 16px 0; border-top: 1px dashed var(--border); }
+  .job:first-child { border-top: 0; padding-top: 4px; }
+  .job-mark { width: 36px; height: 36px; border-radius: 8px; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 16px; }
+  .job-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+  .job-org { font-size: 14px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+  .job-when { font-size: 12px; white-space: nowrap; border: 1px solid var(--border-light); background: var(--bg); border-radius: 999px; padding: 2px 10px; color: var(--muted); }
+  .job-desc { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.55; }
+  .job-desc p { margin: 0 0 6px; font-style: italic; }
+  .job-desc ul { margin: 0; padding-left: 18px; color: var(--text); }
+  .job-desc li { margin-bottom: 5px; }
+  .job-desc li::marker { color: var(--btn); }
+  .cv-side { display: grid; gap: 12px; margin-top: 22px; }
+  .side-card { border: 1px solid var(--border-light); border-radius: 8px; padding: 14px; background: var(--bg); }
+  .side-card h4 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  :lang(hy) .side-card h4 { text-transform: none; letter-spacing: 0; font-size: 14px; }
+  .skill-group + .skill-group { margin-top: 12px; }
+  .skill-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .side-card .pill { background: var(--surface); font-size: 12px; padding: 1px 7px; }
+  .edu + .edu { margin-top: 10px; }
+  .edu .muted { font-size: 13.5px; }
+  .small { font-size: 12px; }
+  .lang-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; padding: 5px 0; }
+  .lang-row + .lang-row { border-top: 1px solid var(--border-light); }
+  .lang-row span:first-child { font-weight: 600; }
+
+  @media print {
+    body { overflow: visible; background: #fff; }
+    body * { visibility: hidden; }
+    .window[data-win="resume"], .window[data-win="resume"] * { visibility: visible; }
+    .window[data-win="resume"] { position: absolute !important; inset: 0 auto auto 0 !important; width: 100% !important; height: auto !important; border: 0; box-shadow: none; animation: none; }
+    .window[data-win="resume"] .titlebar, .no-print { display: none !important; }
+    .window[data-win="resume"] .window-body { overflow: visible; padding: 0; }
+    .desktop { position: static; background: none; }
+  }
 
   .links { display: grid; gap: 8px; }
   .link-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border-light); border-radius: 8px; color: var(--text); background: var(--bg); }
@@ -311,6 +346,7 @@
     .stat + .stat { border-left: 0; border-top: 1px solid var(--border-light); }
     .kv { grid-template-columns: 110px 1fr; }
     .posts .date { display: none; }
+    .cv-grid { grid-template-columns: 1fr; gap: 0; }
     .row { grid-template-columns: 34px 1fr; }
     .row-side { grid-column: 2; flex-direction: row; align-items: center; }
   }
@@ -366,6 +402,7 @@ const UI = {
     minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
     notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
+    experience: "Experience", education: "Education", skills: "Skills", languages: "Languages", downloadPdf: "Download PDF",
     contactTitle: "Say hi 👋", contactIntro: "I read everything. Email is the fastest way to reach me.", email: "Email",
     trashEmpty: "Trash is empty", trashJoke: "I ship everything. Even the bad ideas.",
     loadError: "Couldn't load the site content. If you're running it locally, start it with “npm run dev”.",
@@ -385,6 +422,7 @@ const UI = {
     minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
     notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
+    experience: "Աշխատանքային փորձ", education: "Կրթություն", skills: "Հմտություններ", languages: "Լեզուներ", downloadPdf: "Ներբեռնել PDF",
     contactTitle: "Բարև 👋", contactIntro: "Կարդում եմ բոլոր նամակները։ Ամենաարագ ձևն էլ. փոստն է։", email: "Էլ. փոստ",
     trashEmpty: "Աղբարկղը դատարկ է", trashJoke: "Ես թողարկում եմ ամեն ինչ։ Նույնիսկ վատ գաղափարները։",
     loadError: "Չհաջողվեց բեռնել կայքի բովանդակությունը։",
@@ -632,16 +670,51 @@ const STATIC = {
     },
   },
   resume: {
-    icon: () => fileIcon("pink", "doc"), w: 580, h: 520,
+    icon: () => fileIcon("pink", "doc"), w: 920, h: 700,
     render: () => {
       const s = S();
+      const TILE_COLORS = ["orange", "blue", "purple", "green", "pink", "teal"];
+      const jobs = (s.resume || []).map((r, i) => `
+        <article class="job">
+          <div class="job-mark" style="background:${color(TILE_COLORS[i % TILE_COLORS.length])}">${esc((r.org || "?").trim()[0])}</div>
+          <div class="job-main">
+            <header class="job-head">
+              <div><h3>${esc(r.role)}</h3><div class="job-org">${esc(r.org)}</div></div>
+              ${r.when ? `<span class="job-when mono">${esc(r.when)}</span>` : ""}
+            </header>
+            ${r.description ? `<div class="job-desc">${md(r.description)}</div>` : ""}
+          </div>
+        </article>`).join("");
+      const side = (title, body) => body ? `<section class="side-card"><h4>${title}</h4>${body}</section>` : "";
+      const skills = (s.resume_skills || []).map(g => `
+        <div class="skill-group"><div class="skill-title">${esc(g.title)}</div>
+        <div class="pills">${(g.items || []).map(x => `<span class="pill">${esc(x)}</span>`).join("")}</div></div>`).join("");
+      const edu = (s.education || []).map(e => `
+        <div class="edu"><b>${esc(e.degree)}</b><div class="muted">${esc(e.school)}</div>${e.when ? `<div class="mono muted small">${esc(e.when)}</div>` : ""}</div>`).join("");
+      const langs = (s.resume_languages || []).map(l => `<div class="lang-row"><span>${esc(l.language)}</span><span class="muted">${esc(l.level)}</span></div>`).join("");
       return `
-      <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap;margin-bottom:24px">
-        <div><h1 class="page">${esc(s.name)}</h1><p class="muted" style="margin:4px 0 0">${[s.location, s.email].filter(Boolean).map(esc).join(" · ")}</p></div>
-        <button class="btn secondary sm" onclick="window.print()">${T.print}</button>
-      </div>
-      <div class="timeline">${(s.resume || []).map(r => `
-        <div class="tl-item">${r.when ? `<div class="when mono">${esc(r.when)}</div>` : ""}<h3>${esc(r.role)} <span class="muted" style="font-weight:500">@ ${esc(r.org)}</span></h3>${r.description ? `<div class="tl-desc">${md(r.description)}</div>` : ""}</div>`).join("")}
+      <header class="cv-head">
+        <div>
+          <h1 class="page">${esc(s.name)}</h1>
+          ${s.resume_title ? `<p class="cv-title">${esc(s.resume_title)}</p>` : ""}
+          <p class="cv-contact muted">${[s.location, s.email].filter(Boolean).map(esc).join(" · ")}</p>
+        </div>
+        <div class="cv-actions no-print">
+          ${s.resume_pdf ? `<a class="btn sm" href="${esc(asset(s.resume_pdf))}" target="_blank" rel="noopener" download>${T.downloadPdf}</a>` : ""}
+          <button class="btn secondary sm" onclick="window.print()">${T.print}</button>
+        </div>
+      </header>
+      ${s.resume_summary ? `<p class="cv-summary">${esc(s.resume_summary)}</p>` : ""}
+      <div class="cv-grid">
+        <section>
+          <h2 class="cv-h">${T.experience}</h2>
+          <div class="jobs">${jobs}</div>
+        </section>
+        <aside class="cv-side">
+          ${side(T.skills, skills)}
+          ${side(T.education, edu)}
+          ${side(T.languages, langs)}
+        </aside>
       </div>`;
     },
   },
@@ -753,6 +826,7 @@ function openWin(id) {
 
   const el = document.createElement("section");
   el.className = "window";
+  el.dataset.win = id;
   const dw = desktop.clientWidth, dh = desktop.clientHeight;
   const w = Math.min(def.w, dw - 32), h = Math.min(def.h, dh - 32);
   const offset = (cascade++ % 6) * 28;

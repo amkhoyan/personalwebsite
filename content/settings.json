@@ -94,6 +94,8 @@
       "Strongly held opinion: the best roadmap is the one the team actually believes in.",
       "This website is an operating system. You're welcome."
     ],
+    "resume_title": "Product Manager · Mobile, Fintech & Internal Tools · Ex-Software Engineer",
+    "resume_summary": "Product Manager with 5+ years of experience owning mobile, fintech, and internal-tooling products, built on nearly a decade in software engineering. I drive customer discovery, experimentation, and roadmap prioritization to ship features that lift adoption and operational efficiency — and use AI-assisted workflows (Claude Code, Cursor, MCP) to turn raw customer signals into engineering-ready requirements in minutes, not days.",
     "resume": [
       {
         "when": "Oct 2024 — Jun 2026",
@@ -118,14 +120,84 @@
         "role": "Software Developer",
         "org": "Praemium",
         "description": "Global asset-management platform serving 500,000+ investors.\n\n- Designed, built and launched an internal continuous-integration tool for Microsoft Dynamics 365 that monitored 20+ client instances\n- Partnered with teams in the UK, Australia, China and Dubai on the monolith-to-microservices migration"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Philosophy",
+        "school": "Yerevan State University",
+        "when": ""
+      }
+    ],
+    "resume_skills": [
+      {
+        "title": "Product",
+        "items": [
+          "Strategy & roadmapping",
+          "Customer discovery",
+          "User research",
+          "A/B testing",
+          "Go-to-market",
+          "Backlog prioritization",
+          "Agile / Scrum",
+          "User story mapping",
+          "Stakeholder management"
+        ]
       },
       {
-        "when": "",
-        "role": "Bachelor of Philosophy",
-        "org": "Yerevan State University",
-        "description": "Languages: Armenian (native), Russian (native / bilingual), English (full professional proficiency)"
+        "title": "AI & data",
+        "items": [
+          "AI-assisted discovery",
+          "Prompt engineering",
+          "Agentic workflows",
+          "Claude Code",
+          "Cursor",
+          "MCP",
+          "Product analytics",
+          "SQL"
+        ]
+      },
+      {
+        "title": "Tools",
+        "items": [
+          "Jira",
+          "Confluence",
+          "Asana",
+          "Trello",
+          "Figma",
+          "Snowflake",
+          "FullStory",
+          "Kibana",
+          "Gong"
+        ]
+      },
+      {
+        "title": "Engineering",
+        "items": [
+          ".NET / C#",
+          "JavaScript / TypeScript",
+          "HTML / CSS",
+          "ASP.NET MVC",
+          "AngularJS",
+          "Microservices"
+        ]
       }
-    ]
+    ],
+    "resume_languages": [
+      {
+        "language": "Armenian",
+        "level": "Native"
+      },
+      {
+        "language": "Russian",
+        "level": "Native / bilingual"
+      },
+      {
+        "language": "English",
+        "level": "Full professional"
+      }
+    ],
+    "resume_pdf": ""
   },
   "hy": {
     "name": "Արամ Մխոյան",
@@ -224,6 +296,8 @@
       "Համոզմունք՝ լավագույն ճանապարհային քարտեզն այն է, որին թիմն իրականում հավատում է։",
       "Այս կայքը օպերացիոն համակարգ է։ Խնդրեմ։"
     ],
+    "resume_title": "Պրոդուկտ մենեջեր · Մոբայլ, ֆինտեխ և ներքին գործիքներ · Նախկին ծրագրավորող",
+    "resume_summary": "Պրոդուկտ մենեջեր՝ մոբայլ, ֆինտեխ և ներքին գործիքների պրոդուկտների 5+ տարվա փորձով, որը հիմնված է ծրագրային ապահովման ոլորտում գրեթե տասը տարվա աշխատանքի վրա։ Ղեկավարում եմ հաճախորդների հետազոտությունը, փորձարկումները և ճանապարհային քարտեզի առաջնահերթացումը՝ թողարկելով ֆունկցիաներ, որոնք բարձրացնում են օգտագործումը և գործառնական արդյունավետությունը։ AI գործիքների (Claude Code, Cursor, MCP) միջոցով հաճախորդների ազդանշանները րոպեների ընթացքում վերածում եմ ինժեներական թիմի համար պատրաստ պահանջների։",
     "resume": [
       {
         "when": "հոկ 2024 — հնս 2026",
@@ -248,12 +322,81 @@
         "role": "Ծրագրավորող",
         "org": "Praemium",
         "description": "Ակտիվների կառավարման գլոբալ հարթակ՝ 500,000+ ներդրողներով։\n\n- Նախագծեցի, մշակեցի և գործարկեցի ներքին continuous integration գործիք Microsoft Dynamics 365-ի համար, որը վերահսկում էր 20+ հաճախորդային միջավայր\n- Մեծ Բրիտանիայի, Ավստրալիայի, Չինաստանի և Դուբայի թիմերի հետ աշխատեցի մոնոլիթից միկրոսերվիսների անցման վրա"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Փիլիսոփայության բակալավր",
+        "school": "Երևանի պետական համալսարան",
+        "when": ""
+      }
+    ],
+    "resume_skills": [
+      {
+        "title": "Պրոդուկտ",
+        "items": [
+          "Ռազմավարություն և քարտեզ",
+          "Հաճախորդների հետազոտություն",
+          "Օգտատերերի հետազոտություն",
+          "A/B թեստավորում",
+          "Go-to-market",
+          "Backlog-ի առաջնահերթացում",
+          "Agile / Scrum",
+          "User story mapping",
+          "Շահառուների կառավարում"
+        ]
       },
       {
-        "when": "",
-        "role": "Փիլիսոփայության բակալավր",
-        "org": "Երևանի պետական համալսարան",
-        "description": "Լեզուներ՝ հայերեն (մայրենի), ռուսերեն (մայրենի / երկլեզու), անգլերեն (լիարժեք մասնագիտական իմացություն)"
+        "title": "AI և տվյալներ",
+        "items": [
+          "AI-ով հետազոտություն",
+          "Prompt engineering",
+          "Agentic workflows",
+          "Claude Code",
+          "Cursor",
+          "MCP",
+          "Պրոդուկտային անալիտիկա",
+          "SQL"
+        ]
+      },
+      {
+        "title": "Գործիքներ",
+        "items": [
+          "Jira",
+          "Confluence",
+          "Asana",
+          "Trello",
+          "Figma",
+          "Snowflake",
+          "FullStory",
+          "Kibana",
+          "Gong"
+        ]
+      },
+      {
+        "title": "Ինժեներիա",
+        "items": [
+          ".NET / C#",
+          "JavaScript / TypeScript",
+          "HTML / CSS",
+          "ASP.NET MVC",
+          "AngularJS",
+          "Microservices"
+        ]
+      }
+    ],
+    "resume_languages": [
+      {
+        "language": "Հայերեն",
+        "level": "Մայրենի"
+      },
+      {
+        "language": "Ռուսերեն",
+        "level": "Մայրենի / երկլեզու"
+      },
+      {
+        "language": "Անգլերեն",
+        "level": "Լիարժեք մասնագիտական"
       }
     ]
   }

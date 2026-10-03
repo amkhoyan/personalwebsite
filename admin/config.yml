@@ -182,7 +182,9 @@ collections:
             summary: "{{text}}"
             field: { label: Fact, name: text, widget: string }
           # --- Resume
-          - label: Resume
+          - { label: Resume headline, name: resume_title, widget: string, i18n: true, required: false, hint: "Shown under your name, e.g. Product Manager · Mobile & Fintech" }
+          - { label: Resume summary, name: resume_summary, widget: text, i18n: true, required: false }
+          - label: Work experience
             name: resume
             widget: list
             i18n: true
@@ -192,3 +194,32 @@ collections:
               - { label: Role / degree, name: role, widget: string }
               - { label: Organisation, name: org, widget: string }
               - { label: Description, name: description, widget: text, required: false, hint: "Start a line with “- ” to make a bullet point." }
+          - label: Education
+            name: education
+            widget: list
+            i18n: true
+            required: false
+            summary: "{{degree}} — {{school}}"
+            fields:
+              - { label: Degree, name: degree, widget: string }
+              - { label: School, name: school, widget: string }
+              - { label: When, name: when, widget: string, required: false }
+          - label: Skills
+            name: resume_skills
+            widget: list
+            i18n: true
+            required: false
+            summary: "{{title}}"
+            fields:
+              - { label: Group, name: title, widget: string }
+              - { label: Skills, name: items, widget: list, hint: "Comma-separated" }
+          - label: Languages
+            name: resume_languages
+            widget: list
+            i18n: true
+            required: false
+            summary: "{{language}} — {{level}}"
+            fields:
+              - { label: Language, name: language, widget: string }
+              - { label: Level, name: level, widget: string }
+          - { label: Resume PDF, name: resume_pdf, widget: file, required: false, hint: "Optional. Adds a Download PDF button to the resume." }
