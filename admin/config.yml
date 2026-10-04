@@ -154,9 +154,16 @@ collections:
           - { label: "Brewer", value: brewer }
           - { label: "Grinder", value: grinder }
           - { label: "Other", value: other }
-      - { label: Photo, name: image, widget: image, i18n: duplicate, required: false }
-      - { label: Notes, name: notes, widget: text, i18n: true, required: false, hint: "What you use it for, what you like about it." }
-      - { label: Link, name: link, widget: string, i18n: duplicate, required: false }
+      - { label: Main photo, name: image, widget: image, i18n: duplicate, required: false }
+      - { label: Short description, name: notes, widget: text, i18n: true, required: false, hint: "One or two lines, shown on the card." }
+      - { label: Using since, name: since, widget: string, i18n: duplicate, required: false, hint: "e.g. 2024" }
+      - { label: Full story, name: body, widget: markdown, i18n: true, required: false, hint: "Shown on the item's own page — why you chose it, how you use it, recipes, tips." }
+      - label: More photos
+        name: photos
+        widget: list
+        required: false
+        field: { label: Photo, name: photo, widget: image }
+      - { label: Link, name: link, widget: string, i18n: duplicate, required: false, hint: "Optional, e.g. the maker's page." }
 
   - name: latte_art
     label: "Coffee: Latte art"

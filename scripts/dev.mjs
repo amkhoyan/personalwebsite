@@ -19,15 +19,18 @@ createServer(async (req, res) => {
   const path = decodeURIComponent(new URL(req.url, "http://x").pathname);
   try {
     if (path === "/content/index.json") {
+      const index = JSON.stringify(await buildIndex());
       res.writeHead(200, { "content-type": TYPES[".json"], "cache-control": "no-store" });
-      return res.end(JSON.stringify(await buildIndex()));
+      return res.end(index);
     }
     let file = normalize(join(ROOT, path));
     if (!file.startsWith(ROOT)) throw new Error("outside root");
     if ((await stat(file)).isDirectory()) file = join(file, "index.html");
+    const body = await readFile(file);
     res.writeHead(200, { "content-type": TYPES[extname(file)] || "application/octet-stream", "cache-control": "no-store" });
-    res.end(await readFile(file));
+    res.end(body);
   } catch {
+    if (res.headersSent) return res.end();
     res.writeHead(404, { "content-type": "text/plain" });
     res.end("Not found");
   }

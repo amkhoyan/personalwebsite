@@ -34,6 +34,7 @@
     --teal: #1BB89C;
     --pink: #E34C6F;
     --red: #E5484D;
+    --brown: #8B5A2B;
     --highlight: rgba(235, 157, 42, .25);
     --shadow: 0 10px 30px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
     --dragon: #4FAF5B;
@@ -321,7 +322,10 @@
   .prose hr { border: 0; border-top: 1px dashed var(--border); margin: 24px 0; }
 
   .gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-  .gear-card { border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; }
+  .gear-card { border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; padding: 0; text-align: left; cursor: pointer; transition: transform .12s, border-color .12s; }
+  .gear-card:hover { transform: translateY(-2px); border-color: var(--border); }
+  .gear-card:focus-visible { outline: 2px solid var(--btn); outline-offset: 2px; }
+  .gear-cover { max-height: 380px; object-fit: contain; background: var(--surface-2); }
   .gear-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--surface-2); }
   .gear-ph { display: grid; place-items: center; color: #8B5A2B; }
   .gear-ph svg { width: 44px; height: 44px; opacity: .7; }
@@ -418,7 +422,7 @@ const UI = {
     status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
     writingIntro: "Notes on product, people, and the occasional side quest.", noProjects: "Nothing here yet — check back soon.",
     coffeeIntro: "The gear on my counter and the milk I've poured.", equipment: "Equipment", latteArt: "Latte art",
-    gearTypes: { brewer: "Brewers", grinder: "Grinders", other: "Other gear" }, noGear: "No gear added yet.", noArt: "No latte art yet — still practising.",
+    gearTypes: { brewer: "Brewers", grinder: "Grinders", other: "Other gear" }, noGear: "No gear added yet.", backToCoffee: "← Coffee", usingSince: y => `Using since ${y}`, noArt: "No latte art yet — still practising.",
     minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
     notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
@@ -440,7 +444,7 @@ const UI = {
     status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
     writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։", noProjects: "Դեռ ոչինչ չկա — շուտով։",
     coffeeIntro: "Իմ սուրճի պարագաները և լատե արտը։", equipment: "Պարագաներ", latteArt: "Լատե արտ",
-    gearTypes: { brewer: "Եփող սարքեր", grinder: "Աղացներ", other: "Այլ պարագաներ" }, noGear: "Պարագաներ դեռ չկան։", noArt: "Լատե արտ դեռ չկա — դեռ վարժվում եմ։",
+    gearTypes: { brewer: "Եփող սարքեր", grinder: "Աղացներ", other: "Այլ պարագաներ" }, noGear: "Պարագաներ դեռ չկան։", backToCoffee: "← Սուրճ", usingSince: y => `Օգտագործում եմ ${y}-ից`, noArt: "Լատե արտ դեռ չկա — դեռ վարժվում եմ։",
     minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
     notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
@@ -508,7 +512,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": 
 const asset = p => String(p || "").replace(/^\/+/, "");
 const md = s => (window.marked && window.DOMPurify ? DOMPurify.sanitize(marked.parse(s || "")) : `<p>${esc(s)}</p>`);
 const headline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<span class="hl">$1</span>');
-const color = c => `var(--${["orange", "blue", "yellow", "green", "purple", "pink", "teal", "red"].includes(c) ? c : "orange"})`;
+const color = c => `var(--${["orange", "blue", "yellow", "green", "purple", "pink", "teal", "red", "brown"].includes(c) ? c : "orange"})`;
 const HY_MONTHS = ["հնվ", "փտվ", "մրտ", "ապր", "մյս", "հնս", "հլս", "օգս", "սեպ", "հոկ", "նոյ", "դեկ"];
 const fmtDate = d => {
   const date = new Date(String(d).slice(0, 10) + "T00:00");
@@ -714,14 +718,13 @@ const STATIC = {
       const items = gear(), art = latteArt();
       const tab = (id, label, n) => `<button class="chip" data-coffee-tab="${id}" aria-pressed="${coffeeTab === id}">${label} <small>${n}</small></button>`;
       const card = g => `
-        <div class="gear-card">
+        <button class="gear-card" data-open="gear/${esc(g.slug)}">
           ${g.image ? `<img class="gear-photo" src="${esc(asset(g.image))}" alt="${esc(g.name)}" loading="lazy">` : `<div class="gear-photo gear-ph">${svg(g.type === "grinder" ? "grinder" : "coffee")}</div>`}
           <div class="gear-info">
             <h3>${esc(g.name)}</h3>
             ${g.notes ? `<p>${esc(g.notes)}</p>` : ""}
-            ${g.link ? `<a href="${esc(g.link)}" target="_blank" rel="noopener">${T.visit}</a>` : ""}
           </div>
-        </div>`;
+        </button>`;
       const equipment = ["brewer", "grinder", "other"]
         .map(t => ({ t, list: items.filter(g => (g.type || "other") === t) }))
         .filter(x => x.list.length)
@@ -811,7 +814,7 @@ const STATIC = {
 // Each section can have its translation switched off in the CMS (Site settings →
 // Translations). Visitors then see that section in English, whatever is filled in.
 const SECTIONS = ["home", "about", "projects", "writing", "coffee", "resume", "contact"];
-const sectionOf = id => ({ project: "projects", post: "writing" })[id.split("/")[0]] || id;
+const sectionOf = id => ({ project: "projects", post: "writing", gear: "coffee" })[id.split("/")[0]] || id;
 const sectionLang = id => {
   const on = DATA.settings?.[DEFAULT_LANG]?.translations?.[sectionOf(id)];
   return lang !== DEFAULT_LANG && SECTIONS.includes(sectionOf(id)) && on === false ? DEFAULT_LANG : lang;
@@ -858,6 +861,31 @@ function buildDef(id) {
         <p style="font-size:17px">${esc(d.summary)}</p>
         ${d.body ? `<div class="prose">${md(d.body)}</div>` : ""}
         ${(d.tags || []).length ? `<div class="pills" style="margin-top:16px">${d.tags.map(t => `<span class="pill mono">${esc(t)}</span>`).join("")}</div>` : ""}
+        ${d.link ? `<p style="margin-top:22px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">${T.visit}</a></p>` : ""}`;
+      },
+    };
+  }
+  if (kind === "gear") {
+    const raw = (DATA.coffee?.equipment || []).find(g => g.slug === slug);
+    if (!raw) return null;
+    const g = () => locAny(raw);
+    return {
+      title: () => g().name, icon: () => fileIcon("brown", g().type === "grinder" ? "grinder" : "coffee"), w: 700, h: 640,
+      render: () => {
+        const d = g();
+        const photos = (d.photos || []).map(p => p?.photo ?? p).filter(Boolean);
+        return `
+        <button class="link-btn back" data-open="coffee">${T.backToCoffee}</button>
+        ${d.image ? `<img class="cover gear-cover" src="${esc(asset(d.image))}" alt="${esc(d.name)}">` : ""}
+        <h1 class="page">${esc(d.name)}</h1>
+        <div class="detail-meta">
+          ${d.type ? `<span class="pill cat"><i class="dot" style="background:var(--brown)"></i>${esc(T.gearTypes[d.type] || d.type)}</span>` : ""}
+          ${d.since ? `<span class="muted" style="font-size:14px">${esc(T.usingSince(d.since))}</span>` : ""}
+        </div>
+        ${d.notes ? `<p style="font-size:17px">${esc(d.notes)}</p>` : ""}
+        ${d.body ? `<div class="prose">${md(d.body)}</div>` : ""}
+        ${photos.length ? `<div class="art-grid" style="margin-top:18px">${photos.map(p => `
+          <button class="art" data-src="${esc(asset(p))}" data-caption=""><img src="${esc(asset(p))}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}
         ${d.link ? `<p style="margin-top:22px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">${T.visit}</a></p>` : ""}`;
       },
     };

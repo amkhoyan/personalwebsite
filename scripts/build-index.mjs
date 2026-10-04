@@ -13,7 +13,16 @@ async function readFolder(dir) {
   try {
     files = (await readdir(join(ROOT, dir))).filter(f => f.endsWith(".json")).sort();
   } catch {}
-  return Promise.all(files.map(async f => ({ slug: f.slice(0, -5), ...(await readJson(join(dir, f))) })));
+  const entries = await Promise.all(files.map(async f => {
+    try {
+      return { slug: f.slice(0, -5), ...(await readJson(join(dir, f))) };
+    } catch (err) {
+      // One broken file shouldn't take the whole site down.
+      console.warn(`Skipping ${join(dir, f)}: ${err.message}`);
+      return null;
+    }
+  }));
+  return entries.filter(Boolean);
 }
 
 export async function buildIndex() {
