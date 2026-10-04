@@ -320,6 +320,23 @@
   .prose code { font-family: "IBM Plex Mono", monospace; font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
   .prose hr { border: 0; border-top: 1px dashed var(--border); margin: 24px 0; }
 
+  .gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .gear-card { border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; }
+  .gear-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--surface-2); }
+  .gear-ph { display: grid; place-items: center; color: #8B5A2B; }
+  .gear-ph svg { width: 44px; height: 44px; opacity: .7; }
+  .gear-info { padding: 12px 14px 14px; }
+  .gear-info p { font-size: 13.5px; color: var(--muted); margin: 4px 0 6px; }
+  .gear-info a { font-size: 13.5px; }
+  .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+  .art { position: relative; padding: 0; border: 0; border-radius: 8px; overflow: hidden; cursor: zoom-in; aspect-ratio: 1; background: var(--surface-2); }
+  .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .2s; }
+  .art:hover img { transform: scale(1.04); }
+  .art span { position: absolute; inset: auto 0 0 0; padding: 18px 10px 8px; font-size: 12.5px; color: #fff; text-align: left; background: linear-gradient(transparent, rgba(0,0,0,.65)); }
+  .lightbox { position: fixed; inset: 0; z-index: 20000; background: rgba(0,0,0,.85); display: grid; place-items: center; padding: 24px; cursor: zoom-out; animation: pop .14s ease-out; }
+  .lightbox figure { margin: 0; max-width: 100%; max-height: 100%; text-align: center; }
+  .lightbox img { max-width: min(92vw, 1100px); max-height: 82vh; border-radius: 8px; display: block; margin: 0 auto; }
+  .lightbox figcaption { color: #eee; margin-top: 12px; font-size: 14px; }
   .empty { text-align: center; padding: 30px 10px; }
   .empty svg { width: 160px; }
 
@@ -360,6 +377,7 @@
   <button class="menu-item" data-open="about" data-t="about"></button>
   <button class="menu-item" data-open="projects" data-t="projects"></button>
   <button class="menu-item" data-open="writing" data-t="writing"></button>
+  <button class="menu-item" data-open="coffee" data-t="coffee"></button>
   <button class="menu-item" data-open="resume" data-t="resume"></button>
   <nav class="tabs" id="tabs" aria-label="Open windows"></nav>
   <div class="menubar-right">
@@ -389,9 +407,9 @@ const DEFAULT_LANG = "en";
 
 const UI = {
   en: {
-    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", sayHi: "Say hi",
+    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", coffee: "Coffee", sayHi: "Say hi",
     bubble: "psst… click an icon",
-    files: { home: "home.mdx", about: "about-me.md", projects: "projects", writing: "writing", resume: "resume.pdf", contact: "contact.exe", trash: "Trash" },
+    files: { home: "home.mdx", about: "about-me.md", projects: "projects", writing: "writing", coffee: "coffee", resume: "resume.pdf", contact: "contact.exe", trash: "Trash" },
     seeWork: "See my work →", moreAbout: "More about me",
     whatIDo: "What I do", numbers: "By the numbers", featured: "Featured projects", seeAll: "See all →",
     projectsIntro: "Product work, side quests, and everything in between.",
@@ -399,6 +417,8 @@ const UI = {
     categories: { product: "Product", tech: "Tech", community: "Community", volunteering: "Volunteering", creative: "Creative", education: "Education", sport: "Sport", personal: "Personal", love: "For the love of it" },
     status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
     writingIntro: "Notes on product, people, and the occasional side quest.", noProjects: "Nothing here yet — check back soon.",
+    coffeeIntro: "The gear on my counter and the milk I've poured.", equipment: "Equipment", latteArt: "Latte art",
+    gearTypes: { brewer: "Brewers", grinder: "Grinders", other: "Other gear" }, noGear: "No gear added yet.", noArt: "No latte art yet — still practising.",
     minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
     notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
@@ -409,9 +429,9 @@ const UI = {
     loading: "Loading…",
   },
   hy: {
-    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", sayHi: "Գրեք ինձ",
+    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", coffee: "Սուրճ", sayHi: "Գրեք ինձ",
     bubble: "պսս… սեղմեք պատկերակին",
-    files: { home: "գլխավոր.mdx", about: "իմ-մասին.md", projects: "նախագծեր", writing: "գրառումներ", resume: "ռեզյումե.pdf", contact: "կապ.exe", trash: "Աղբարկղ" },
+    files: { home: "գլխավոր.mdx", about: "իմ-մասին.md", projects: "նախագծեր", writing: "գրառումներ", coffee: "սուրճ", resume: "ռեզյումե.pdf", contact: "կապ.exe", trash: "Աղբարկղ" },
     seeWork: "Տեսնել աշխատանքներս →", moreAbout: "Ավելին իմ մասին",
     whatIDo: "Ինչով եմ զբաղվում", numbers: "Թվերով", featured: "Ընտրված նախագծեր", seeAll: "Տեսնել բոլորը →",
     projectsIntro: "Պրոդուկտային աշխատանք, կողմնակի նախագծեր և այն ամենը, ինչ դրանց միջև է։",
@@ -419,6 +439,8 @@ const UI = {
     categories: { product: "Պրոդուկտ", tech: "Տեխնոլոգիա", community: "Համայնք", volunteering: "Կամավորություն", creative: "Ստեղծագործական", education: "Կրթություն", sport: "Սպորտ", personal: "Անձնական", love: "Հոգու համար" },
     status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
     writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։", noProjects: "Դեռ ոչինչ չկա — շուտով։",
+    coffeeIntro: "Իմ սուրճի պարագաները և լատե արտը։", equipment: "Պարագաներ", latteArt: "Լատե արտ",
+    gearTypes: { brewer: "Եփող սարքեր", grinder: "Աղացներ", other: "Այլ պարագաներ" }, noGear: "Պարագաներ դեռ չկան։", noArt: "Լատե արտ դեռ չկա — դեռ վարժվում եմ։",
     minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
     notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
@@ -523,6 +545,8 @@ const I = {
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   min: '<path d="M5 12h14"/>',
   max: '<rect x="5" y="5" width="14" height="14" rx="1.5"/>',
+  coffee: '<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M12 3v3"/>',
+  grinder: '<path d="M7 3h10l-1 5H8Z"/><path d="M6 8h12v13H6Z"/><circle cx="12" cy="14" r="2.5"/><path d="M12 3V1M14 1h3"/>',
 };
 const svg = (name, extra = "") =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${I[name] || I.box}</svg>`;
@@ -581,6 +605,21 @@ const posts = () => DATA.posts
   .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 
 let projectFilter = "all";
+let coffeeTab = "equipment";
+
+// Coffee entries show in every language: the current one first, then any other.
+const locAny = entry => merge(LANGS.filter(l => l !== lang).reduce((acc, l) => merge(acc, entry?.[l] || {}), {}), entry?.[lang] || {});
+const gear = () => (DATA.coffee?.equipment || []).map(e => ({ slug: e.slug, ...locAny(e) })).filter(e => e.name);
+const latteArt = () => (DATA.coffee?.latte_art || []).map(e => ({ slug: e.slug, ...locAny(e) })).filter(e => e.image)
+  .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+
+function openLightbox(src, caption) {
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.innerHTML = `<figure><img src="${esc(src)}" alt="${esc(caption)}">${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}</figure>`;
+  box.onclick = () => box.remove();
+  document.body.appendChild(box);
+}
 
 const projectRow = p => `
   <div class="row" role="button" tabindex="0" data-open="project/${esc(p.slug)}">
@@ -669,6 +708,38 @@ const STATIC = {
       </table>` : `<p class="muted">${T.noPosts}</p>`}`;
     },
   },
+  coffee: {
+    icon: () => folderIcon("#8B5A2B"), w: 760, h: 600,
+    render: () => {
+      const items = gear(), art = latteArt();
+      const tab = (id, label, n) => `<button class="chip" data-coffee-tab="${id}" aria-pressed="${coffeeTab === id}">${label} <small>${n}</small></button>`;
+      const card = g => `
+        <div class="gear-card">
+          ${g.image ? `<img class="gear-photo" src="${esc(asset(g.image))}" alt="${esc(g.name)}" loading="lazy">` : `<div class="gear-photo gear-ph">${svg(g.type === "grinder" ? "grinder" : "coffee")}</div>`}
+          <div class="gear-info">
+            <h3>${esc(g.name)}</h3>
+            ${g.notes ? `<p>${esc(g.notes)}</p>` : ""}
+            ${g.link ? `<a href="${esc(g.link)}" target="_blank" rel="noopener">${T.visit}</a>` : ""}
+          </div>
+        </div>`;
+      const equipment = ["brewer", "grinder", "other"]
+        .map(t => ({ t, list: items.filter(g => (g.type || "other") === t) }))
+        .filter(x => x.list.length)
+        .map(x => `<h2 class="cv-h">${T.gearTypes[x.t]}</h2><div class="gear-grid">${x.list.map(card).join("")}</div>`).join("");
+      const gallery = art.map(a => `
+        <button class="art" data-src="${esc(asset(a.image))}" data-caption="${esc(a.caption || "")}">
+          <img src="${esc(asset(a.image))}" alt="${esc(a.caption || T.latteArt)}" loading="lazy">
+          ${a.caption ? `<span>${esc(a.caption)}</span>` : ""}
+        </button>`).join("");
+      return `
+      <h1 class="page">${T.coffee} ☕</h1>
+      <p class="intro">${T.coffeeIntro}</p>
+      <div class="chips">${tab("equipment", T.equipment, items.length)}${tab("latte", T.latteArt, art.length)}</div>
+      ${coffeeTab === "equipment"
+        ? (equipment || `<p class="muted">${T.noGear}</p>`)
+        : (gallery ? `<div class="art-grid">${gallery}</div>` : `<p class="muted">${T.noArt}</p>`)}`;
+    },
+  },
   resume: {
     icon: () => fileIcon("pink", "doc"), w: 920, h: 700,
     render: () => {
@@ -739,7 +810,7 @@ const STATIC = {
 
 // Each section can have its translation switched off in the CMS (Site settings →
 // Translations). Visitors then see that section in English, whatever is filled in.
-const SECTIONS = ["home", "about", "projects", "writing", "resume", "contact"];
+const SECTIONS = ["home", "about", "projects", "writing", "coffee", "resume", "contact"];
 const sectionOf = id => ({ project: "projects", post: "writing" })[id.split("/")[0]] || id;
 const sectionLang = id => {
   const on = DATA.settings?.[DEFAULT_LANG]?.translations?.[sectionOf(id)];
@@ -941,7 +1012,7 @@ function renderTabs() {
 /* =====================================================================
    Chrome (menubar, icons) + language switching
    ===================================================================== */
-const ICONS_LEFT = ["home", "about", "projects", "writing"];
+const ICONS_LEFT = ["home", "about", "projects", "writing", "coffee"];
 const ICONS_RIGHT = ["resume", "contact", "trash"];
 
 function renderChrome() {
@@ -975,6 +1046,15 @@ function setLang(next) {
 document.addEventListener("click", e => {
   const langBtn = e.target.closest("[data-lang]");
   if (langBtn) return setLang(langBtn.dataset.lang);
+  const coffeeBtn = e.target.closest("[data-coffee-tab]");
+  if (coffeeBtn) {
+    coffeeTab = coffeeBtn.dataset.coffeeTab;
+    const w = open.get("coffee");
+    if (w) renderBody(w);
+    return;
+  }
+  const art = e.target.closest(".art[data-src]");
+  if (art) return openLightbox(art.dataset.src, art.dataset.caption);
   const filter = e.target.closest("[data-filter]");
   if (filter) {
     projectFilter = filter.dataset.filter;
@@ -987,6 +1067,7 @@ document.addEventListener("click", e => {
   if (t) openWin(t.dataset.open);
 });
 document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && document.querySelector(".lightbox")) return document.querySelector(".lightbox").remove();
   if (e.key === "Escape") {
     const focused = [...open].find(([, w]) => w.el.classList.contains("focused"));
     if (focused) closeWin(focused[0]);

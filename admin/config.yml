@@ -7,6 +7,17 @@ backend:
 media_folder: images/uploads
 public_folder: /images/uploads
 
+# Uploaded photos are converted to WebP and scaled down so the site stays fast.
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 1600
+          height: 1600
+
 i18n:
   structure: single_file
   locales: [en, hy]
@@ -113,6 +124,59 @@ collections:
       - { label: Draft (hidden from site), name: draft, widget: boolean, i18n: duplicate, default: false, required: false }
       - { label: Body, name: body, widget: markdown, i18n: true, required: false }
 
+  # ---------------------------------------------------------------- Coffee
+  - name: coffee_equipment
+    label: "Coffee: Equipment"
+    label_singular: Coffee gear
+    description: Brewers, grinders and other gear. Shown under Coffee → Equipment.
+    folder: content/coffee/equipment
+    extension: json
+    format: json
+    create: true
+    i18n: true
+    slug: "{{uuid_short}}"
+    identifier_field: name
+    summary: "{{name}} ({{type}})"
+    sortable_fields: [name, type]
+    view_filters:
+      - { label: Brewers, field: type, pattern: brewer }
+      - { label: Grinders, field: type, pattern: grinder }
+      - { label: Other, field: type, pattern: other }
+    editor: { preview: false }
+    fields:
+      - { label: Name, name: name, widget: string, i18n: true, required: false, hint: "e.g. Comandante C40. Leave Armenian empty to use the English name." }
+      - label: Type
+        name: type
+        widget: select
+        i18n: duplicate
+        default: brewer
+        options:
+          - { label: "Brewer", value: brewer }
+          - { label: "Grinder", value: grinder }
+          - { label: "Other", value: other }
+      - { label: Photo, name: image, widget: image, i18n: duplicate, required: false }
+      - { label: Notes, name: notes, widget: text, i18n: true, required: false, hint: "What you use it for, what you like about it." }
+      - { label: Link, name: link, widget: string, i18n: duplicate, required: false }
+
+  - name: latte_art
+    label: "Coffee: Latte art"
+    label_singular: Latte art photo
+    description: Photos of your latte art. Shown under Coffee → Latte art.
+    folder: content/coffee/latte-art
+    extension: json
+    format: json
+    create: true
+    i18n: true
+    slug: "{{uuid_short}}"
+    identifier_field: caption
+    summary: "{{caption}} {{fields.date}}"
+    sortable_fields: [date]
+    editor: { preview: false }
+    fields:
+      - { label: Photo, name: image, widget: image, i18n: duplicate }
+      - { label: Caption, name: caption, widget: string, i18n: true, required: false }
+      - { label: Date, name: date, widget: datetime, i18n: duplicate, required: false, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+
   # ---------------------------------------------------------------- Site settings
   - name: settings
     label: Site settings
@@ -154,6 +218,7 @@ collections:
               - { label: Projects, name: projects, widget: boolean, default: true, required: false }
               - { label: Writing, name: writing, widget: boolean, default: true, required: false }
               - { label: Resume, name: resume, widget: boolean, default: true, required: false }
+              - { label: Coffee, name: coffee, widget: boolean, default: true, required: false }
               - { label: Contact, name: contact, widget: boolean, default: true, required: false }
           # --- Home
           - { label: Greeting chip, name: eyebrow, widget: string, i18n: true }
