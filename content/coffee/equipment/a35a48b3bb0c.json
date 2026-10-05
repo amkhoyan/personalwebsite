@@ -1,16 +1,15 @@
 {
   "en": {
-    "name": "1zspessi K Ultra",
+    "name": "1Zpresso K-Ultra",
     "type": "grinder",
     "image": "/images/uploads/K-Ultra-grinder.webp",
-    "notes": "Lore ipsum my ass",
-    "link": ""
+    "notes": "Premium hand grinder with external grind adjustment — works for everything from espresso to filter.",
+    "link": "",
+    "photos": [
+      "/images/uploads/1zpresso-k-ultra.jpg"
+    ]
   },
   "hy": {
-    "name": "",
-    "type": "grinder",
-    "image": "/images/uploads/K-Ultra-grinder.webp",
-    "notes": "",
-    "link": ""
+    "notes": "Պրեմիում ձեռքի աղաց՝ արտաքին կարգավորմամբ, էսպրեսոյից մինչև ֆիլտր սուրճ։"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "en": {
+    "name": "HiBREW espresso machine",
+    "type": "brewer",
+    "image": "/images/uploads/hibrew-espresso-machine.jpg",
+    "notes": "Semi-automatic espresso machine with a pressure gauge and steam wand.",
+    "since": "",
+    "body": "",
+    "photos": [],
+    "link": ""
+  },
+  "hy": {
+    "notes": "Կիսաավտոմատ էսպրեսո մեքենա՝ ճնշման ցուցիչով և գոլորշու խողովակով։",
+    "name": "HiBREW էսպրեսո մեքենա"
+  }
+}
