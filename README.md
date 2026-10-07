@@ -21,6 +21,19 @@ When you click **Save**, the CMS saves the change to GitHub and the site updates
 - Upload a **Photo** in Site settings to replace the dragon avatar.
 - Links can open straight to a window or language, e.g. `/?lang=hy#projects` or `/#project/<file-name>`.
 
+## For AI tools and recruiters
+
+On every publish the site also generates, from your CMS content:
+
+| URL | What it is |
+|---|---|
+| `/llms.txt` | Short profile for AI assistants ([llmstxt.org](https://llmstxt.org)): role, experience, contact, links |
+| `/resume.md` | Full resume in Markdown |
+| `/llms-full.txt` | Resume + about + projects + writing in one file |
+| `/robots.txt`, `/sitemap.xml` | Lets search engines and AI crawlers in |
+
+The home page also includes your resume as plain HTML (for crawlers that don't run JavaScript) and schema.org `Person` data. Turn on **Site settings → Open to new roles** (and fill **Looking for**) to tell AI recruiting tools you're available.
+
 ## Running it on your computer
 
 Needs [Node.js](https://nodejs.org) 18+.
@@ -41,7 +54,7 @@ content/settings.json site-wide text, one block per language
 content/projects/     one file per project
 content/posts/        one file per post
 images/uploads/       images uploaded through the CMS
-scripts/              bundles content/ into content/index.json on deploy
+scripts/              builds _site/: bundles content/, generates llms.txt, resume.md, SEO tags
 .github/workflows/    publishes the site to GitHub Pages on every change
 ```
 

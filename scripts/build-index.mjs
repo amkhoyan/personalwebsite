@@ -37,7 +37,7 @@ export async function buildIndex() {
   };
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const index = await buildIndex();
   await writeFile(join(ROOT, "content/index.json"), JSON.stringify(index));
   console.log(`content/index.json: ${index.projects.length} projects, ${index.posts.length} posts`);
