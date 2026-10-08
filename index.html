@@ -132,7 +132,7 @@
     background: none; border: 0; padding: 6px 4px; cursor: pointer; border-radius: 6px;
   }
   .desk-icon svg { width: 48px; height: 48px; filter: drop-shadow(0 2px 0 rgba(0,0,0,.08)); }
-  .desk-icon span { font-size: 12.5px; font-weight: 500; padding: 1px 6px; border-radius: 4px; text-align: center; line-height: 1.3; }
+  .desk-icon span { font-size: 12.5px; font-weight: 500; padding: 1px 6px; border-radius: 4px; text-align: center; line-height: 1.3; overflow-wrap: anywhere; }
   .desk-icon:hover span, .desk-icon:focus-visible span { background: var(--highlight); }
   .desk-icon:focus { outline: none; }
   .wallpaper { position: absolute; right: 120px; bottom: 28px; width: 260px; pointer-events: none; }
@@ -343,6 +343,21 @@
   .lightbox figure { margin: 0; max-width: 100%; max-height: 100%; text-align: center; }
   .lightbox img { max-width: min(92vw, 1100px); max-height: 82vh; border-radius: 8px; display: block; margin: 0 auto; }
   .lightbox figcaption { color: #eee; margin-top: 12px; font-size: 14px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .svc-card { border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg); display: flex; flex-direction: column; transition: transform .12s, border-color .12s; }
+  .svc-card:hover { transform: translateY(-2px); border-color: var(--border); }
+  .svc-open { flex: 1; background: none; border: 0; padding: 16px 16px 10px; text-align: left; cursor: pointer; }
+  .svc-open h3 { font-size: 17px; }
+  .svc-open p { font-size: 14px; color: var(--muted); margin: 6px 0 10px; }
+  .svc-metas { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .svc-meta { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); }
+  .svc-meta svg { width: 14px; height: 14px; }
+  .svc-card footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px 14px; border-top: 1px dashed var(--border); }
+  .svc-price { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+  .svc-buy { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 24px; padding: 16px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg); }
+  .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+  .checklist svg { width: 18px; height: 18px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
   .empty { text-align: center; padding: 30px 10px; }
   /* Plain-HTML profile for crawlers; covered by the desktop and removed when the app boots. */
   .prerender { position: relative; z-index: 0; padding: 60px 20px; max-width: 760px; }
@@ -386,6 +401,7 @@
   <button class="menu-item" data-open="projects" data-t="projects"></button>
   <button class="menu-item" data-open="writing" data-t="writing"></button>
   <button class="menu-item" data-open="coffee" data-t="coffee"></button>
+  <button class="menu-item" data-open="services" data-t="services"></button>
   <button class="menu-item" data-open="resume" data-t="resume"></button>
   <nav class="tabs" id="tabs" aria-label="Open windows"></nav>
   <div class="menubar-right">
@@ -418,9 +434,9 @@ const DEFAULT_LANG = "en";
 
 const UI = {
   en: {
-    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", coffee: "Coffee", sayHi: "Say hi",
+    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", coffee: "Coffee", services: "Services", sayHi: "Say hi",
     bubble: "psst… click an icon",
-    files: { home: "home.mdx", about: "about-me.md", projects: "projects", writing: "writing", coffee: "coffee", resume: "resume.pdf", contact: "contact.exe", trash: "Trash" },
+    files: { home: "home.mdx", about: "about-me.md", projects: "projects", writing: "writing", coffee: "coffee", services: "services.app", resume: "resume.pdf", contact: "contact.exe", trash: "Trash" },
     seeWork: "See my work →", moreAbout: "More about me",
     whatIDo: "What I do", numbers: "By the numbers", featured: "Featured projects", seeAll: "See all →",
     projectsIntro: "Product work, side quests, and everything in between.",
@@ -429,7 +445,9 @@ const UI = {
     status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
     writingIntro: "Notes on product, people, and the occasional side quest.", noProjects: "Nothing here yet — check back soon.",
     coffeeIntro: "The gear on my counter and the milk I've poured.", equipment: "Equipment", latteArt: "Latte art",
-    gearTypes: { brewer: "Brewers", grinder: "Grinders", other: "Other gear" }, noGear: "No gear added yet.", backToCoffee: "← Coffee", usingSince: y => `Using since ${y}`, noArt: "No latte art yet — still practising.",
+    gearTypes: { brewer: "Brewers", grinder: "Grinders", other: "Other gear" }, noGear: "No gear added yet.",
+    servicesIntro: "Help with your coffee setup — especially espresso.", priceOnRequest: "Price on request", book: "Book →", included: "What's included", backToServices: "← Services",
+    formats: { online: "Online", in_person: "In person", both: "Online or in person" }, noServices: "Services are coming soon. Meanwhile, say hi!", details: "Details", backToCoffee: "← Coffee", usingSince: y => `Using since ${y}`, noArt: "No latte art yet — still practising.",
     minRead: n => `${n} min read`, noPosts: "Nothing here yet — check back soon.",
     notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
@@ -440,9 +458,9 @@ const UI = {
     loading: "Loading…",
   },
   hy: {
-    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", coffee: "Սուրճ", sayHi: "Գրեք ինձ",
+    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", coffee: "Սուրճ", services: "Ծառայություններ", sayHi: "Գրեք ինձ",
     bubble: "պսս… սեղմեք պատկերակին",
-    files: { home: "գլխավոր.mdx", about: "իմ-մասին.md", projects: "նախագծեր", writing: "գրառումներ", coffee: "սուրճ", resume: "ռեզյումե.pdf", contact: "կապ.exe", trash: "Աղբարկղ" },
+    files: { home: "գլխավոր.mdx", about: "իմ-մասին.md", projects: "նախագծեր", writing: "գրառումներ", coffee: "սուրճ", services: "ծառայություններ.app", resume: "ռեզյումե.pdf", contact: "կապ.exe", trash: "Աղբարկղ" },
     seeWork: "Տեսնել աշխատանքներս →", moreAbout: "Ավելին իմ մասին",
     whatIDo: "Ինչով եմ զբաղվում", numbers: "Թվերով", featured: "Ընտրված նախագծեր", seeAll: "Տեսնել բոլորը →",
     projectsIntro: "Պրոդուկտային աշխատանք, կողմնակի նախագծեր և այն ամենը, ինչ դրանց միջև է։",
@@ -451,7 +469,9 @@ const UI = {
     status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
     writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։", noProjects: "Դեռ ոչինչ չկա — շուտով։",
     coffeeIntro: "Իմ սուրճի պարագաները և լատե արտը։", equipment: "Պարագաներ", latteArt: "Լատե արտ",
-    gearTypes: { brewer: "Եփող սարքեր", grinder: "Աղացներ", other: "Այլ պարագաներ" }, noGear: "Պարագաներ դեռ չկան։", backToCoffee: "← Սուրճ", usingSince: y => `Օգտագործում եմ ${y}-ից`, noArt: "Լատե արտ դեռ չկա — դեռ վարժվում եմ։",
+    gearTypes: { brewer: "Եփող սարքեր", grinder: "Աղացներ", other: "Այլ պարագաներ" }, noGear: "Պարագաներ դեռ չկան։",
+    servicesIntro: "Օգնություն սուրճի սարքավորումների հարցում՝ հատկապես էսպրեսոյի։", priceOnRequest: "Գինը՝ ըստ պահանջի", book: "Ամրագրել →", included: "Ինչ է ներառված", backToServices: "← Ծառայություններ",
+    formats: { online: "Առցանց", in_person: "Անձամբ", both: "Առցանց կամ անձամբ" }, noServices: "Ծառայությունները շուտով։ Մինչ այդ՝ գրեք ինձ։", details: "Մանրամասներ", backToCoffee: "← Սուրճ", usingSince: y => `Օգտագործում եմ ${y}-ից`, noArt: "Լատե արտ դեռ չկա — դեռ վարժվում եմ։",
     minRead: n => `${n} րոպե`, noPosts: "Դեռ ոչինչ չկա — շուտով։",
     notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
@@ -556,6 +576,9 @@ const I = {
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   min: '<path d="M5 12h14"/>',
   max: '<rect x="5" y="5" width="14" height="14" rx="1.5"/>',
+  bag: '<path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  check: '<path d="m5 12 5 5 9-10"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   coffee: '<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M12 3v3"/>',
   grinder: '<path d="M7 3h10l-1 5H8Z"/><path d="M6 8h12v13H6Z"/><circle cx="12" cy="14" r="2.5"/><path d="M12 3V1M14 1h3"/>',
 };
@@ -617,6 +640,18 @@ const posts = () => DATA.posts
 
 let projectFilter = "all";
 let coffeeTab = "equipment";
+
+const services = () => (DATA.services || [])
+  .filter(e => hasLang(e))
+  .map(e => ({ slug: e.slug, ...loc(e) }))
+  .filter(x => !x.draft)
+  .sort((a, b) => (a.order ?? 10) - (b.order ?? 10) || String(a.title).localeCompare(String(b.title)));
+// Book: the service's booking link, or an email to you with the service named.
+const bookHref = sv => sv.booking_url || `mailto:${S().email || ""}?subject=${encodeURIComponent(`${T.services}: ${sv.title}`)}`;
+const serviceMeta = sv => [
+  sv.duration && `<span class="svc-meta">${svg("clock")}${esc(sv.duration)}</span>`,
+  sv.format && `<span class="svc-meta">${svg("globe")}${esc(T.formats[sv.format] || sv.format)}</span>`,
+].filter(Boolean).join("");
 
 // Coffee entries show in every language: the current one first, then any other.
 const locAny = entry => merge(LANGS.filter(l => l !== lang).reduce((acc, l) => merge(acc, entry?.[l] || {}), {}), entry?.[lang] || {});
@@ -717,6 +752,27 @@ const STATIC = {
         <td><span class="post-title">${esc(p.title)}</span>${p.summary ? `<small>${esc(p.summary)}</small>` : ""}</td>
         <td class="rt">${T.minRead(minutes(p.body))}</td></tr>`).join("")}
       </table>` : `<p class="muted">${T.noPosts}</p>`}`;
+    },
+  },
+  services: {
+    icon: () => fileIcon("brown", "bag"), w: 760, h: 620,
+    render: () => {
+      const list = services(), s = S();
+      return `
+      <h1 class="page">${T.services}</h1>
+      <p class="intro">${esc(s.services_intro || T.servicesIntro)}</p>
+      ${list.length ? `<div class="svc-grid">${list.map(sv => `
+        <article class="svc-card">
+          <button class="svc-open" data-open="service/${esc(sv.slug)}">
+            <h3>${esc(sv.title)}</h3>
+            ${sv.summary ? `<p>${esc(sv.summary)}</p>` : ""}
+            <div class="svc-metas">${serviceMeta(sv)}</div>
+          </button>
+          <footer>
+            <span class="svc-price">${esc(sv.price || T.priceOnRequest)}</span>
+            <a class="btn sm" href="${esc(bookHref(sv))}" ${sv.booking_url ? 'target="_blank" rel="noopener"' : ""}>${T.book}</a>
+          </footer>
+        </article>`).join("")}</div>` : `<p class="muted">${T.noServices}</p><p><button class="btn" data-open="contact">${T.sayHi}</button></p>`}`;
     },
   },
   coffee: {
@@ -820,8 +876,8 @@ const STATIC = {
 
 // Each section can have its translation switched off in the CMS (Site settings →
 // Translations). Visitors then see that section in English, whatever is filled in.
-const SECTIONS = ["home", "about", "projects", "writing", "coffee", "resume", "contact"];
-const sectionOf = id => ({ project: "projects", post: "writing", gear: "coffee" })[id.split("/")[0]] || id;
+const SECTIONS = ["home", "about", "projects", "writing", "coffee", "services", "resume", "contact"];
+const sectionOf = id => ({ project: "projects", post: "writing", gear: "coffee", service: "services" })[id.split("/")[0]] || id;
 const sectionLang = id => {
   const on = DATA.settings?.[DEFAULT_LANG]?.translations?.[sectionOf(id)];
   return lang !== DEFAULT_LANG && SECTIONS.includes(sectionOf(id)) && on === false ? DEFAULT_LANG : lang;
@@ -869,6 +925,30 @@ function buildDef(id) {
         ${d.body ? `<div class="prose">${md(d.body)}</div>` : ""}
         ${(d.tags || []).length ? `<div class="pills" style="margin-top:16px">${d.tags.map(t => `<span class="pill mono">${esc(t)}</span>`).join("")}</div>` : ""}
         ${d.link ? `<p style="margin-top:22px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">${T.visit}</a></p>` : ""}`;
+      },
+    };
+  }
+  if (kind === "service") {
+    const raw = (DATA.services || []).find(x => x.slug === slug);
+    if (!raw) return null;
+    const v = () => ({ slug, ...locEntry(raw) });
+    return {
+      title: () => v().title, icon: () => fileIcon("brown", "bag"), w: 660, h: 620,
+      render: () => {
+        const sv = v();
+        return `
+        <button class="link-btn back" data-open="services">${T.backToServices}</button>
+        ${hasLang(raw) ? "" : notInLang(raw)}
+        ${sv.image ? `<img class="cover" src="${esc(asset(sv.image))}" alt="">` : ""}
+        <h1 class="page">${esc(sv.title)}</h1>
+        <div class="svc-metas" style="margin:12px 0 16px">${serviceMeta(sv)}</div>
+        ${sv.summary ? `<p style="font-size:17px">${esc(sv.summary)}</p>` : ""}
+        ${(sv.includes || []).length ? `<h2 class="cv-h">${T.included}</h2><ul class="checklist">${sv.includes.map(i => `<li>${svg("check")}<span>${esc(i)}</span></li>`).join("")}</ul>` : ""}
+        ${sv.body ? `<div class="prose" style="margin-top:16px">${md(sv.body)}</div>` : ""}
+        <div class="svc-buy">
+          <span class="svc-price">${esc(sv.price || T.priceOnRequest)}</span>
+          <a class="btn" href="${esc(bookHref(sv))}" ${sv.booking_url ? 'target="_blank" rel="noopener"' : ""}>${T.book}</a>
+        </div>`;
       },
     };
   }
@@ -1048,7 +1128,7 @@ function renderTabs() {
    Chrome (menubar, icons) + language switching
    ===================================================================== */
 const ICONS_LEFT = ["home", "about", "projects", "writing", "coffee"];
-const ICONS_RIGHT = ["resume", "contact", "trash"];
+const ICONS_RIGHT = ["resume", "services", "contact", "trash"];
 
 function renderChrome() {
   const s = S();

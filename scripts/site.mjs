@@ -31,9 +31,10 @@ function profile(index) {
   const projects = (index.projects || []).map(withSlug).filter(p => p.title);
   const posts = (index.posts || []).map(withSlug).filter(p => p.title && !p.draft).sort((a, b) => String(b.date).localeCompare(String(a.date)));
   const gear = (index.coffee?.equipment || []).map(pick).filter(g => g.name);
+  const services = (index.services || []).map(withSlug).filter(x => x.title && !x.draft).sort((a, b) => (a.order ?? 10) - (b.order ?? 10));
   const jobs = s.resume || [];
   const current = jobs[0];
-  return { s, projects, posts, gear, jobs, current };
+  return { s, projects, posts, gear, jobs, current, services };
 }
 
 function resumeMarkdown({ s, jobs }) {
@@ -72,7 +73,7 @@ function resumeMarkdown({ s, jobs }) {
 }
 
 function llmsTxt(p) {
-  const { s, projects, posts, current, jobs } = p;
+  const { s, projects, posts, current, jobs, services } = p;
   const years = s.stats?.map(x => `${x.value} ${x.label}`).join(", ");
   const lines = [`# ${s.name}`, ""];
   lines.push(`> ${oneLine([s.resume_title, s.location && `based in ${s.location}`].filter(Boolean).join(", "))}. ${oneLine(s.resume_summary || s.tagline)}`, "");
@@ -102,13 +103,19 @@ function llmsTxt(p) {
     for (const po of posts) lines.push(`- [${po.title}](${SITE_URL}/#post/${po.slug})${po.summary ? `: ${oneLine(po.summary)}` : ""}`);
     lines.push("");
   }
+  if (services.length) {
+    lines.push("## Services", "");
+    lines.push(`Paid coffee consultancy, especially home espresso setups. Book via ${s.email || "the website"}.`, "");
+    for (const sv of services) lines.push(`- [${sv.title}](${SITE_URL}/#service/${sv.slug}): ${[sv.summary && oneLine(sv.summary), sv.price, sv.duration].filter(Boolean).join(" — ")}`);
+    lines.push("");
+  }
   lines.push("## Optional", "");
   lines.push(`- [Coffee](${SITE_URL}/#coffee): personal interest — home espresso and brewing gear, latte art`);
   return lines.join("\n") + "\n";
 }
 
 function llmsFull(p) {
-  const { s, projects, posts, gear } = p;
+  const { s, projects, posts, gear, services } = p;
   const parts = [resumeMarkdown(p).replace(/^# .*/, `# ${s.name}`)];
   if (s.about) parts.push(`## About\n\n${s.about.trim()}\n`);
   if (projects.length) {
@@ -121,6 +128,13 @@ function llmsFull(p) {
   if (posts.length) {
     parts.push("## Writing\n");
     for (const po of posts) parts.push(`### ${po.title}\n\n*${po.date}*\n\n${(po.body || po.summary || "").trim()}\n`);
+  }
+  if (services.length) {
+    parts.push("## Services (coffee consultancy)\n");
+    for (const sv of services) {
+      const meta = [sv.price, sv.duration, sv.format && { online: "Online", in_person: "In person", both: "Online or in person" }[sv.format]].filter(Boolean).join(" · ");
+      parts.push(`### ${sv.title}\n\n${meta ? `*${meta}*\n\n` : ""}${sv.summary ? `${sv.summary.trim()}\n\n` : ""}${(sv.includes || []).map(i => `- ${i}`).join("\n")}${sv.includes?.length ? "\n\n" : ""}${sv.body ? `${sv.body.trim()}\n` : ""}`);
+    }
   }
   if (gear.length) parts.push(`## Personal interest: coffee\n\nHome coffee setup: ${gear.map(g => g.name).join(", ")}.\n`);
   return parts.join("\n");

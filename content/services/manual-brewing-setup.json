@@ -1,0 +1,30 @@
+{
+  "en": {
+    "title": "Manual brewing setup",
+    "duration": "45 min",
+    "summary": "Prefer filter, AeroPress or moka pot? Get the right gear and a few reliable recipes to start brewing well at home.",
+    "includes": [
+      "Choosing a brewer that suits your taste",
+      "Grinder advice for manual brewing",
+      "Starter recipes you can repeat"
+    ],
+    "body": "Manual brewing is the most affordable way into great coffee. We'll pick the method that matches how you like your cup and set you up with recipes that work from day one.",
+    "price": "",
+    "format": "online",
+    "image": "",
+    "booking_url": "",
+    "order": 3,
+    "draft": true
+  },
+  "hy": {
+    "title": "Ձեռքով եփման սարքավորումներ",
+    "duration": "45 րոպե",
+    "summary": "Նախընտրում եք ֆիլտր, AeroPress կամ մոկա՞։ Ձեռք բերեք ճիշտ պարագաներ և մի քանի վստահելի բաղադրատոմս՝ տանը լավ սուրճ եփելու համար։",
+    "includes": [
+      "Ձեր ճաշակին համապատասխան սրճեփի ընտրություն",
+      "Աղացի խորհուրդներ ձեռքով եփման համար",
+      "Կրկնելի սկզբնական բաղադրատոմսեր"
+    ],
+    "body": "Ձեռքով եփումը լավ սուրճի ամենամատչելի ճանապարհն է։ Կընտրենք այն մեթոդը, որը համապատասխանում է ձեր ճաշակին, և կտրամադրեմ բաղադրատոմսեր, որոնք կաշխատեն առաջին իսկ օրվանից։"
+  }
+}

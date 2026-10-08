@@ -30,6 +30,7 @@ export async function buildIndex() {
     settings: await readJson("content/settings.json"),
     projects: await readFolder("content/projects"),
     posts: await readFolder("content/posts"),
+    services: await readFolder("content/services"),
     coffee: {
       equipment: await readFolder("content/coffee/equipment"),
       latte_art: await readFolder("content/coffee/latte-art"),

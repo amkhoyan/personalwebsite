@@ -10,6 +10,7 @@ Go to **`https://<your-site>/admin`** and click **Sign In Using Access Token** (
 |---|---|
 | **Projects** | Everything you've worked on. Pick a **category** (Product, Tech, Community, Volunteering, Creative, Education, Sport, Personal, For the love of it) — non-IT projects are first-class. Tick **Featured** to show it on the home page. |
 | **Writing** | Blog posts. Tick **Draft** to hide one until it's ready. |
+| **Services** | Paid coffee consultancy. Set a **Price** (empty = "Price on request"), duration, format and what's included. **Book** opens your **Booking link**, or an email to you if empty. Untick **Draft** to publish. |
 | **Site settings** | Your name, headline, "What I do", stats, About, Right now, Fun facts, Resume, email and social links. |
 
 **Languages:** each editor shows English on the left and Armenian (ՀԱՅ) on the right. Anything you leave empty in Armenian automatically falls back to English, so you can translate gradually. Fields that are the same in both languages (category, year, links, images) are only edited on the English side.

@@ -184,6 +184,42 @@ collections:
       - { label: Caption, name: caption, widget: string, i18n: true, required: false }
       - { label: Date, name: date, widget: datetime, i18n: duplicate, required: false, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
 
+  # ---------------------------------------------------------------- Services
+  - name: services
+    label: Services
+    label_singular: Service
+    description: Paid consultations and sessions you offer. Shown in the Services window; the Book button opens your booking link or an email to you.
+    folder: content/services
+    extension: json
+    format: json
+    create: true
+    i18n: true
+    slug: "{{uuid_short}}"
+    identifier_field: title
+    summary: "{{title}} — {{fields.price}}"
+    sortable_fields: [order, title]
+    editor: { preview: false }
+    fields:
+      - { label: Title, name: title, widget: string, i18n: true, required: false, hint: "Fill in English, Armenian, or both. The service only appears in the languages that have a title." }
+      - { label: Short description, name: summary, widget: text, i18n: true, required: false, hint: "Shown on the card." }
+      - { label: Price, name: price, widget: string, i18n: true, required: false, hint: "e.g. 25,000 AMD or $60. Leave empty to show 'Price on request'." }
+      - { label: Duration, name: duration, widget: string, i18n: true, required: false, hint: "e.g. 60 min" }
+      - label: Format
+        name: format
+        widget: select
+        i18n: duplicate
+        default: both
+        options:
+          - { label: "Online", value: online }
+          - { label: "In person", value: in_person }
+          - { label: "Online or in person", value: both }
+      - { label: "What's included", name: includes, widget: list, i18n: true, required: false, hint: "One item per line, shown as a checklist." }
+      - { label: Details, name: body, widget: markdown, i18n: true, required: false, hint: "Longer description on the service's own page." }
+      - { label: Image, name: image, widget: image, i18n: duplicate, required: false }
+      - { label: Booking link, name: booking_url, widget: string, i18n: duplicate, required: false, hint: "Calendly, Cal.com, Google booking page… If empty, Book opens an email to you." }
+      - { label: Order, name: order, widget: number, i18n: duplicate, default: 10, value_type: int, required: false, hint: "Lower numbers show first." }
+      - { label: Draft (hidden from site), name: draft, widget: boolean, i18n: duplicate, default: false, required: false }
+
   # ---------------------------------------------------------------- Site settings
   - name: settings
     label: Site settings
@@ -226,6 +262,7 @@ collections:
               - { label: Writing, name: writing, widget: boolean, default: true, required: false }
               - { label: Resume, name: resume, widget: boolean, default: true, required: false }
               - { label: Coffee, name: coffee, widget: boolean, default: true, required: false }
+              - { label: Services, name: services, widget: boolean, default: true, required: false }
               - { label: Contact, name: contact, widget: boolean, default: true, required: false }
           # --- Home
           - { label: Greeting chip, name: eyebrow, widget: string, i18n: true }
@@ -268,6 +305,7 @@ collections:
             summary: "{{text}}"
             field: { label: Fact, name: text, widget: string }
           # --- Resume
+          - { label: Services intro, name: services_intro, widget: text, i18n: true, required: false, hint: "Short intro at the top of the Services window." }
           - { label: Open to new roles, name: open_to_work, widget: boolean, default: false, required: false, hint: "When on, your llms.txt and resume.md tell AI recruiting tools you're looking." }
           - { label: Looking for, name: looking_for, widget: text, required: false, hint: "Optional, e.g. Senior PM roles in fintech or mobile; remote or Yerevan. Shown to AI tools only when 'Open to new roles' is on." }
           - { label: Resume headline, name: resume_title, widget: string, i18n: true, required: false, hint: "Shown under your name, e.g. Product Manager · Mobile & Fintech" }
