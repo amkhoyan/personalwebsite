@@ -1,8 +1,10 @@
 {
   "en": {
     "title": "Home espresso setup consultation",
-    "duration": "60 min",
     "summary": "Not sure which machine and grinder to buy? We'll find the right espresso setup for your budget, space and the drinks you love.",
+    "price": "",
+    "duration": "60 min",
+    "format": "both",
     "includes": [
       "Your needs, budget and kitchen space",
       "A shortlist of machine and grinder pairings",
@@ -10,23 +12,27 @@
       "A buying plan you can follow step by step"
     ],
     "body": "Buying an espresso setup is confusing: hundreds of machines, endless forum debates, and the grinder matters more than most people think.\n\nIn this session we talk through how you drink coffee — milk drinks or straight espresso, how many cups a day, how hands-on you want to be — and turn that into a clear recommendation that fits your budget.",
-    "price": "",
-    "format": "both",
     "image": "",
     "booking_url": "",
     "order": 1,
-    "draft": true
+    "draft": false
   },
   "hy": {
     "title": "Տնային էսպրեսո սարքավորումների խորհրդատվություն",
-    "duration": "60 րոպե",
     "summary": "Չգիտե՞ք, թե որ մեքենան և աղացը գնել։ Կգտնենք ձեր բյուջեին, տարածքին և սիրած ըմպելիքներին համապատասխան էսպրեսո սարքավորումները։",
+    "price": "",
+    "duration": "60 րոպե",
+    "format": "both",
     "includes": [
       "Ձեր կարիքները, բյուջեն և խոհանոցի տարածքը",
       "Մեքենայի և աղացի համադրությունների ընտրանի",
       "Արժե գնել պարագաները (և որոնք՝ ոչ)",
       "Գնումների քայլ առ քայլ պլան"
     ],
-    "body": "Էսպրեսո սարքավորումներ գնելը շփոթեցնող է՝ հարյուրավոր մեքենաներ, անվերջ քննարկումներ ֆորումներում, իսկ աղացն ավելի կարևոր է, քան շատերը կարծում են։\n\nԱյս հանդիպման ընթացքում կխոսենք այն մասին, թե ինչպես եք սուրճ խմում՝ կաթով, թե մաքուր էսպրեսո, օրական քանի բաժակ, որքան եք ուզում ներգրավված լինել, և այդ ամենը կվերածենք ձեր բյուջեին համապատասխան հստակ առաջարկի։"
+    "body": "Էսպրեսո սարքավորումներ գնելը շփոթեցնող է՝ հարյուրավոր մեքենաներ, անվերջ քննարկումներ ֆորումներում, իսկ աղացն ավելի կարևոր է, քան շատերը կարծում են։\n\nԱյս հանդիպման ընթացքում կխոսենք այն մասին, թե ինչպես եք սուրճ խմում՝ կաթով, թե մաքուր էսպրեսո, օրական քանի բաժակ, որքան եք ուզում ներգրավված լինել, և այդ ամենը կվերածենք ձեր բյուջեին համապատասխան հստակ առաջարկի։",
+    "image": "",
+    "booking_url": "",
+    "order": 1,
+    "draft": false
   }
 }
