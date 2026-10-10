@@ -1,8 +1,10 @@
 {
   "en": {
     "title": "Espresso dial-in session",
-    "duration": "90 min",
     "summary": "Already have a machine? I'll come over and help you pull consistently great shots with your gear and your beans.",
+    "price": "",
+    "duration": "90 min",
+    "format": "in_person",
     "includes": [
       "Grinder setup and grind settings for your beans",
       "A repeatable recipe: dose, yield and time",
@@ -10,23 +12,27 @@
       "A simple cleaning and maintenance routine"
     ],
     "body": "Great equipment still needs dialing in. We'll work hands-on with your machine, grinder and coffee until the shots taste right — and you understand why, so you can do it yourself next time.",
-    "price": "",
-    "format": "in_person",
     "image": "",
     "booking_url": "",
     "order": 2,
-    "draft": true
+    "draft": false
   },
   "hy": {
     "title": "Էսպրեսոյի կարգավորման դաս",
-    "duration": "90 րոպե",
     "summary": "Արդեն ունե՞ք մեքենա։ Կգամ ձեզ մոտ և կօգնեմ ձեր սարքավորումներով ու հատիկներով անընդհատ համեղ էսպրեսո պատրաստել։",
+    "price": "",
+    "duration": "90 րոպե",
+    "format": "in_person",
     "includes": [
       "Աղացի կարգավորում ձեր հատիկների համար",
       "Կրկնելի բաղադրատոմս՝ չափաբաժին, ելք և ժամանակ",
       "Կաթի եփման և հյուսվածքի հիմունքներ",
       "Մաքրման և խնամքի պարզ ռեժիմ"
     ],
-    "body": "Լավ սարքավորումներն էլ կարգավորում են պահանջում։ Կաշխատենք անմիջապես ձեր մեքենայով, աղացով և սուրճով, մինչև էսպրեսոն համեղ ստացվի, և դուք կհասկանաք՝ ինչու, որպեսզի հաջորդ անգամ ինքներդ անեք։"
+    "body": "Լավ սարքավորումներն էլ կարգավորում են պահանջում։ Կաշխատենք անմիջապես ձեր մեքենայով, աղացով և սուրճով, մինչև էսպրեսոն համեղ ստացվի, և դուք կհասկանաք՝ ինչու, որպեսզի հաջորդ անգամ ինքներդ անեք։",
+    "image": "",
+    "booking_url": "",
+    "order": 2,
+    "draft": false
   }
 }
