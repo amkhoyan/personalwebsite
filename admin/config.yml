@@ -235,9 +235,9 @@ collections:
           # --- Identity (same in every language unless translated)
           - { label: Full name, name: name, widget: string, i18n: true }
           - { label: First name, name: short_name, widget: string, i18n: true }
-          - { label: Logo text, name: logo_text, widget: string, hint: "Shown top-left, e.g. aram.pm" }
+          - { label: Logo text, name: logo_text, widget: string, hint: "Shown top-left next to your initials, e.g. aram.pm" }
           - { label: Email, name: email, widget: string }
-          - { label: Photo, name: photo, widget: image, required: false, hint: "Optional. Leave empty to show the dragon." }
+          - { label: Photo, name: photo, widget: image, required: false, hint: "Optional. Leave empty to show your initials." }
           - label: Social links
             name: links
             widget: list
@@ -266,7 +266,7 @@ collections:
               - { label: Contact, name: contact, widget: boolean, default: true, required: false }
           # --- Home
           - { label: Greeting chip, name: eyebrow, widget: string, i18n: true }
-          - { label: Headline, name: headline, widget: string, i18n: true, hint: "Wrap a word in **double stars** to underline it in yellow." }
+          - { label: Headline, name: headline, widget: string, i18n: true, hint: "Wrap a word in **double stars** to highlight it." }
           - { label: Tagline, name: tagline, widget: text, i18n: true }
           - label: What I do
             name: skills

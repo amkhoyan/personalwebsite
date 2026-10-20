@@ -1,6 +1,6 @@
 # Personal website
 
-A PostHog-style "desktop" personal site in English and Armenian, edited through a CMS ([Sveltia CMS](https://sveltiacms.app)) at `/admin`. Hosted for free on GitHub Pages.
+A windowed "desktop" personal site (draggable windows, a dock, an Ararat wallpaper) in English and Armenian, edited through a CMS ([Sveltia CMS](https://sveltiacms.app)) at `/admin`. Hosted for free on GitHub Pages.
 
 ## Editing content (no code needed)
 
@@ -18,8 +18,8 @@ Go to **`https://<your-site>/admin`** and click **Sign In Using Access Token** (
 When you click **Save**, the CMS saves the change to GitHub and the site updates automatically in about a minute.
 
 **Tips**
-- In the headline, wrap a word in `**double stars**` to give it the yellow squiggle.
-- Upload a **Photo** in Site settings to replace the dragon avatar.
+- In the headline, wrap a word in `**double stars**` to give it the italic marker highlight.
+- Upload a **Photo** in Site settings to replace the initials avatar.
 - Links can open straight to a window or language, e.g. `/?lang=hy#projects` or `/#project/<file-name>`.
 
 ## For AI tools and recruiters
