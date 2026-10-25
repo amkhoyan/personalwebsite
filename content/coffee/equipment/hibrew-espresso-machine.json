@@ -7,10 +7,12 @@
     "since": "",
     "body": "",
     "photos": [],
-    "link": ""
+    "link": "",
+    "featured": true
   },
   "hy": {
     "notes": "Կիսաավտոմատ էսպրեսո մեքենա՝ ճնշման ցուցիչով և գոլորշու խողովակով։",
-    "name": "HiBREW էսպրեսո մեքենա"
+    "name": "HiBREW էսպրեսո մեքենա",
+    "featured": true
   }
 }

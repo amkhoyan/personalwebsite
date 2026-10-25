@@ -219,7 +219,7 @@
     border: 1.5px solid var(--border-light); border-radius: 14px; padding: 16px; background: var(--bg);
     transition: transform .12s, border-color .12s, box-shadow .12s; text-align: left;
   }
-  .card:hover { border-color: var(--ink); box-shadow: 3px 3px 0 var(--hard); transform: translate(-1px, -1px); }
+  button.card:hover { border-color: var(--ink); box-shadow: 3px 3px 0 var(--hard); transform: translate(-1px, -1px); }
   button.card { cursor: pointer; width: 100%; }
   .card p { font-size: 13.5px; color: var(--muted); margin: 4px 0 0; }
   .tile { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 12px; color: #fff; flex-shrink: 0; }
@@ -467,15 +467,15 @@ const DEFAULT_LANG = "en";
 
 const UI = {
   en: {
-    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", coffee: "Coffee", services: "Services", sayHi: "Say hi",
+    about: "About", projects: "Projects", writing: "Writing", resume: "Resume", coffee: "Coffee", services: "Services", sayHi: "Get in touch",
     files: { home: "Home", about: "About", projects: "Projects", writing: "Writing", coffee: "Coffee", services: "Services", resume: "Resume", contact: "Contact", trash: "Trash" },
-    seeWork: "See my work →", moreAbout: "More about me",
-    whatIDo: "What I do", numbers: "By the numbers", featured: "Featured projects", seeAll: "See all →",
-    projectsIntro: "Product work, side quests, and everything in between.",
+    moreAbout: "About me →", coffeeCorner: "My coffee corner",
+    whatIDo: "What I'm into", numbers: "By the numbers", featured: "Featured projects", fromCoffee: "From my coffee corner", seeAll: "See all →",
+    projectsIntro: "Things I've worked on, at work and outside of it.",
     all: "All", allProjects: "← All projects", allPosts: "← All posts", visit: "Visit →",
     categories: { product: "Product", tech: "Tech", community: "Community", volunteering: "Volunteering", creative: "Creative", education: "Education", sport: "Sport", personal: "Personal", love: "For the love of it" },
     status: { live: "Live", ongoing: "Ongoing", completed: "Completed", archived: "Archived" },
-    writingIntro: "Notes on product, people, and the occasional side quest.", noProjects: "Nothing here yet — check back soon.",
+    writingIntro: "Occasional notes on product, coffee and whatever else is on my mind.", noProjects: "Nothing here yet — check back soon.",
     coffeeIntro: "The gear on my counter and the milk I've poured.", equipment: "Equipment", latteArt: "Latte art",
     gearTypes: { brewer: "Brewers", grinder: "Grinders", other: "Other gear" }, noGear: "No gear added yet.",
     servicesIntro: "Help with your coffee setup — especially espresso.", priceOnRequest: "Price on request", book: "Book →", included: "What's included", backToServices: "← Services",
@@ -484,21 +484,21 @@ const UI = {
     notInLang: "This page isn't available in English yet.", readIn: "Read in English →",
     rightNow: "Right now", funFacts: "Fun facts", print: "Print",
     experience: "Experience", education: "Education", skills: "Skills", languages: "Languages", downloadPdf: "Download PDF",
-    contactTitle: "Say hi 👋", contactIntro: "I read everything. Email is the fastest way to reach me.", email: "Email",
-    trashEmpty: "Trash is empty", trashJoke: "I ship everything. Even the bad ideas.",
+    contactTitle: "Get in touch", contactIntro: "Happy to talk about product, coffee or anything else. Email is the best way to reach me.", email: "Email",
+    trashEmpty: "Trash is empty",
     loadError: "Couldn't load the site content. If you're running it locally, start it with “npm run dev”.",
     loading: "Loading…",
   },
   hy: {
-    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", coffee: "Սուրճ", services: "Ծառայություններ", sayHi: "Գրեք ինձ",
+    about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", resume: "Ռեզյումե", coffee: "Սուրճ", services: "Ծառայություններ", sayHi: "Կապվել",
     files: { home: "Գլխավոր", about: "Իմ մասին", projects: "Նախագծեր", writing: "Գրառումներ", coffee: "Սուրճ", services: "Ծառայություններ", resume: "Ռեզյումե", contact: "Կապ", trash: "Աղբարկղ" },
-    seeWork: "Տեսնել աշխատանքներս →", moreAbout: "Ավելին իմ մասին",
-    whatIDo: "Ինչով եմ զբաղվում", numbers: "Թվերով", featured: "Ընտրված նախագծեր", seeAll: "Տեսնել բոլորը →",
-    projectsIntro: "Պրոդուկտային աշխատանք, կողմնակի նախագծեր և այն ամենը, ինչ դրանց միջև է։",
+    moreAbout: "Իմ մասին →", coffeeCorner: "Իմ սուրճի անկյունը",
+    whatIDo: "Ինչն է ինձ հետաքրքրում", numbers: "Թվերով", featured: "Ընտրված նախագծեր", fromCoffee: "Իմ սուրճի անկյունից", seeAll: "Տեսնել բոլորը →",
+    projectsIntro: "Նախագծեր, որոնց վրա աշխատել եմ՝ աշխատանքում և դրանից դուրս։",
     all: "Բոլորը", allProjects: "← Բոլոր նախագծերը", allPosts: "← Բոլոր գրառումները", visit: "Դիտել →",
     categories: { product: "Պրոդուկտ", tech: "Տեխնոլոգիա", community: "Համայնք", volunteering: "Կամավորություն", creative: "Ստեղծագործական", education: "Կրթություն", sport: "Սպորտ", personal: "Անձնական", love: "Հոգու համար" },
     status: { live: "Գործող", ongoing: "Ընթացքում", completed: "Ավարտված", archived: "Արխիվ" },
-    writingIntro: "Մտքեր պրոդուկտի, մարդկանց և երբեմն կողմնակի արկածների մասին։", noProjects: "Դեռ ոչինչ չկա — շուտով։",
+    writingIntro: "Ժամանակ առ ժամանակ գրառումներ պրոդուկտի, սուրճի և այն մասին, ինչ մտքովս անցնում է։", noProjects: "Դեռ ոչինչ չկա — շուտով։",
     coffeeIntro: "Իմ սուրճի պարագաները և լատե արտը։", equipment: "Պարագաներ", latteArt: "Լատե արտ",
     gearTypes: { brewer: "Եփող սարքեր", grinder: "Աղացներ", other: "Այլ պարագաներ" }, noGear: "Պարագաներ դեռ չկան։",
     servicesIntro: "Օգնություն սուրճի սարքավորումների հարցում՝ հատկապես էսպրեսոյի։", priceOnRequest: "Գինը՝ ըստ պահանջի", book: "Ամրագրել →", included: "Ինչ է ներառված", backToServices: "← Ծառայություններ",
@@ -507,8 +507,8 @@ const UI = {
     notInLang: "Այս էջը դեռ հասանելի չէ հայերենով։", readIn: "Կարդալ հայերենով →",
     rightNow: "Այս պահին", funFacts: "Հետաքրքիր փաստեր", print: "Տպել",
     experience: "Աշխատանքային փորձ", education: "Կրթություն", skills: "Հմտություններ", languages: "Լեզուներ", downloadPdf: "Ներբեռնել PDF",
-    contactTitle: "Բարև 👋", contactIntro: "Կարդում եմ բոլոր նամակները։ Ամենաարագ ձևն էլ. փոստն է։", email: "Էլ. փոստ",
-    trashEmpty: "Աղբարկղը դատարկ է", trashJoke: "Ես թողարկում եմ ամեն ինչ։ Նույնիսկ վատ գաղափարները։",
+    contactTitle: "Կապ", contactIntro: "Ուրախ կլինեմ զրուցել պրոդուկտի, սուրճի կամ ցանկացած այլ թեմայի շուրջ։ Ինձ հետ կապվելու լավագույն ձևը էլ. փոստն է։", email: "Էլ. փոստ",
+    trashEmpty: "Աղբարկղը դատարկ է",
     loadError: "Չհաջողվեց բեռնել կայքի բովանդակությունը։",
     loading: "Բեռնվում է…",
   },
@@ -699,6 +699,15 @@ const gear = () => (DATA.coffee?.equipment || []).map(e => ({ slug: e.slug, ...l
 const latteArt = () => (DATA.coffee?.latte_art || []).map(e => ({ slug: e.slug, ...locAny(e) })).filter(e => e.image)
   .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 
+const gearCard = g => `
+  <button class="gear-card" data-open="gear/${esc(g.slug)}">
+    ${g.image ? `<img class="gear-photo" src="${esc(asset(g.image))}" alt="${esc(g.name)}" loading="lazy">` : `<div class="gear-photo gear-ph">${svg(g.type === "grinder" ? "grinder" : "coffee")}</div>`}
+    <div class="gear-info">
+      <h3>${esc(g.name)}</h3>
+      ${g.notes ? `<p>${esc(g.notes)}</p>` : ""}
+    </div>
+  </button>`;
+
 function openLightbox(src, caption) {
   const box = document.createElement("div");
   box.className = "lightbox";
@@ -728,7 +737,7 @@ const STATIC = {
   home: {
     icon: () => appIcon("red", "home"), w: 780, h: 640,
     render: () => {
-      const s = S(), featured = projects().filter(p => p.featured).slice(0, 3);
+      const s = S(), featured = projects().filter(p => p.featured).slice(0, 3), coffeeStrip = gear().filter(g => g.image).sort((x, y) => (y.featured ? 1 : 0) - (x.featured ? 1 : 0)).slice(0, 4);
       return `
       <div class="hero">
         <div>
@@ -736,16 +745,21 @@ const STATIC = {
           <h1>${headline(s.headline)}</h1>
           <p class="lead">${esc(s.tagline)}</p>
           <div class="ctas">
-            <button class="btn" data-open="projects">${T.seeWork}</button>
-            <button class="btn secondary" data-open="about">${T.moreAbout}</button>
+            <button class="btn" data-open="about">${T.moreAbout}</button>
+            <button class="btn secondary" data-open="coffee">${T.coffeeCorner}</button>
           </div>
         </div>
         <div class="mascot">${stamp()}</div>
       </div>
       ${s.skills?.length ? `<h2>${T.whatIDo}</h2>
-      <div class="grid">${s.skills.map(k => `<div class="card">${tile(k.color, k.icon)}<h3>${esc(k.title)}</h3><p>${esc(k.description)}</p></div>`).join("")}</div>` : ""}
+      <div class="grid">${s.skills.map(k => {
+        const inner = `${tile(k.color, k.icon)}<h3>${esc(k.title)}</h3><p>${esc(k.description)}</p>`;
+        return k.open ? `<button class="card" data-open="${esc(k.open)}">${inner}</button>` : `<div class="card">${inner}</div>`;
+      }).join("")}</div>` : ""}
       ${featured.length ? `<div class="section-head"><h2>${T.featured}</h2><button class="link-btn" data-open="projects">${T.seeAll}</button></div>
       <div class="grid">${featured.map(p => `<button class="card" data-open="project/${esc(p.slug)}">${tile(p.color, p.icon)}<h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></button>`).join("")}</div>` : ""}
+      ${coffeeStrip.length ? `<div class="section-head"><h2>${T.fromCoffee}</h2><button class="link-btn" data-open="coffee">${T.seeAll}</button></div>
+      <div class="gear-grid">${coffeeStrip.map(gearCard).join("")}</div>` : ""}
       ${s.stats?.length ? `<h2>${T.numbers}</h2>
       <div class="stats">${s.stats.map(x => `<div class="stat"><b>${esc(x.value)}</b><span>${esc(x.label)}</span></div>`).join("")}</div>` : ""}
       <hr class="dashed">
@@ -820,18 +834,10 @@ const STATIC = {
     render: () => {
       const items = gear(), art = latteArt();
       const tab = (id, label, n) => `<button class="chip" data-coffee-tab="${id}" aria-pressed="${coffeeTab === id}">${label} <small>${n}</small></button>`;
-      const card = g => `
-        <button class="gear-card" data-open="gear/${esc(g.slug)}">
-          ${g.image ? `<img class="gear-photo" src="${esc(asset(g.image))}" alt="${esc(g.name)}" loading="lazy">` : `<div class="gear-photo gear-ph">${svg(g.type === "grinder" ? "grinder" : "coffee")}</div>`}
-          <div class="gear-info">
-            <h3>${esc(g.name)}</h3>
-            ${g.notes ? `<p>${esc(g.notes)}</p>` : ""}
-          </div>
-        </button>`;
       const equipment = ["brewer", "grinder", "other"]
         .map(t => ({ t, list: items.filter(g => (g.type || "other") === t) }))
         .filter(x => x.list.length)
-        .map(x => `<h2 class="cv-h">${T.gearTypes[x.t]}</h2><div class="gear-grid">${x.list.map(card).join("")}</div>`).join("");
+        .map(x => `<h2 class="cv-h">${T.gearTypes[x.t]}</h2><div class="gear-grid">${x.list.map(gearCard).join("")}</div>`).join("");
       const gallery = art.map(a => `
         <button class="art" data-src="${esc(asset(a.image))}" data-caption="${esc(a.caption || "")}">
           <img src="${esc(asset(a.image))}" alt="${esc(a.caption || T.latteArt)}" loading="lazy">
@@ -910,7 +916,7 @@ const STATIC = {
   },
   trash: {
     icon: () => appIcon("slate", "trash"), w: 400, h: 340,
-    render: () => `<div class="empty">${emptyCup()}<h3 style="margin-top:12px">${T.trashEmpty}</h3><p class="muted">${T.trashJoke}</p></div>`,
+    render: () => `<div class="empty">${emptyCup()}<h3 style="margin-top:12px">${T.trashEmpty}</h3></div>`,
   },
 };
 

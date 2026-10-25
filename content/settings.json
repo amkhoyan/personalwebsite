@@ -22,72 +22,55 @@
       "resume": true,
       "contact": true
     },
-    "eyebrow": "👋 hey, welcome to my corner of the internet",
-    "headline": "I'm Aram. I build **products** people actually love.",
-    "tagline": "Product manager who turns messy problems into clear roadmaps, and clear roadmaps into things people actually use.",
+    "eyebrow": "👋 Hi, I'm Aram",
+    "headline": "I work on software, brew **coffee**, and make things for the love of it.",
+    "tagline": "I live in Yerevan. For the past few years I've worked in product management, after a long stretch as a software developer. Away from the laptop I'm usually dialing in espresso or working on Kinoarvest, a small series of booklets about art-house film directors.",
     "skills": [
       {
-        "title": "Product strategy",
-        "description": "Deciding what to build and, just as importantly, what not to.",
+        "title": "Building products",
+        "description": "My day job. I like listening to the people who use a product and helping a team work out what to build next.",
         "icon": "target",
-        "color": "orange"
+        "color": "orange",
+        "open": "resume"
       },
       {
-        "title": "User research",
-        "description": "Talking to users until the problem becomes obvious.",
-        "icon": "users",
-        "color": "blue"
+        "title": "Coffee",
+        "description": "Espresso and manual brewing at home, and helping others get their own setup right.",
+        "icon": "coffee",
+        "color": "brown",
+        "open": "coffee"
       },
       {
-        "title": "Data & experiments",
-        "description": "Metrics, A/B tests, and honest dashboards.",
-        "icon": "chart",
-        "color": "yellow"
+        "title": "Film",
+        "description": "Kinoarvest: self-funded booklets about art-house directors, made with a friend.",
+        "icon": "book",
+        "color": "red",
+        "open": "project/fcf6b05e8e70"
       },
       {
-        "title": "Roadmapping",
-        "description": "Plans that survive contact with reality.",
-        "icon": "map",
-        "color": "green"
-      },
-      {
-        "title": "Team leadership",
-        "description": "Getting design, engineering, and business rowing in the same direction.",
-        "icon": "flag",
-        "color": "purple"
-      },
-      {
-        "title": "Shipping",
-        "description": "Done beats perfect. Shipped beats done.",
-        "icon": "rocket",
-        "color": "pink"
+        "title": "Philosophy",
+        "description": "What I studied at Yerevan State University. Asking “why?” turns out to be useful everywhere.",
+        "icon": "chat",
+        "color": "purple",
+        "open": "about"
       }
     ],
-    "stats": [
-      {
-        "value": "5+",
-        "label": "years in product"
-      },
-      {
-        "value": "10+",
-        "label": "years in tech"
-      },
-      {
-        "value": "~5,000",
-        "label": "businesses on an app I helped grow"
-      }
-    ],
-    "about": "I'm Aram, a product manager based in Yerevan. I've spent 5+ years owning mobile, fintech and internal-tool products — most recently the Field Mobile App at ServiceTitan — after nearly a decade in software engineering.\n\nI like getting close to the problem: customer discovery, ride-alongs with the people who use the product, and turning what I learn into clear priorities for the team. Outside of work I make things just for the love of it, like Kinoarvest, a self-funded series of booklets about art-house film directors.",
+    "stats": [],
+    "about": "I'm Aram, and I live in Yerevan. I studied philosophy at Yerevan State University, spent several years as a software developer, and moved into product management in 2021. Most recently I worked on the ServiceTitan mobile app that field technicians use every day.\n\nWhat I enjoy most about the work is getting close to the people who use a product and understanding what actually gets in their way.\n\nOutside of work, coffee takes up a good part of my day. I make espresso at home, experiment with manual brewing, and lately I've started helping others choose and dial in their own setups. I also make things just for the love of it, like Kinoarvest, a self-funded series of booklets about art-house film directors that I made with Davit Mosinyan.",
     "location": "Yerevan, Armenia",
     "now": [
       {
         "label": "Location",
         "value": "Yerevan, Armenia"
+      },
+      {
+        "label": "Brewing",
+        "value": "Espresso on a HiBREW machine, ground on a 1Zpresso K-Ultra"
       }
     ],
     "facts": [],
     "resume_title": "Product Manager · Mobile, Fintech & Internal Tools · Ex-Software Engineer",
-    "resume_summary": "Product Manager with 5+ years of experience owning mobile, fintech, and internal-tooling products, built on nearly a decade in software engineering. I drive customer discovery, experimentation, and roadmap prioritization to ship features that lift adoption and operational efficiency — and use AI-assisted workflows (Claude Code, Cursor, MCP) to turn raw customer signals into engineering-ready requirements in minutes, not days.",
+    "resume_summary": "Product manager with 5+ years on mobile, fintech and internal-tool products, and a background in software engineering. I enjoy customer discovery, experimentation and careful prioritization, and I use AI tools (Claude Code, Cursor, MCP) to speed up research and turn customer feedback into clear requirements.",
     "resume": [
       {
         "when": "Oct 2024 — Jun 2026",
@@ -194,72 +177,55 @@
   "hy": {
     "name": "Արամ Մխոյան",
     "short_name": "Արամ",
-    "eyebrow": "👋 բարի գալուստ իմ փոքրիկ անկյուն համացանցում",
-    "headline": "Ես Արամն եմ։ Ստեղծում եմ **պրոդուկտներ**, որոնք մարդիկ իսկապես սիրում են։",
-    "tagline": "Պրոդուկտ մենեջեր, ով խառը խնդիրները վերածում է հստակ պլանների, իսկ պլանները՝ բաների, որոնցից մարդիկ իրականում օգտվում են։",
+    "eyebrow": "👋 Բարև, ես Արամն եմ",
+    "headline": "Աշխատում եմ ծրագրային պրոդուկտների վրա, եփում եմ **սուրճ** և ստեղծում բաներ հոգու համար։",
+    "tagline": "Ապրում եմ Երևանում։ Վերջին մի քանի տարին աշխատում եմ պրոդուկտ մենեջմենթում, իսկ մինչ այդ երկար ժամանակ ծրագրավորող էի։ Համակարգչից հեռու սովորաբար էսպրեսո եմ կարգավորում կամ աշխատում Kinoarvest-ի վրա՝ արթհաուս կինոռեժիսորներին նվիրված փոքրիկ գրքույկների շարքի։",
     "skills": [
       {
-        "title": "Պրոդուկտի ռազմավարություն",
-        "description": "Որոշել, թե ինչ ստեղծել, և նույնքան կարևոր՝ ինչ չստեղծել։",
+        "title": "Պրոդուկտներ",
+        "description": "Իմ հիմնական աշխատանքը։ Սիրում եմ լսել պրոդուկտն օգտագործող մարդկանց և օգնել թիմին հասկանալ՝ ինչ ստեղծել հաջորդը։",
         "icon": "target",
-        "color": "orange"
+        "color": "orange",
+        "open": "resume"
       },
       {
-        "title": "Օգտատերերի հետազոտություն",
-        "description": "Խոսել օգտատերերի հետ, մինչև խնդիրն ակնհայտ դառնա։",
-        "icon": "users",
-        "color": "blue"
+        "title": "Սուրճ",
+        "description": "Էսպրեսո և ձեռքով եփում տանը, ինչպես նաև օգնում եմ ուրիշներին ճիշտ կազմել իրենց սարքավորումները։",
+        "icon": "coffee",
+        "color": "brown",
+        "open": "coffee"
       },
       {
-        "title": "Տվյալներ և փորձարկումներ",
-        "description": "Չափանիշներ, A/B թեստեր և ազնիվ վահանակներ։",
-        "icon": "chart",
-        "color": "yellow"
+        "title": "Կինո",
+        "description": "Kinoarvest՝ արթհաուս ռեժիսորներին նվիրված ինքնաֆինանսավորվող գրքույկներ, որոնք ստեղծել ենք ընկերոջս հետ։",
+        "icon": "book",
+        "color": "red",
+        "open": "project/fcf6b05e8e70"
       },
       {
-        "title": "Ճանապարհային քարտեզ",
-        "description": "Պլաններ, որոնք դիմանում են իրականությանը։",
-        "icon": "map",
-        "color": "green"
-      },
-      {
-        "title": "Թիմի ղեկավարում",
-        "description": "Դիզայնը, ինժեներիան և բիզնեսը մեկ ուղղությամբ տանել։",
-        "icon": "flag",
-        "color": "purple"
-      },
-      {
-        "title": "Թողարկում",
-        "description": "Ավարտվածը լավ է կատարյալից։ Թողարկվածը՝ ավարտվածից։",
-        "icon": "rocket",
-        "color": "pink"
+        "title": "Փիլիսոփայություն",
+        "description": "Սովորել եմ Երևանի պետական համալսարանում։ «Ինչո՞ւ» հարցը օգտակար է ամենուր։",
+        "icon": "chat",
+        "color": "purple",
+        "open": "about"
       }
     ],
-    "stats": [
-      {
-        "value": "5+",
-        "label": "տարի պրոդուկտում"
-      },
-      {
-        "value": "10+",
-        "label": "տարի տեխնոլոգիաներում"
-      },
-      {
-        "value": "~5000",
-        "label": "բիզնես՝ իմ աճեցրած հավելվածում"
-      }
-    ],
-    "about": "Ես Արամն եմ՝ պրոդուկտ մենեջեր Երևանից։ 5+ տարի պատասխանատու եմ եղել մոբայլ, ֆինտեխ և ներքին գործիքների պրոդուկտների համար (վերջինը՝ ServiceTitan-ի Field Mobile App-ը)՝ մինչ այդ գրեթե տասը տարի աշխատելով ծրագրային ապահովման ոլորտում։\n\nՍիրում եմ մոտ լինել խնդրին՝ հաճախորդների հետազոտություն, դաշտային այցեր պրոդուկտն օգտագործող մարդկանց հետ, և սովորածը վերածել թիմի համար հստակ առաջնահերթությունների։ Աշխատանքից դուրս ստեղծում եմ բաներ պարզապես հոգու համար, օրինակ՝ Kinoarvest-ը՝ արթհաուս կինոռեժիսորներին նվիրված գրքույկների ինքնաֆինանսավորվող շարք։",
+    "stats": [],
+    "about": "Ես Արամն եմ, ապրում եմ Երևանում։ Սովորել եմ փիլիսոփայություն Երևանի պետական համալսարանում, մի քանի տարի աշխատել եմ որպես ծրագրավորող, իսկ 2021-ին անցել եմ պրոդուկտ մենեջմենթի։ Վերջին աշխատանքս ServiceTitan-ի մոբայլ հավելվածն էր, որից դաշտային տեխնիկներն ամեն օր օգտվում են։\n\nԱշխատանքում ամենից շատ սիրում եմ մոտ լինել պրոդուկտն օգտագործող մարդկանց և հասկանալ, թե իրականում ինչն է նրանց խանգարում։\n\nԱշխատանքից դուրս սուրճը զբաղեցնում է օրվա բավական մեծ մասը։ Տանը էսպրեսո եմ պատրաստում, փորձարկում եմ ձեռքով եփելու տարբեր եղանակներ, և վերջերս սկսել եմ օգնել ուրիշներին ընտրել ու կարգավորել իրենց սարքավորումները։ Նաև ստեղծում եմ բաներ պարզապես հոգու համար, օրինակ՝ Kinoarvest-ը՝ արթհաուս կինոռեժիսորներին նվիրված գրքույկների ինքնաֆինանսավորվող շարքը, որը ստեղծել ենք Դավիթ Մոսինյանի հետ։",
     "location": "Երևան, Հայաստան",
     "now": [
       {
         "label": "Գտնվելու վայր",
         "value": "Երևան, Հայաստան"
+      },
+      {
+        "label": "Եփում եմ",
+        "value": "Էսպրեսո HiBREW մեքենայով, աղացած 1Zpresso K-Ultra-ով"
       }
     ],
     "facts": [],
     "resume_title": "Պրոդուկտ մենեջեր · Մոբայլ, ֆինտեխ և ներքին գործիքներ · Նախկին ծրագրավորող",
-    "resume_summary": "Պրոդուկտ մենեջեր՝ մոբայլ, ֆինտեխ և ներքին գործիքների պրոդուկտների 5+ տարվա փորձով, որը հիմնված է ծրագրային ապահովման ոլորտում գրեթե տասը տարվա աշխատանքի վրա։ Ղեկավարում եմ հաճախորդների հետազոտությունը, փորձարկումները և ճանապարհային քարտեզի առաջնահերթացումը՝ թողարկելով ֆունկցիաներ, որոնք բարձրացնում են օգտագործումը և գործառնական արդյունավետությունը։ AI գործիքների (Claude Code, Cursor, MCP) միջոցով հաճախորդների ազդանշանները րոպեների ընթացքում վերածում եմ ինժեներական թիմի համար պատրաստ պահանջների։",
+    "resume_summary": "Պրոդուկտ մենեջեր՝ մոբայլ, ֆինտեխ և ներքին գործիքների պրոդուկտների 5+ տարվա փորձով և ծրագրային ապահովման մշակման նախապատմությամբ։ Սիրում եմ հաճախորդների հետազոտությունը, փորձարկումները և մտածված առաջնահերթացումը, իսկ AI գործիքները (Claude Code, Cursor, MCP) օգնում են ինձ արագացնել հետազոտությունը և հաճախորդների կարծիքը վերածել հստակ պահանջների։",
     "resume": [
       {
         "when": "հոկ 2024 — հնս 2026",

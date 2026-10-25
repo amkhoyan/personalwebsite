@@ -160,8 +160,9 @@ function jsonLd({ s, jobs }) {
 
 function seoHead(p) {
   const { s } = p;
-  const title = `${s.name} — ${(s.resume_title || "").split("·")[0].trim() || "Product Manager"}`;
-  const desc = oneLine(s.resume_summary || s.tagline).slice(0, 300);
+  // Link previews (LinkedIn, messengers) show the personal tagline; the resume stays in JSON-LD and llms.txt.
+  const title = s.name;
+  const desc = oneLine(s.tagline || s.resume_summary).slice(0, 300);
   return [
     `<title>${esc(title)}</title>`,
     `<meta name="description" content="${esc(desc)}">`,
@@ -170,7 +171,11 @@ function seoHead(p) {
     `<meta property="og:title" content="${esc(title)}">`,
     `<meta property="og:description" content="${esc(desc)}">`,
     `<meta property="og:url" content="${SITE_URL}/">`,
-    `<meta name="twitter:card" content="summary">`,
+    `<meta property="og:image" content="${SITE_URL}/images/og.png">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
+    `<meta property="og:image:alt" content="${esc(`${s.name}: ${oneLine(s.headline || "").replace(/\*\*/g, "")}`)}">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
     `<link rel="alternate" type="text/markdown" href="/resume.md" title="Resume (Markdown)">`,
     `<link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly profile">`,
     `<script type="application/ld+json">${JSON.stringify(jsonLd(p)).replace(/</g, "\\u003c")}</script>`,
