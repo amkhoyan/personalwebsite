@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Full Body Gym</title>
+<meta name="description" content="A simple twice-a-week full body workout for beginners, with a set logger and rest timer.">
+<meta name="theme-color" content="#F3EEE4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23C8402F'/%3E%3Crect x='18' y='44' width='64' height='12' rx='3' fill='%23fff'/%3E%3Crect x='22' y='30' width='12' height='40' rx='3' fill='%23fff'/%3E%3Crect x='66' y='30' width='12' height='40' rx='3' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F3EEE4; --surface: #FBF8F2; --surface-2: #ECE5D8; --text: #1C1814; --muted: #6B6358;
+    --ink: #1C1814; --border: #CDC2AF; --border-light: #E1D8C8; --accent: #C8402F; --accent-ink: #fff;
+    --green: #4E8A5A; --yellow: #E3A72F; --blue: #2F5D9E; --hard: #1C1814; --highlight: rgba(200, 64, 47, .1);
+    --mark: rgba(227, 167, 47, .45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16130F; --surface: #201C17; --surface-2: #2A251F; --text: #F1EADD; --muted: #A79E90;
+      --ink: #4A4237; --border: #4A4237; --border-light: #322C25; --accent: #E0563F;
+      --hard: #000; --highlight: rgba(224, 86, 63, .16); --mark: rgba(227, 167, 47, .35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.5 "Instrument Sans", system-ui, sans-serif;
+    padding-bottom: calc(110px + env(safe-area-inset-bottom));
+  }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+  h1 { font-size: clamp(30px, 8vw, 42px); line-height: 1.1; }
+  h1 em { font-style: italic; background: linear-gradient(transparent 60%, var(--mark) 60%); padding: 0 2px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 18px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 13px; }
+
+  header.top { padding: 28px 0 8px; }
+  .eyebrow { font: 500 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
+
+  .card {
+    background: var(--surface); border: 1.5px solid var(--ink); border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--hard); padding: 18px; margin: 16px 0;
+  }
+  .card.flat { box-shadow: none; border-color: var(--border); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1.5px solid var(--ink); background: var(--surface); border-radius: 999px;
+    padding: 10px 18px; font-weight: 600; box-shadow: 3px 3px 0 var(--hard);
+    transition: transform .08s, box-shadow .08s;
+  }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--hard); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.block { width: 100%; padding: 14px 18px; font-size: 17px; }
+  .btn.ghost { box-shadow: none; border-color: var(--border); background: transparent; }
+  .btn.sm { padding: 6px 12px; font-size: 14px; }
+  .linkbtn { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Home */
+  .week { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--ink); }
+  .dot.on { background: var(--green); }
+  .next-label { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .badge {
+    display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink); font: 700 18px Fraunces, serif; flex-shrink: 0;
+  }
+  .badge.b { background: var(--blue); }
+  .ex-list { list-style: none; margin: 12px 0 16px; padding: 0; }
+  .ex-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .ex-list li:last-child { border-bottom: 0; }
+  .tabs { display: inline-flex; background: var(--surface-2); border-radius: 999px; padding: 3px; }
+  .tabs button { border: 0; background: none; padding: 5px 14px; border-radius: 999px; font-weight: 600; color: var(--muted); }
+  .tabs button.on { background: var(--surface); color: var(--text); box-shadow: 0 0 0 1.5px var(--ink); }
+  .rules { margin: 8px 0 0; padding-left: 20px; }
+  .rules li { margin: 6px 0; }
+  .hist { list-style: none; padding: 0; margin: 8px 0 0; }
+  .hist li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+  .hist li:last-child { border-bottom: 0; }
+  .hist .badge { width: 28px; height: 28px; font-size: 14px; }
+  .hist .grow { flex: 1; min-width: 0; }
+  .row-between { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  /* Workout */
+  .bar {
+    position: sticky; top: 0; z-index: 5; background: var(--bg);
+    border-bottom: 1.5px solid var(--ink); padding: 10px 0;
+  }
+  .bar .wrap { display: flex; align-items: center; gap: 12px; }
+  .bar .title { flex: 1; min-width: 0; }
+  .bar .title b { font-family: Fraunces, serif; font-size: 18px; display: block; line-height: 1.2; }
+  .progress { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+  .progress i { display: block; height: 100%; background: var(--green); width: 0; transition: width .3s; }
+
+  .ex-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .target { font: 500 13px "JetBrains Mono", monospace; color: var(--muted); margin-top: 2px; }
+  .hint { margin: 10px 0 4px; padding: 8px 12px; border-radius: 10px; background: var(--highlight); font-size: 14px; }
+  .hint.up { background: rgba(78, 138, 90, .14); }
+  details.how { margin-top: 8px; font-size: 14px; }
+  details.how summary { cursor: pointer; color: var(--muted); font-weight: 600; list-style: none; }
+  details.how summary::-webkit-details-marker { display: none; }
+  details.how summary::before { content: "+ "; font-family: "JetBrains Mono", monospace; }
+  details.how[open] summary::before { content: "− "; }
+  details.how ul { margin: 6px 0 0; padding-left: 20px; }
+  details.how p { margin: 6px 0 0; }
+
+  .sets { margin-top: 12px; display: grid; gap: 8px; }
+  .sets .hdr, .set { display: grid; grid-template-columns: 34px 1fr 1fr 52px; gap: 8px; align-items: center; }
+  .sets .hdr { font: 500 11px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .set .n { font: 600 14px "JetBrains Mono", monospace; text-align: center; color: var(--muted); }
+  .set input {
+    width: 100%; min-width: 0; padding: 10px; border-radius: 10px; border: 1.5px solid var(--border);
+    background: var(--bg); text-align: center; font-family: "JetBrains Mono", monospace; font-size: 17px;
+    -moz-appearance: textfield;
+  }
+  .set input::-webkit-outer-spin-button, .set input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .set input:focus { outline: none; border-color: var(--accent); }
+  .check {
+    height: 44px; border-radius: 10px; border: 1.5px solid var(--ink); background: var(--surface);
+    display: grid; place-items: center; font-size: 20px; color: var(--muted);
+  }
+  .set.done input { background: rgba(78, 138, 90, .12); border-color: transparent; }
+  .set.done .check { background: var(--green); color: #fff; border-color: var(--green); }
+  .ex.complete { border-color: var(--green); }
+
+  /* Rest timer */
+  .timer {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: var(--surface); border-top: 1.5px solid var(--ink);
+    transform: translateY(110%); visibility: hidden; transition: transform .25s, visibility .25s;
+  }
+  .timer.show { transform: none; visibility: visible; }
+  .timer .wrap { display: flex; align-items: center; gap: 10px; padding: 0; }
+  .timer .clock { font: 600 30px "JetBrains Mono", monospace; min-width: 92px; }
+  .timer .clock.over { color: var(--green); }
+  .timer .lbl { flex: 1; min-width: 0; font-size: 13px; color: var(--muted); line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+  .stat { background: var(--surface-2); border-radius: 12px; padding: 12px; text-align: center; }
+  .stat b { display: block; font: 600 22px "JetBrains Mono", monospace; }
+  .stat span { font-size: 12px; color: var(--muted); }
+
+  footer { text-align: center; padding: 24px 0 8px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<section id="home">
+  <div class="wrap">
+    <header class="top">
+      <div class="eyebrow">Beginner · 2× a week · ~45 min</div>
+      <h1>Full body, <em>twice</em> a week.</h1>
+      <p class="muted">Two simple workouts, A and B. Alternate them with at least one rest day in between — e.g. Monday &amp; Thursday.</p>
+      <div class="week">
+        <div class="dots" id="weekDots"></div>
+        <span class="small muted" id="weekText"></span>
+      </div>
+    </header>
+
+    <div class="card" id="nextCard"></div>
+
+    <div class="card flat">
+      <div class="row-between">
+        <h2>The plan</h2>
+        <div class="tabs" id="planTabs">
+          <button data-w="A" class="on">Workout A</button>
+          <button data-w="B">Workout B</button>
+        </div>
+      </div>
+      <ul class="ex-list" id="planList"></ul>
+      <p class="small muted" style="margin:0">Start with a 5-minute warm-up (bike, rower or brisk walk) and one light practice set of the first exercise.</p>
+    </div>
+
+    <div class="card flat">
+      <h2>How to progress</h2>
+      <ol class="rules">
+        <li>Pick a weight you can lift for the <b>bottom</b> of the rep range with 2–3 reps left in the tank.</li>
+        <li>Each session, try to add a rep to each set.</li>
+        <li>When you hit the <b>top</b> of the range on every set, add a little weight next time. The app will tell you.</li>
+        <li>Rest 60–90 seconds between sets. Good form beats heavy weight — always.</li>
+      </ol>
+    </div>
+
+    <div class="card flat">
+      <div class="row-between">
+        <h2>History</h2>
+        <div>
+          <span class="tabs" id="unitTabs">
+            <button data-u="kg">kg</button>
+            <button data-u="lb">lb</button>
+          </span>
+        </div>
+      </div>
+      <ul class="hist" id="histList"></ul>
+    </div>
+
+    <footer class="small muted">
+      Your workouts are saved in this browser only.
+      <button class="linkbtn" id="resetBtn">Reset data</button>
+    </footer>
+  </div>
+</section>
+
+<!-- WORKOUT -->
+<section id="workout" hidden>
+  <div class="bar">
+    <div class="wrap">
+      <span class="badge" id="wBadge">A</span>
+      <div class="title">
+        <b id="wTitle">Workout A</b>
+        <span class="small muted mono" id="wElapsed">0:00</span>
+        <div class="progress"><i id="wProgress"></i></div>
+      </div>
+      <button class="btn primary sm" id="finishBtn">Finish</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card flat" style="margin-top:16px">
+      <h3>Warm-up · 5 min</h3>
+      <p class="small muted" style="margin:4px 0 0">Easy cardio until you feel warm, then 10 bodyweight squats, 10 arm circles each way and one light set of the first exercise.</p>
+    </div>
+    <div id="exList"></div>
+    <div style="display:flex; gap:10px; margin: 8px 0 24px">
+      <button class="btn primary block" id="finishBtn2">Finish workout</button>
+    </div>
+    <p style="text-align:center"><button class="linkbtn" id="discardBtn">Discard this workout</button></p>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section id="summary" hidden>
+  <div class="wrap">
+    <header class="top">
+      <div class="eyebrow">Workout complete</div>
+      <h1>Nice <em>work</em>.</h1>
+    </header>
+    <div class="card" id="sumCard"></div>
+    <button class="btn block" id="homeBtn">Back to plan</button>
+  </div>
+</section>
+
+<!-- REST TIMER -->
+<div class="timer" id="timer">
+  <div class="wrap">
+    <div class="clock" id="tClock">1:30</div>
+    <div class="lbl" id="tLabel">Rest</div>
+    <button class="btn ghost sm" id="tMinus">−15</button>
+    <button class="btn ghost sm" id="tPlus">+15</button>
+    <button class="btn sm" id="tSkip">Skip</button>
+  </div>
+</div>
+
+<script>
+// ---- The program --------------------------------------------------------
+// reps: [min, max]; kind: "weight" (load in kg/lb), "body" (bodyweight, optional
+// extra load) or "time" (seconds). step: how much to add when progressing (kg).
+const PLAN = {
+  A: {
+    name: "Workout A",
+    exercises: [
+      { id: "goblet-squat", name: "Goblet Squat", sets: 3, reps: [8, 12], kind: "weight", step: 2, rest: 90,
+        cues: ["Hold one dumbbell vertically against your chest.", "Feet shoulder-width, toes slightly out.", "Sit down between your heels, chest up, knees following your toes.", "Push the floor away to stand."],
+        alt: "Bodyweight squat to a bench if a dumbbell feels too heavy." },
+      { id: "db-bench", name: "Dumbbell Bench Press", sets: 3, reps: [8, 12], kind: "weight", step: 2, rest: 90,
+        cues: ["Lie on a flat bench, feet flat on the floor.", "Lower the dumbbells to the sides of your chest, elbows about 45° from your body.", "Press up until arms are straight, without clanking the weights."],
+        alt: "Push-ups (on your knees or hands on a bench to make them easier)." },
+      { id: "db-row", name: "One-Arm Dumbbell Row", sets: 3, reps: [10, 12], kind: "weight", step: 2, rest: 60, perSide: true,
+        cues: ["One hand and knee on a bench, back flat.", "Pull the dumbbell towards your hip, not your chest.", "Lower slowly until your arm is straight."],
+        alt: "Seated cable row." },
+      { id: "db-rdl", name: "Romanian Deadlift", sets: 3, reps: [10, 12], kind: "weight", step: 2, rest: 90,
+        cues: ["Dumbbells in front of your thighs, knees soft.", "Push your hips back, sliding the weights down your legs.", "Stop when you feel a stretch in your hamstrings, back stays flat.", "Squeeze your glutes to stand up."],
+        alt: "Glute bridge if your lower back complains." },
+      { id: "plank", name: "Plank", sets: 3, reps: [20, 45], kind: "time", rest: 60,
+        cues: ["Forearms under shoulders, body in one straight line.", "Squeeze glutes and brace your stomach like you're about to be poked.", "Breathe — don't hold your breath."],
+        alt: "Plank on your knees." },
+    ],
+  },
+  B: {
+    name: "Workout B",
+    exercises: [
+      { id: "leg-press", name: "Leg Press", sets: 3, reps: [10, 12], kind: "weight", step: 5, rest: 90,
+        cues: ["Feet shoulder-width in the middle of the platform.", "Lower until knees reach about 90°, lower back stays on the pad.", "Press up without locking your knees."],
+        alt: "Dumbbell reverse lunges (10 per leg)." },
+      { id: "lat-pulldown", name: "Lat Pulldown", sets: 3, reps: [10, 12], kind: "weight", step: 2.5, rest: 90,
+        cues: ["Grip a little wider than shoulders.", "Lean back slightly and pull the bar to your upper chest.", "Think 'elbows down to your pockets', then control it back up."],
+        alt: "Assisted pull-up machine." },
+      { id: "db-ohp", name: "Seated Dumbbell Shoulder Press", sets: 3, reps: [8, 12], kind: "weight", step: 1, rest: 90,
+        cues: ["Sit on a bench with back support.", "Start with dumbbells at shoulder height, palms forward.", "Press up until arms are straight, don't arch your lower back."],
+        alt: "Shoulder press machine." },
+      { id: "glute-bridge", name: "Glute Bridge", sets: 3, reps: [12, 15], kind: "body", step: 5, rest: 60,
+        cues: ["Lie on your back, knees bent, feet flat near your hips.", "Drive through your heels and lift your hips until your body is straight.", "Squeeze your glutes at the top for a second."],
+        alt: "Once 15 reps are easy, rest a dumbbell on your hips." },
+      { id: "dead-bug", name: "Dead Bug", sets: 3, reps: [8, 10], kind: "body", step: 0, rest: 60, perSide: true,
+        cues: ["On your back, arms up, knees bent at 90° over your hips.", "Press your lower back into the floor.", "Slowly lower the opposite arm and leg, then switch sides."],
+        alt: "Only move the legs to make it easier." },
+    ],
+  },
+};
+
+// ---- Storage ------------------------------------------------------------
+const KEY = "gym.v1";
+function load() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
+}
+let state = Object.assign({ history: [], active: null, unit: "kg" }, load());
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
+}
+
+// ---- Helpers --------------------------------------------------------------
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const fmtTime = s => { s = Math.max(0, Math.round(s)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+const num = v => { const n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : null; };
+const unitStep = ex => state.unit === "lb" ? (ex.step >= 5 ? 10 : 5) : ex.step;
+const round = n => Math.round(n * 100) / 100;
+
+function targetText(ex) {
+  const r = `${ex.reps[0]}–${ex.reps[1]}`;
+  if (ex.kind === "time") return `${ex.sets} × ${r} sec`;
+  return `${ex.sets} × ${r}${ex.perSide ? " / side" : ""}`;
+}
+function nextWorkout() {
+  const last = state.history[state.history.length - 1];
+  return last && last.workout === "A" ? "B" : "A";
+}
+function weekStart(d = new Date()) {
+  const x = new Date(d); x.setHours(0, 0, 0, 0);
+  x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+  return x;
+}
+function lastSetsFor(exId) {
+  for (let i = state.history.length - 1; i >= 0; i--) {
+    const sets = state.history[i].sets[exId];
+    if (sets && sets.some(s => s.done)) return sets;
+  }
+  return null;
+}
+// Suggest what to do this session based on the last time this exercise was logged.
+function suggestion(ex) {
+  const last = lastSetsFor(ex.id);
+  if (!last) return { weight: null, text: ex.kind === "time" ? `Hold as long as you can with good form, up to ${ex.reps[1]} sec.` : ex.kind === "body" ? null : "First time: start light and find a weight you could do a few more reps with.", up: false };
+  const done = last.filter(s => s.done);
+  const w = done.length ? num(done[0].w) : null;
+  const hitTop = done.length >= ex.sets && done.every(s => (num(s.r) || 0) >= ex.reps[1]);
+  const lastText = "Last time: " + (ex.kind === "weight" || (ex.kind === "body" && w) ? `${w ?? 0} ${state.unit} × ` : "") + done.map(s => s.r || "–").join(", ") + (ex.kind === "time" ? " sec" : "");
+  if (!hitTop) return { weight: w, text: `${lastText}. Aim for one more rep per set.`, up: false };
+  if (ex.kind === "time") return { weight: null, text: `${lastText}. You hit ${ex.reps[1]} sec — try a harder variation or hold a few seconds longer.`, up: true };
+  if (ex.kind === "body" && !ex.step) return { weight: null, text: `${lastText}. Top of the range — move slower and pause at the bottom.`, up: true };
+  const next = round((w || 0) + unitStep(ex));
+  return { weight: next, text: `${lastText}. You hit the top of the range — go up to ${next} ${state.unit}.`, up: true };
+}
+
+// ---- Home -----------------------------------------------------------------
+let planTab = "A";
+function renderHome() {
+  const ws = weekStart();
+  const thisWeek = state.history.filter(h => new Date(h.date) >= ws).length;
+  $("weekDots").innerHTML = [0, 1].map(i => `<span class="dot${i < thisWeek ? " on" : ""}"></span>`).join("");
+  $("weekText").textContent = thisWeek >= 2 ? `${thisWeek} workouts this week — done! Rest up.` : `${thisWeek} of 2 workouts this week`;
+
+  const resumable = state.active;
+  const w = resumable ? state.active.workout : nextWorkout();
+  const p = PLAN[w];
+  $("nextCard").innerHTML = `
+    <div class="next-label">
+      <div>
+        <div class="eyebrow" style="margin:0">${resumable ? "In progress" : "Next up"}</div>
+        <h2>${p.name}</h2>
+      </div>
+      <span class="badge${w === "B" ? " b" : ""}">${w}</span>
+    </div>
+    <ul class="ex-list">${p.exercises.map(ex => `<li><span>${esc(ex.name)}</span><span class="mono small muted">${targetText(ex)}</span></li>`).join("")}</ul>
+    <button class="btn primary block" id="startBtn">${resumable ? "Continue workout" : `Start ${p.name}`}</button>
+    ${resumable ? "" : `<p class="small muted" style="margin:10px 0 0; text-align:center">Want the other one? <button class="linkbtn" id="startOther">Start Workout ${w === "A" ? "B" : "A"}</button></p>`}`;
+  $("startBtn").onclick = () => resumable ? showWorkout() : startWorkout(w);
+  if (!resumable) $("startOther").onclick = () => startWorkout(w === "A" ? "B" : "A");
+
+  renderPlanTab();
+  document.querySelectorAll("#unitTabs button").forEach(b => b.classList.toggle("on", b.dataset.u === state.unit));
+
+  const hist = state.history.slice().reverse().slice(0, 20);
+  $("histList").innerHTML = hist.length ? hist.map(h => {
+    const d = new Date(h.date);
+    const sets = Object.values(h.sets).flat().filter(s => s.done).length;
+    return `<li><span class="badge${h.workout === "B" ? " b" : ""}">${h.workout}</span>
+      <span class="grow">${d.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" })}<br>
+      <span class="small muted mono">${sets} sets · ${h.minutes} min${h.volume ? ` · ${Math.round(h.volume).toLocaleString()} ${h.unit || "kg"} lifted` : ""}</span></span></li>`;
+  }).join("") : `<li class="muted small">No workouts yet. Your first one is waiting.</li>`;
+}
+function renderPlanTab() {
+  document.querySelectorAll("#planTabs button").forEach(b => b.classList.toggle("on", b.dataset.w === planTab));
+  $("planList").innerHTML = PLAN[planTab].exercises.map(ex =>
+    `<li><span>${esc(ex.name)}<br><span class="small muted">or: ${esc(ex.alt)}</span></span><span class="mono small muted" style="white-space:nowrap">${targetText(ex)}</span></li>`).join("");
+}
+$("planTabs").onclick = e => { const b = e.target.closest("button"); if (b) { planTab = b.dataset.w; renderPlanTab(); } };
+$("unitTabs").onclick = e => { const b = e.target.closest("button"); if (b) { state.unit = b.dataset.u; save(); renderHome(); } };
+$("resetBtn").onclick = () => {
+  if (confirm("Delete all your saved workouts from this browser?")) { state = { history: [], active: null, unit: state.unit }; save(); renderHome(); }
+};
+
+// ---- Workout ----------------------------------------------------------------
+function startWorkout(w) {
+  const sets = {};
+  PLAN[w].exercises.forEach(ex => {
+    const s = suggestion(ex);
+    sets[ex.id] = Array.from({ length: ex.sets }, () => ({ w: s.weight != null ? String(s.weight) : "", r: "", done: false }));
+  });
+  state.active = { workout: w, started: Date.now(), sets };
+  save();
+  showWorkout();
+}
+function show(id) {
+  ["home", "workout", "summary"].forEach(s => $(s).hidden = s !== id);
+  window.scrollTo(0, 0);
+}
+let tickHandle;
+function showWorkout() {
+  const a = state.active, p = PLAN[a.workout];
+  $("wBadge").textContent = a.workout;
+  $("wBadge").className = "badge" + (a.workout === "B" ? " b" : "");
+  $("wTitle").textContent = p.name;
+  $("exList").innerHTML = p.exercises.map((ex, i) => {
+    const s = suggestion(ex);
+    const wLabel = ex.kind === "weight" ? state.unit : ex.kind === "body" ? `+${state.unit}` : "";
+    const rLabel = ex.kind === "time" ? "sec" : ex.perSide ? "reps/side" : "reps";
+    return `<div class="card ex" id="ex-${ex.id}" data-ex="${ex.id}">
+      <div class="ex-head">
+        <div><h3>${i + 1}. ${esc(ex.name)}</h3><div class="target">${targetText(ex)} · rest ${ex.rest}s</div></div>
+      </div>
+      ${s.text ? `<div class="hint${s.up ? " up" : ""}">${s.up ? "↑ " : ""}${esc(s.text)}</div>` : ""}
+      <details class="how"><summary>How to do it</summary><ul>${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul><p class="muted">Alternative: ${esc(ex.alt)}</p></details>
+      <div class="sets">
+        <div class="hdr"><span style="text-align:center">Set</span><span style="text-align:center">${wLabel || "&nbsp;"}</span><span style="text-align:center">${rLabel}</span><span></span></div>
+        ${a.sets[ex.id].map((st, j) => `
+          <div class="set${st.done ? " done" : ""}" data-i="${j}">
+            <span class="n">${j + 1}</span>
+            ${ex.kind === "time" ? "<span></span>" : `<input inputmode="decimal" data-f="w" value="${esc(st.w)}" placeholder="${ex.kind === "body" ? "0" : "–"}" aria-label="Weight, set ${j + 1}">`}
+            <input inputmode="numeric" data-f="r" value="${esc(st.r)}" placeholder="${ex.reps[1]}" aria-label="${rLabel}, set ${j + 1}">
+            <button class="check" aria-label="Mark set ${j + 1} done">✓</button>
+          </div>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+  updateProgress();
+  show("workout");
+  clearInterval(tickHandle);
+  const tick = () => { if (state.active) $("wElapsed").textContent = fmtTime((Date.now() - state.active.started) / 1000); };
+  tick(); tickHandle = setInterval(tick, 1000);
+}
+function updateProgress() {
+  const all = Object.values(state.active.sets).flat();
+  $("wProgress").style.width = `${(all.filter(s => s.done).length / all.length) * 100}%`;
+  PLAN[state.active.workout].exercises.forEach(ex => {
+    $("ex-" + ex.id).classList.toggle("complete", state.active.sets[ex.id].every(s => s.done));
+  });
+}
+$("exList").addEventListener("input", e => {
+  const inp = e.target.closest("input"); if (!inp) return;
+  const exId = inp.closest(".ex").dataset.ex, i = +inp.closest(".set").dataset.i;
+  const sets = state.active.sets[exId];
+  sets[i][inp.dataset.f] = inp.value;
+  // Typing a weight in set 1 carries it to the later sets that are still empty.
+  if (inp.dataset.f === "w" && i === 0) {
+    inp.closest(".sets").querySelectorAll(".set").forEach((row, k) => {
+      if (k > 0 && !sets[k].done && !sets[k].touched) { sets[k].w = inp.value; row.querySelector('[data-f="w"]').value = inp.value; }
+    });
+  } else if (inp.dataset.f === "w") sets[i].touched = true;
+  save();
+});
+$("exList").addEventListener("click", e => {
+  const btn = e.target.closest(".check"); if (!btn) return;
+  const row = btn.closest(".set"), exId = btn.closest(".ex").dataset.ex, i = +row.dataset.i;
+  const ex = PLAN[state.active.workout].exercises.find(x => x.id === exId);
+  const st = state.active.sets[exId][i];
+  if (!st.done && !st.r) { st.r = String(ex.reps[1]); row.querySelector('[data-f="r"]').value = st.r; }
+  st.done = !st.done;
+  row.classList.toggle("done", st.done);
+  save(); updateProgress();
+  if (st.done) {
+    const sets = state.active.sets[exId];
+    const moreHere = sets.some(s => !s.done);
+    const nextEx = PLAN[state.active.workout].exercises.find(x => state.active.sets[x.id].some(s => !s.done));
+    if (nextEx) startRest(ex.rest, moreHere ? `Next: set ${sets.findIndex(s => !s.done) + 1}` : `Next: ${nextEx.name}`);
+    else stopRest();
+    if (!moreHere && nextEx) setTimeout(() => $("ex-" + nextEx.id).scrollIntoView({ behavior: "smooth", block: "start" }), 300);
+  }
+});
+
+function finish() {
+  const a = state.active;
+  const doneSets = Object.values(a.sets).flat().filter(s => s.done).length;
+  if (!doneSets) { if (confirm("No sets are ticked off yet. Discard this workout?")) discard(true); return; }
+  const all = Object.values(a.sets).flat().length;
+  if (doneSets < all && !confirm(`You've done ${doneSets} of ${all} sets. Finish anyway?`)) return;
+  let volume = 0;
+  PLAN[a.workout].exercises.forEach(ex => {
+    if (ex.kind === "time") return;
+    a.sets[ex.id].filter(s => s.done).forEach(s => volume += (num(s.w) || 0) * (num(s.r) || 0) * (ex.perSide ? 2 : 1));
+  });
+  const minutes = Math.max(1, Math.round((Date.now() - a.started) / 60000));
+  const sets = {};
+  for (const [k, v] of Object.entries(a.sets)) sets[k] = v.map(({ w, r, done }) => ({ w, r, done }));
+  state.history.push({ workout: a.workout, date: new Date(a.started).toISOString(), minutes, volume: round(volume), unit: state.unit, sets });
+  state.active = null;
+  save(); stopRest(); clearInterval(tickHandle);
+
+  const prs = PLAN[a.workout].exercises.filter(ex => suggestion(ex).up).map(ex => ex.name);
+  $("sumCard").innerHTML = `
+    <h2>${PLAN[a.workout].name}</h2>
+    <div class="summary-grid">
+      <div class="stat"><b>${minutes}</b><span>minutes</span></div>
+      <div class="stat"><b>${doneSets}</b><span>sets</span></div>
+      <div class="stat"><b>${Math.round(volume).toLocaleString()}</b><span>${state.unit} lifted</span></div>
+    </div>
+    ${prs.length ? `<div class="hint up">↑ Ready to level up next time: ${prs.map(esc).join(", ")}.</div>` : `<p class="muted" style="margin:0">Keep chipping away — one more rep per set next time.</p>`}
+    <p class="small muted" style="margin:12px 0 0">Next session: <b>${PLAN[nextWorkout()].name}</b>, in 2–3 days.</p>`;
+  show("summary");
+}
+function discard(skipConfirm) {
+  if (!skipConfirm && !confirm("Discard this workout? Nothing will be saved.")) return;
+  state.active = null; save(); stopRest(); clearInterval(tickHandle);
+  renderHome(); show("home");
+}
+$("finishBtn").onclick = $("finishBtn2").onclick = finish;
+$("discardBtn").onclick = () => discard(false);
+$("homeBtn").onclick = () => { renderHome(); show("home"); };
+
+// ---- Rest timer ------------------------------------------------------------
+let restEnd = 0, restHandle, beeped = false;
+function startRest(sec, label) {
+  restEnd = Date.now() + sec * 1000; beeped = false;
+  $("tLabel").textContent = label;
+  $("timer").classList.add("show");
+  clearInterval(restHandle);
+  restTick(); restHandle = setInterval(restTick, 250);
+}
+function restTick() {
+  const left = (restEnd - Date.now()) / 1000;
+  const clock = $("tClock");
+  clock.classList.toggle("over", left <= 0);
+  clock.textContent = left > 0 ? fmtTime(left) : "Go!";
+  if (left <= 0 && !beeped) {
+    beeped = true; beep();
+    try { navigator.vibrate && navigator.vibrate([200, 100, 200]); } catch {}
+  }
+  if (left < -20) stopRest();
+}
+function stopRest() { clearInterval(restHandle); $("timer").classList.remove("show"); }
+$("tMinus").onclick = () => { restEnd -= 15000; beeped = restEnd < Date.now(); restTick(); };
+$("tPlus").onclick = () => { restEnd = Math.max(restEnd, Date.now()) + 15000; beeped = false; restTick(); };
+$("tSkip").onclick = stopRest;
+
+let audio;
+function beep() {
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    [0, .25].forEach(t => {
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.frequency.value = 880; o.connect(g); g.connect(audio.destination);
+      g.gain.setValueAtTime(.2, audio.currentTime + t);
+      g.gain.exponentialRampToValueAtTime(.001, audio.currentTime + t + .2);
+      o.start(audio.currentTime + t); o.stop(audio.currentTime + t + .2);
+    });
+  } catch {}
+}
+// Browsers only allow sound after a tap, so unlock audio on the first one.
+document.addEventListener("click", () => { try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch {} }, { once: true });
+
+// ---- Boot ------------------------------------------------------------------
+renderHome();
+if (state.active) showWorkout(); else show("home");
+</script>
+</body>
+</html>
