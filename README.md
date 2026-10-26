@@ -81,3 +81,10 @@ Once the domain checks out, tick **Enforce HTTPS**.
 2. Repository access: **Only select repositories** → `personalwebsite`. Permissions → Repository → **Contents: Read and write**.
 3. Set an expiration you're comfortable with (you'll make a new one when it expires).
 4. Open `/admin`, click **Sign In Using Access Token**, and paste it. Your browser remembers it.
+
+## Gym app at `/gym`
+
+`gym/` is the built output of the Gymverse workout app (source in the separate `gym` repo; it is not linked from
+the home page or sitemap). Don't edit it here: in the `gym` repo run `npm run deploy:site`, then commit `gym/` in
+this repo. `404.html` sends deep links such as `/gym/plan` back to the app, and shows a plain "not found" page
+for everything else.

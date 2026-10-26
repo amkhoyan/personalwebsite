@@ -10,7 +10,7 @@ const OUT = join(ROOT, "_site");
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
-for (const item of ["admin", "content", "images", "gym", "CNAME"]) {
+for (const item of ["admin", "content", "images", "gym", "404.html", "CNAME"]) {
   try {
     await access(join(ROOT, item));
     await cp(join(ROOT, item), join(OUT, item), { recursive: true });

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Not found · mkhn.xyz</title>
+<script>
+  // /gym is a single-page app: send its deep links (e.g. /gym/plan) back to the app, which restores the path from ?r=
+  var p = location.pathname;
+  if (p.indexOf('/gym/') === 0) location.replace('/gym/?r=' + encodeURIComponent(p.slice(4) + location.search + location.hash));
+</script>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #F3EEE4; color: #1d1b18; font-family: "Instrument Sans", system-ui, sans-serif; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+  <p>This page doesn't exist. <a href="/">Back to mkhn.xyz</a></p>
+</body>
+</html>
