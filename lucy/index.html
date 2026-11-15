@@ -11,14 +11,14 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231E1B18'/%3E%3Cpath d='M16 46V18h6v22h12v6z' fill='%23F4EFE8'/%3E%3Cpath d='M36 46V18l8 14 8-14v28h-5V32l-3 5-3-5v14z' fill='%23C9876A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700&family=Noto+Serif+Armenian:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F4EFE8; --paper:#FBF8F3; --stone:#E9E1D6; --line:#DCD2C5;
   --ink:#1E1B18; --ink-2:#3A342F; --muted:#6F665D;
   --tuff:#C9876A; --tuff-deep:#9C5A43; --sage:#7F907A; --sky:#E8E3DA;
-  --serif:"Instrument Serif", Georgia, serif;
-  --sans:"Manrope", system-ui, -apple-system, Segoe UI, sans-serif;
+  --serif:"Instrument Serif", "Noto Serif Armenian", Georgia, serif;
+  --sans:"Manrope", "Noto Sans Armenian", system-ui, -apple-system, Segoe UI, sans-serif;
   --r:14px; --max:1240px;
   --shadow:0 1px 2px rgba(30,27,24,.05), 0 12px 32px -12px rgba(30,27,24,.18);
 }
@@ -72,6 +72,26 @@ section{padding:clamp(72px,10vw,128px) 0}
 body.menu-open .burger i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
 body.menu-open .burger i:nth-child(2){opacity:0}
 body.menu-open .burger i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+.nav-right{display:flex; align-items:center; gap:12px}
+.lang{display:flex; border:1px solid var(--line); border-radius:999px; padding:3px; background:rgba(251,248,243,.6)}
+.lang button{border:0; background:none; padding:6px 11px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.04em; cursor:pointer; color:var(--muted); transition:all .2s}
+.lang button:hover{color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+@media (max-width:480px){.logo span{display:none} .logo b{font-size:21px}}
+/* Armenian runs longer than English: slightly smaller display type */
+html[lang=hy] .hero h1{font-size:clamp(40px,6.2vw,86px); line-height:1.06}
+html[lang=hy] h2{font-size:clamp(30px,4.2vw,54px); line-height:1.12}
+html[lang=hy] .foot-big{font-size:clamp(40px,7.5vw,112px); line-height:1}
+html[lang=hy] .service h3{font-size:28px}
+html[lang=hy] .card-meta h3, html[lang=hy] .step h4{font-size:22px}
+html[lang=hy] .modal-body h3{font-size:34px; line-height:1.1}
+html[lang=hy] .quote blockquote{font-size:20px; line-height:1.4}
+html[lang=hy] .mobile-menu a{font-size:30px}
+html[lang=hy] .marquee-track{font-size:24px}
+html[lang=hy] .logo span{letter-spacing:.06em}
+html[lang=hy] h1 em, html[lang=hy] h2 em, html[lang=hy] .foot-big em{padding-right:.14em}
+html[lang=hy] .eyebrow, html[lang=hy] .q-label, html[lang=hy] .kv dt{letter-spacing:.08em}
 
 /* ---------- Hero ---------- */
 .hero{padding:120px 0 56px; min-height:100svh; display:flex; flex-direction:column; justify-content:center}
@@ -184,6 +204,8 @@ body.menu-open .burger i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg
 #estimate .lead{color:#D8D0C6}
 .est{display:grid; grid-template-columns:1.25fr 1fr; gap:32px; align-items:start}
 .est-form{display:grid; gap:34px}
+.est > *, .est-form fieldset, .opts > *{min-width:0}
+.opt span, .legend span{overflow-wrap:break-word; hyphens:auto}
 .q-label{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:#B7AEA3; font-weight:600}
 .q-label output{font-family:var(--serif); font-size:30px; letter-spacing:0; text-transform:none; color:var(--bg); font-weight:400}
 .opts{display:grid; gap:10px}
@@ -344,8 +366,14 @@ footer{background:var(--ink); color:#CFC6BB; padding:72px 0 32px}
       <li><a href="#estimate">Estimate</a></li>
       <li><a href="#social">Journal</a></li>
     </ul>
-    <a href="#contact" class="btn cta">Start a project</a>
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language / Լեզու">
+        <button type="button" data-l="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-l="hy" aria-pressed="false" lang="hy">ՀԱՅ</button>
+      </div>
+      <a href="#contact" class="btn cta">Start a project</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
   </div>
 </header>
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
@@ -840,42 +868,205 @@ const socials = [
 const $ = (s, el=document) => el.querySelector(s);
 const $$ = (s, el=document) => [...el.querySelectorAll(s)];
 
+/* =========================================================
+   Language (English / Armenian)
+   ========================================================= */
+let lang = 'en';
+try { lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lucy-lang') || 'en'; } catch {}
+if (lang !== 'hy') lang = 'en';
+const T = (en, hy) => lang === 'hy' ? hy : en;
+const M2 = () => T('m²', 'մ²');
+
+const catHY = { All:'Բոլորը', Residential:'Բնակելի', Interior:'Ինտերիեր', Commercial:'Առևտրային', Public:'Հանրային', Hospitality:'Հյուրընկալություն' };
+const projHY = {
+  tuff:{ title:'Տուֆե տուն', place:'Դիլիջան, Տավուշ', area:'240 մ²', status:'Ավարտված', role:'Ճարտարապետություն և ինտերիեր',
+    desc:'Ընտանեկան տուն, որը երեք տուֆապատ ծավալներով աստիճանաբար իջնում է անտառապատ լանջով։ Հյուրասենյակի վերին հարկը կախված է դեպի հովիտը, իսկ ննջասենյակները թաքնված են ներքևում՝ լանջի մեջ։ Տեղական ծիրանագույն տուֆը, կաղնին և կրային սվաղը պալիտրան պահում են ջերմ և հանգիստ։' },
+  loft:{ title:'Կասկադ լոֆթ', place:'Երևան', area:'128 մ²', status:'Ավարտված', role:'Ինտերիերի դիզայն',
+    desc:'Կասկադին նայող խորհրդային շրջանի բնակարան՝ վերածված մեկ լուսավոր բնակելի տարածքի։ Ամբողջ բարձրությամբ պատուհանը շրջանակում է Արարատը, իսկ կանաչավուն բազմոցն ու կաղնե դարակները մեղմացնում են բետոնե կառույցը։' },
+  cafe:{ title:'«Քար և լույս» սրճարան', place:'Քոնդ, Երևան', area:'180 մ²', status:'Ավարտված', role:'Ճարտարապետություն և ինտերիեր',
+    desc:'Թաղային սրճարան՝ վերականգնված տուֆե կամարաշարի հետևում։ Խորը բացվածքները կեսօրվա ցածր արևը վերածում են հատակով դանդաղ շարժվող ժամացույցի, և յուրաքանչյուր սեղան մոտ է բնական լույսին։' },
+  ararat:{ title:'Արարատյան տեսարանով տուն', place:'Արարատյան դաշտ', area:'310 մ²', status:'Ավարտված', role:'Ճարտարապետություն',
+    desc:'Մեկ երկար, ցածր տուն՝ ճշգրտորեն ուղղված դեպի Մասիսի երկու գագաթները։ Ծանծաղ ջրավազանը կրկնապատկում է տեսարանը և հովացնում տեռասը դաշտի շոգ ամառներին։' },
+  pavilion:{ title:'Գրադարան-տաղավար', place:'Գյումրի', area:'620 մ²', status:'Կառուցման փուլում', role:'Մրցույթի հաղթող',
+    desc:'Համայնքային ընթերցասրահ՝ լողացող տանիքով և փայտե ուղղահայաց շերտերով։ Չորս կողմերի ստվերոտ սրահները փողոցը հրավիրում են ներս, իսկ ներսում մեկ բաց տարածք է՝ գերանների միասնական ցանցի ներքո։' },
+  garni:{ title:'Գառնի ռետրիթ', place:'Գառնու կիրճ', area:'5 × 45 մ²', status:'Ավարտված', role:'Ճարտարապետություն',
+    desc:'Հինգ հյուրատնակ՝ Գառնու կիրճի բազալտե սյուների վերևում։ Մուգ, պարզ երկթեք ծավալները թույլ են տալիս բնապատկերին խոսել, իսկ ներսում ամեն ինչ ջերմ փայտ է և մեծ, շրջանակված տեսարաններ։' },
+  kond:{ title:'Քոնդի բակ', place:'Քոնդ, Երևան', area:'210 մ²', status:'Ավարտված', role:'Վերանորոգում և կցակառույց',
+    desc:'1950-ականների երկու տների զգույշ վերանորոգում ընդհանուր բակի շուրջ՝ միացված նոր քարե կառույցով։ Հին պատերը պահպանվել են ամենուր, որտեղ հնարավոր էր, իսկ նոր մասերը խոսում են ավելի զուսպ, ժամանակակից լեզվով։' },
+  atelier:{ title:'Արվեստանոց-խոհանոց', place:'Թբիլիսի, Վրաստան', area:'95 մ²', status:'Ավարտված', role:'Ինտերիերի դիզայն',
+    desc:'Խոհանոց և ճաշասենյակ կերամիկագործի համար՝ կառուցված գոյություն ունեցող կամարաձև բացվածքի շուրջ։ Մուգ լավային քարը, յուղած կաղնին և տանտիրոջ սեփական խեցեղենը ստեղծում են տրամադրությունը։' },
+  sevan:{ title:'Սևանի նավատուն', place:'Սևանա լիճ', area:'140 մ²', status:'Նախագծման փուլում', role:'Ճարտարապետություն',
+    desc:'Փայտե նավատուն և սաունա Սևանա լճի արևմտյան ափին՝ նախագծված այնպես, որ մթնշաղին լապտերի պես լուսավորվի, իսկ ցերեկը ձուլվի բնապատկերին։' },
+};
+const optHY = {
+  new:['Նոր տուն','Առանձնատուն կամ վիլլա'], reno:['Վերանորոգում','Կցակառույց կամ վերափոխում'], interior:['Ինտերիեր','Բնակարան կամ սենյակ'],
+  commercial:['Առևտրային','Սրճարան, խանութ, գրասենյակ'], hospitality:['Հյուրընկալություն','Հյուրատուն, հյուրանոց'], landscape:['Լանդշաֆտ','Այգի կամ բակ'],
+  concept:['Կոնցեպտ','Գաղափարներ, էսքիզներ և 3D ծավալներ'], permit:['Նախագիծ + թույլտվություն','Մինչև համաձայնեցման գծագրեր'], full:['Ամբողջական ծառայություն','Ներառյալ հեղինակային հսկողություն'],
+  std:['Պարզ','Ստանդարտ ձևեր և հարդարում'], prem:['Մտածված','Անհատական դետալներ և կահույք'], bespoke:['Անհատական','Բարդ տեղանք, ամեն դետալ նախագծված'],
+  renders:['Ֆոտոռեալիստիկ պատկերներ','Ձեր նախագծի 6 պատկեր'], video:['3D տեսաշրջայց','60–90 վայրկյանանոց տեսանյութ'], furniture:['Կահույք և գնումներ','Ընտրություն, պատվեր, ձևավորում'],
+  landscape_x:['Լանդշաֆտի նախագիծ','Այգի, կանաչապատում և սալարկում'], permits:['Թույլտվությունների ձեռքբերում','Քաղաքապետարանի հետ աշխատում եմ ես'], bim:['BIM մոդել','Ինժեներների և կապալառուների համար'],
+  normal:['Ստանդարտ տեմպ','Լավագույն արդյունք, սովորական ժամկետ'], fast:['Արագացված','Առաջնահերթ ժամանակացույց, +20%'],
+};
+const lbl = (o, key=o.v) => lang === 'hy' && optHY[key] ? optHY[key][0] : o.label;
+const note = (o, key=o.v) => lang === 'hy' && optHY[key] ? optHY[key][1] : o.note;
+const exKey = o => o.v === 'landscape' ? 'landscape_x' : o.v;
+const phaseHY = { concept:'Կոնցեպտուալ նախագիծ', develop:'Նախագծի մշակում', docs:'Փաստաթղթեր և թույլտվություններ', build:'Հեղինակային հսկողություն' };
+const socialHY = { Behance:'Նախագծերի մանրամասն նկարագրություններ', LinkedIn:'Լյուսի Մխոյան', Pinterest:'Նյութերի մուդբորդներ', Houzz:'Կարծիքներ և նախագծեր' };
+const words = { en:['Residential','Interiors','Renovation','Hospitality','Public buildings','Landscape','Consulting','3D visualisation'],
+                hy:['Բնակելի','Ինտերիեր','Վերանորոգում','Հյուրընկալություն','Հանրային շենքեր','Լանդշաֆտ','Խորհրդատվություն','3D վիզուալիզացիա'] };
+const planTypes = [['New home','Նոր տուն'],['Renovation','Վերանորոգում'],['Interior','Ինտերիեր'],['Commercial','Առևտրային'],['Hospitality','Հյուրընկալություն'],['Consulting','Խորհրդատվություն']];
+const pr = p => lang === 'hy' ? { ...p, ...projHY[p.id], catLabel: catHY[p.cat] } : { ...p, catLabel: p.cat };
+
+/* Static page text: [selector, Armenian (string or one per match), mode]
+   mode 't' swaps only the element's text (keeps icons); an attribute name swaps that attribute. */
+const STATIC = [
+  ['.logo b', 'Լյուսի Մխոյան'], ['.logo span', 'Ճարտարապետություն · Ինտերիեր'],
+  ['.nav ul a', ['Աշխատանքներ','Ստուդիա','Ծառայություններ','Հաշվարկ','Օրագիր']],
+  ['.nav .btn.cta', 'Սկսել նախագիծ'],
+  ['#mobileMenu a', ['Աշխատանքներ','Ստուդիա','Ծառայություններ','Հաշվարկ','Օրագիր','Կապ']],
+  ['#burger', 'Բացել ընտրացանկը', 'aria-label'],
+  ['.hero .eyebrow', 'Ճարտարապետ · Երևան և հեռավար'],
+  ['.hero h1', 'Տարածքներ՝ ստեղծված <em>լույսով,</em> քարով և հանգիստ կյանքով։'],
+  ['.hero .lead', 'Նախագծում եմ տներ, ինտերիերներ և փոքր հանրային շենքեր, որոնք հարազատ են թվում առաջին իսկ օրը և ճիշտ են մնում նաև քսան տարի անց՝ արմատավորված իրենց վայրում, ազնիվ նյութերով և ուշադիր յուրաքանչյուր քառակուսի մետրի նկատմամբ։'],
+  ['.hero-actions a', ['Դիտել աշխատանքները ','Հաշվել նախագծի արժեքը'], 't'],
+  ['.hero-tag', '<b>Տուֆե տուն</b>Դիլիջան · 2025 · 240 մ²'],
+  ['.stats span', ['Տարվա փորձ','Ավարտված նախագիծ','Նախագծված և կառուցված','Դիզայնի մրցանակ']],
+  ['#about .eyebrow', 'Ստուդիան'],
+  ['#about h2', 'Ճարտարապետություն, որը <em>լսում է</em>՝ նախքան խոսելը։'],
+  ['.about-text > p', [
+    'Ես Լյուսի Մխոյանն եմ՝ լիցենզավորված ճարտարապետ, մեծացել եմ Երևանի վարդագույն տուֆե ճակատների և Տավուշի անտառների միջև։ Ճարտարապետության և շինարարության Հայաստանի ազգային համալսարանում սովորելուց և Միլանի ու Ռոտերդամի ստուդիաներում աշխատելուց հետո՝ 2014 թվականին, հիմնեցի իմ սեփական ստուդիան։',
+    'Ստուդիան միտումնավոր փոքր է։ Յուրաքանչյուր նախագիծ անձամբ եմ ղեկավարում՝ տեղանքի առաջին այցից մինչև վերջին դռան բռնակը, ինժեներների, վարպետների և շինարարների վստահելի շրջանակի հետ։ Համոզված եմ, որ լավ դիզայնը հիմնականում համբերություն է՝ հասկանալ հողը, լույսը և մարդկանց՝ նախքան առաջին գիծը քաշելը։']],
+  ['.sign', '— Լյուսի'],
+  ['.creds > div', [
+    '<b>Լիցենզավորված ճարտարապետ</b><span>Հայաստանի ճարտարապետների միություն</span>',
+    '<b>Մագիստրոս, ՃՇՀԱՀ</b><span>Հետբուհական կրթություն, Միլանի պոլիտեխնիկ</span>',
+    '<b>Լեզուներ</b><span>Հայերեն · Անգլերեն · Ռուսերեն · Իտալերեն</span>']],
+  ['#work .eyebrow', 'Ընտրված աշխատանքներ'],
+  ['#work h2', 'Նախագծեր՝ <em>կառուցված</em> և ընթացքում։'],
+  ['#work .lead', 'Տների, ինտերիերների և հանրային տարածքների ընտրանի վերջին տասնամյակից։ Սեղմեք ցանկացած նախագծի վրա՝ դրա պատմությունը կարդալու համար։'],
+  ['#services .eyebrow', 'Ծառայություններ'],
+  ['#services h2', 'Առաջին էսքիզից մինչև <em>վերջին բանալին։</em>'],
+  ['#services .sec-head .lead', 'Անցեք ամբողջ ճանապարհը ինձ հետ կամ ընտրեք միայն ձեզ անհրաժեշտ մասը։ Յուրաքանչյուր համագործակցություն սկսվում է անվճար 30 րոպեանոց զրույցով՝ ձեր տեղանքի, պահանջների և բյուջեի մասին։'],
+  ['.service h3', ['Ճարտարապետություն','Ինտերիեր','Խորհրդատվություն']],
+  ['.service > p', [
+    'Նոր տներ, կցակառույցներ և փոքր հանրային շենքեր՝ նախագծված տեղանքի, կլիմայի և ձեր ապրելակերպի համար։',
+    'Բնակարաններ, ռեստորաններ և գրասենյակներ՝ հստակ գաղափարով, շոշափելի նյութերով և կահույքով, որն արժանի է իր տեղին։',
+    'Երկրորդ կարծիք, հողատարածքի ստուգում գնումից առաջ, վերանորոգման ռազմավարություն և 3D վիզուալիզացիա կառուցապատողների և տանտերերի համար։']],
+  ['.service ul', [
+    '<li>Տեղանքի վերլուծություն և իրագործելիություն</li><li>Կոնցեպտ և նախագծի մշակում</li><li>Թույլտվության գծագրեր և համաձայնեցումներ</li><li>Շինարարական փաստաթղթեր</li><li>Հեղինակային հսկողություն</li>',
+    '<li>Տարածքի պլանավորում</li><li>Նյութերի և գույների պալիտրա</li><li>Անհատական կահույքի նախագծում</li><li>Լուսավորության դիզայն</li><li>Կահույքի ընտրություն և ձևավորում</li>',
+    '<li>Տեղանքի ստուգում գնումից առաջ</li><li>Վերանորոգման ռազմավարություն</li><li>Ֆոտոռեալիստիկ 3D վիզուալիզացիա</li><li>Նախագծի փորձաքննություն շինարարների համար</li><li>Ժամավճարով խորհրդատվություն</li>']],
+  ['.service .from', ['Սովորաբար՝ <b>$45 / մ²</b>-ից','Սովորաբար՝ <b>$35 / մ²</b>-ից','<b>$80 / ժամ</b>-ից']],
+  ['.step h4', ['Լսել','Պատկերացնել','Կատարելագործել','Փաստաթղթավորել','Կառուցել']],
+  ['.step p', [
+    'Առաջին զանգ և այց տեղանք՝ հասկանալու հողը, պահանջները և բյուջեն։',
+    'Երկու-երեք կոնցեպտուալ ուղղություն՝ էսքիզներով, մոդելներով և օրինակներով։',
+    'Նախագծի մշակում՝ հատակագծեր, նյութեր, լույսի ուսումնասիրություններ և 3D պատկերներ։',
+    'Թույլտվության և շինարարական գծագրեր՝ համաձայնեցված ինժեներների հետ։',
+    'Կապալառուի ընտրություն և պարբերական այցեր մինչև հանձնումը։']],
+  ['.step small', ['1-ին շաբաթ','2–4-րդ շաբաթներ','5–10-րդ շաբաթներ','10–16-րդ շաբաթներ','Մինչև բանալիները']],
+  ['#estimate .sec-head .eyebrow', 'Արժեքի հաշվիչ'],
+  ['#estimate h2', 'Որքա՞ն <em>կարժենա</em> ձեր նախագծի նախագծումը։'],
+  ['#estimate .sec-head .lead', 'Պատասխանեք մի քանի հարցի և անմիջապես ստացեք նախագծման վճարի և ժամկետների ազնիվ նախնական գնահատական։ Սա պաշտոնական առաջարկ չէ, բայց լավ սկիզբ է զրույցի համար։'],
+  ['#estForm legend', ['1 · Նախագծի տեսակ','3 · Ծառայության ծավալ','4 · Բարդություն','5 · Լրացուցիչ ծառայություններ','6 · Ժամկետներ']],
+  ['label[for=area]', '2 · Մակերես'],
+  ['#area', 'Մակերեսը քառակուսի մետրերով', 'aria-label'],
+  ['.range-scale span', ['20 մ²','500','1000','1500','2000 մ²']],
+  ['.result .top .eyebrow', 'Նախագծման մոտավոր արժեք'],
+  ['.kv dt', ['Ժամկետ','Արժեքը 1 մ²-ի համար']],
+  ['#sendEst', 'Ստանալ մանրամասն առաջարկ ', 't'],
+  ['.disclaimer', 'Միայն նախնական գնահատական։ Վերջնական արժեքը կախված է տեղանքի պայմաններից, տեղական կանոնակարգերից և մանրամասն պահանջներից։ Շինարարության ծախսերը ներառված չեն։ Փոխարժեքները մոտավոր են։'],
+  ['#kind-words .eyebrow', 'Ջերմ խոսքեր'],
+  ['#kind-words h2', 'Նրանցից, ովքեր <em>ապրում</em> են դրանցում։'],
+  ['.quote blockquote', [
+    'Լյուսին զառիթափ, անհարմար հողամասը վերածեց մի տան, որի մասին մենք նույնիսկ չէինք երազում։ Յուրաքանչյուր պատուհան շրջանակում է մի բան, որին արժե նայել։',
+    'Նա պահպանեց մեր 1950-ականների բնակարանի հոգին և այն հարմարեցրեց հինգ հոգանոց ընտանիքի համար։ Բյուջեի սահմաններում և ընդամենը երկու շաբաթ ուշացումով՝ իսկական հրաշք։',
+    'Հյուրերը գրեթե ամեն օր հարցնում են, թե ով է նախագծել սրճարանը։ Կեսօրից հետո լույսը ճիշտ այնպիսին է, ինչպիսին նա խոստացել էր առաջին էսքիզում։']],
+  ['.who b', ['Աննա և Հայկ','Մարիամ Ս.','Դավիթ Գ.']],
+  ['.who span', ['Տուֆե տուն, Դիլիջան','Քոնդի բակ, Երևան','«Քար և լույս» սրճարանի սեփականատեր']],
+  ['#social .eyebrow', 'Հետևեք'],
+  ['#social h2', 'Էսքիզներ, շինհրապարակներ և <em>դանդաղ առաջընթաց։</em>'],
+  ['.social-head .lead', 'Ընթացիկ աշխատանքներ, նյութերի նմուշներ և երբեմն՝ արևածագն Արարատի վրա։ Եկեք, ծանոթանանք։'],
+  ['#contact .eyebrow', 'Կապ'],
+  ['#contact h2', 'Եկեք ստեղծենք մի բան՝ <em>հանգիստ</em> և անսովոր։'],
+  ['.contact-info .lead', 'Պատմեք ինձ մի փոքր ձեր նախագծի մասին։ Յուրաքանչյուր նամակի պատասխանում եմ անձամբ՝ երկու աշխատանքային օրվա ընթացքում։'],
+  ['.info-list span', ['Էլ. փոստ','Հեռախոս','Ստուդիա','Աշխատանքային ժամեր']],
+  ['.info-list b', [null, null, 'Աբովյան 12, Երևան 0001', 'Երկ–Ուրբ, 10:00–18:00']],
+  ['.field > label', ['Ձեր անունը','Էլ. փոստ','Հեռախոս <i>(ըստ ցանկության)</i>','Նախագծի վայրը <i>(ըստ ցանկության)</i>','Ի՞նչ եք պլանավորում','Ընդհանուր բյուջե','Ցանկալի մեկնարկ','Պատմեք նախագծի մասին']],
+  ['.field .msg', ['Խնդրում եմ, նշեք ձեր անունը։','Խնդրում եմ, մուտքագրեք վավեր էլ. հասցե։','Մի քանի խոսք ձեր նախագծի մասին, խնդրում եմ։']],
+  ['#f-loc', 'օր.՝ Դիլիջան', 'placeholder'],
+  ['#f-msg', 'Տեղանքը, մարդիկ, ինչ եք սիրում, ինչն է ձեզ անհանգստացնում…', 'placeholder'],
+  ['#f-budget option', ['Դեռ չգիտեմ','Մինչև $50 հազ.','$50 – $150 հազ.','$150 – $500 հազ.','$500 հազ. և ավելի']],
+  ['#f-start option', ['Որքան հնարավոր է շուտ','1–3 ամսից','3–6 ամսից','Պարզապես ուսումնասիրում եմ']],
+  ['.form-foot small', 'Նախընտրու՞մ եք զրուցել։ <a href="#social">Գրեք ինձ Instagram-ում</a>։'],
+  ['#contactForm button[type=submit]', 'Ուղարկել ', 't'],
+  ['.success p', 'Ձեր նամակն ուղարկված է։ Կպատասխանեմ երկու աշխատանքային օրվա ընթացքում։<br><small style="color:var(--muted)">(Սա ցուցադրական կայք է․ իրականում ոչինչ չի ուղարկվել։)</small>'],
+  ['#again', 'Ուղարկել ևս մեկը'], ['#detach', 'Հեռացնել'],
+  ['.foot-big', 'Եկեք <em>խոսենք</em><br>տարածքի մասին։'],
+  ['.foot-row > span', `© ${new Date().getFullYear()} Լյուսի Մխոյանի ճարտարապետական ստուդիա`],
+  ['.foot-row nav a', ['Աշխատանքներ','Ծառայություններ','Հաշվարկ','Կապ']],
+  ['#mPrev', '← Նախորդը'], ['#mNext', 'Հաջորդը →'], ['#mClose', 'Փակել', 'aria-label'],
+];
+const enCache = new Map();
+const textNode = el => [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+function applyStatic(){
+  STATIC.forEach(([sel, hy, mode]) => {
+    const els = $$(sel);
+    if (!els.length) console.warn('i18n: no match for', sel);
+    els.forEach((el, i) => {
+      const val = Array.isArray(hy) ? hy[i] : hy;
+      if (val == null) return;
+      const attr = mode && mode !== 't' ? mode : null;
+      const get = () => attr ? el.getAttribute(attr) : mode === 't' ? textNode(el).textContent : el.innerHTML;
+      const set = v => attr ? el.setAttribute(attr, v) : mode === 't' ? (textNode(el).textContent = v) : (el.innerHTML = v);
+      const k = sel + '#' + i;
+      if (!enCache.has(k)) enCache.set(k, get());
+      set(lang === 'hy' ? val : enCache.get(k));
+    });
+  });
+}
+
+/* =========================================================
+   Render
+   ========================================================= */
 $('#heroArt').insertAdjacentHTML('afterbegin', scenes.tuff());
 $('#portrait').innerHTML = portraitSVG();
 $('#yr').textContent = new Date().getFullYear();
 
-// marquee
-const words = ['Residential','Interiors','Renovation','Hospitality','Public buildings','Landscape','Consulting','3D visualisation'];
-$('#marquee').innerHTML = [...words, ...words].map(w=>`<span>${w}</span>`).join('');
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold:.12, rootMargin:'0px 0px -40px 0px' });
+
+function renderMarquee(){ const w = words[lang]; $('#marquee').innerHTML = [...w, ...w].map(x=>`<span>${x}</span>`).join(''); }
 
 // portfolio
 const cats = ['All', ...new Set(projects.map(p=>p.cat))];
-$('#filters').innerHTML = cats.map((c,i)=>`<button class="chip" type="button" aria-pressed="${i===0}" data-cat="${c}">${c}</button>`).join('');
-$('#grid').innerHTML = projects.map((p,i)=>`
-  <button class="card rv" data-i="${i}" data-cat="${p.cat}" type="button" aria-label="Open ${p.title}">
+let activeCat = 'All';
+function renderPortfolio(){
+  $('#filters').innerHTML = cats.map(c=>`<button class="chip" type="button" aria-pressed="${c===activeCat}" data-cat="${c}">${T(c, catHY[c])}</button>`).join('');
+  const seen = new Set($$('.card.in').map(c=>c.dataset.i));
+  $('#grid').innerHTML = projects.map((p0,i)=>{ const p = pr(p0); return `
+  <button class="card rv ${seen.has(String(i))?'in':''} ${activeCat==='All'||p0.cat===activeCat?'':'hide'}" data-i="${i}" data-cat="${p0.cat}" type="button" aria-label="${T('Open','Բացել')} ${p.title}">
     <div class="thumb">${scenes[p.id]()}<span class="view"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12L12 4M5 4h7v7"/></svg></span></div>
-    <div class="card-meta"><div><h3>${p.title}</h3><p>${p.cat} · ${p.place}</p></div><span class="yr">${p.year}</span></div>
-  </button>`).join('');
+    <div class="card-meta"><div><h3>${p.title}</h3><p>${p.catLabel} · ${p.place}</p></div><span class="yr">${p.year}</span></div>
+  </button>`; }).join('');
+  $$('#grid .card:not(.in)').forEach(el=>io.observe(el));
+}
 $('#filters').addEventListener('click', e=>{
   const b = e.target.closest('.chip'); if(!b) return;
+  activeCat = b.dataset.cat;
   $$('.chip').forEach(c=>c.setAttribute('aria-pressed', c===b));
-  const cat = b.dataset.cat;
-  $$('.card').forEach(card=>{
-    const show = cat==='All' || card.dataset.cat===cat;
-    card.classList.toggle('hide', !show);
-  });
+  $$('.card').forEach(card=>card.classList.toggle('hide', !(activeCat==='All' || card.dataset.cat===activeCat)));
 });
 
 // modal
 let current = 0, lastFocus = null;
 const visibleIdx = () => $$('.card:not(.hide)').map(c=>+c.dataset.i);
 function openProject(i){
-  current = i; const p = projects[i];
+  current = i; const p = pr(projects[i]);
   $('#mArt').innerHTML = scenes[p.id]();
-  $('#mCat').textContent = `${p.cat} · ${p.year}`;
+  $('#mCat').textContent = `${p.catLabel} · ${p.year}`;
   $('#mTitle').textContent = p.title;
   $('#mDesc').textContent = p.desc;
-  $('#mFacts').innerHTML = [['Location',p.place],['Area',p.area],['Status',p.status],['Role',p.role]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  $('#mFacts').innerHTML = [[T('Location','Վայրը'),p.place],[T('Area','Մակերես'),p.area],[T('Status','Կարգավիճակ'),p.status],[T('Role','Դերը'),p.role]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   if(!$('#modal').classList.contains('open')){ lastFocus = document.activeElement; $('#modal').classList.add('open'); document.body.style.overflow='hidden'; setTimeout(()=>$('#mClose').focus(),50); }
 }
 function closeModal(){ $('#modal').classList.remove('open'); document.body.style.overflow=''; lastFocus && lastFocus.focus(); }
@@ -892,7 +1083,11 @@ document.addEventListener('keydown', e=>{
 
 // socials
 const arrow = '<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12L12 4M5 4h7v7"/></svg>';
-$('#socials').innerHTML = socials.map(s=>`<a class="soc rv" href="${s.url}" target="_blank" rel="noopener"><div class="row">${s.icon}${arrow}</div><div><b>${s.name}</b><span>${s.handle}</span></div></a>`).join('');
+function renderSocials(){
+  const seen = $$('#socials .soc.in').length > 0;
+  $('#socials').innerHTML = socials.map(s=>`<a class="soc rv ${seen?'in':''}" href="${s.url}" target="_blank" rel="noopener"><div class="row">${s.icon}${arrow}</div><div><b>${s.name}</b><span>${lang==='hy' && socialHY[s.name] || s.handle}</span></div></a>`).join('');
+  if(!seen) $$('#socials .soc').forEach(el=>io.observe(el));
+}
 $('#footSoc').innerHTML = socials.map(s=>`<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}">${s.icon}</a>`).join('');
 const instaOrder = ['tuff','cafe','garni','loft','sevan','kond'];
 $('#insta').innerHTML = instaOrder.map((k,i)=>`<a href="https://www.instagram.com/" target="_blank" rel="noopener" data-likes="♥ ${[412,388,951,276,634,505][i]}" aria-label="Instagram post">${scenes[k]()}</a>`).join('');
@@ -900,12 +1095,16 @@ $('#insta').innerHTML = instaOrder.map((k,i)=>`<a href="https://www.instagram.co
 /* =========================================================
    Estimator
    ========================================================= */
-const radio = (name, list, checked) => list.map(o=>`<label class="opt"><input type="radio" name="${name}" value="${o.v}" ${o.v===checked?'checked':''}><span>${o.label}<small>${o.note}</small></span></label>`).join('');
-$('#optType').innerHTML = radio('type', types, 'new');
-$('#optScope').innerHTML = radio('scope', scopes, 'permit');
-$('#optLevel').innerHTML = radio('level', levels, 'prem');
-$('#optSpeed').innerHTML = radio('speed', speeds, 'normal');
-$('#optExtras').innerHTML = extras.map(o=>`<label class="opt" data-x="${o.v}"><input type="checkbox" name="extra" value="${o.v}" ${o.v==='renders'?'checked':''}><span>${o.label}<small>${o.note} · ${o.flat?'+$'+o.flat.toLocaleString('en-US'):'+$'+o.perM2+'/m²'}</small></span></label>`).join('');
+const radio = (name, list, checked) => list.map(o=>`<label class="opt"><input type="radio" name="${name}" value="${o.v}" ${o.v===checked?'checked':''}><span>${lbl(o)}<small>${note(o)}</small></span></label>`).join('');
+function renderEstOptions(){
+  const f = new FormData($('#estForm'));
+  const picked = f.has('type') ? f.getAll('extra') : ['renders'];
+  $('#optType').innerHTML = radio('type', types, f.get('type') || 'new');
+  $('#optScope').innerHTML = radio('scope', scopes, f.get('scope') || 'permit');
+  $('#optLevel').innerHTML = radio('level', levels, f.get('level') || 'prem');
+  $('#optSpeed').innerHTML = radio('speed', speeds, f.get('speed') || 'normal');
+  $('#optExtras').innerHTML = extras.map(o=>`<label class="opt" data-x="${o.v}"><input type="checkbox" name="extra" value="${o.v}" ${picked.includes(o.v)?'checked':''}><span>${lbl(o, exKey(o))}<small>${note(o, exKey(o))} · ${o.flat?'+$'+o.flat.toLocaleString('en-US'):'+$'+o.perM2+'/'+M2()}</small></span></label>`).join('');
+}
 
 let currency = 'USD';
 const area = $('#area'), areaNum = $('#areaNum');
@@ -918,10 +1117,11 @@ const fmt = (usd) => {
 const fmtShort = (usd) => {
   const v = usd * FX[currency];
   const sym = { USD:'$', EUR:'€', AMD:'֏' }[currency];
-  if(v >= 1e6) return sym + (v/1e6).toFixed(v>=1e7?0:1) + 'M';
-  if(v >= 1e4) return sym + Math.round(v/1e3) + 'k';
+  if(v >= 1e6) return sym + (v/1e6).toFixed(v>=1e7?0:1) + T('M',' մլն');
+  if(v >= 1e4) return sym + Math.round(v/1e3) + T('k',' հզ');
   return fmt(usd);
 };
+const weeks = (lo, hi) => `${lo}–${hi} ${T('weeks','շաբաթ')}`;
 let lastEstimate = null;
 
 function estimate(){
@@ -946,16 +1146,16 @@ function estimate(){
   const wLo = Math.max(2, Math.round(wk*0.85)), wHi = Math.max(wLo+1, Math.round(wk*1.15));
 
   // output
-  $('#areaOut').textContent = a.toLocaleString('en-US') + ' m²';
+  $('#areaOut').textContent = a.toLocaleString('en-US') + ' ' + M2();
   $('#price').innerHTML = `${fmtShort(lo)}<span class="dash">–</span>${fmtShort(hi)}`;
-  $('#priceSub').textContent = `${t.label} · ${a.toLocaleString('en-US')} m² · ${s.label} · ${l.label}`;
+  $('#priceSub').textContent = `${lbl(t)} · ${a.toLocaleString('en-US')} ${M2()} · ${lbl(s)} · ${lbl(l)}`;
   const totalW = s.phases.reduce((x,p)=>x+phaseInfo[p].w,0);
-  const parts = s.phases.map(p=>({ ...phaseInfo[p], amt: base*sp.k*phaseInfo[p].w/totalW }));
-  if(extrasCost) parts.push({ name:'Add-ons', c:C.sage, amt: extrasCost*sp.k });
+  const parts = s.phases.map(p=>({ ...phaseInfo[p], name: T(phaseInfo[p].name, phaseHY[p]), amt: base*sp.k*phaseInfo[p].w/totalW }));
+  if(extrasCost) parts.push({ name:T('Add-ons','Լրացուցիչ'), c:C.sage, amt: extrasCost*sp.k });
   $('#bar').innerHTML = parts.map(p=>`<i style="flex-grow:${p.amt};background:${p.c}"></i>`).join('');
   $('#legend').innerHTML = parts.map(p=>`<div><i style="background:${p.c}"></i><span>${p.name}</span><b>${fmt(p.amt)}</b></div>`).join('');
-  $('#kvTime').textContent = s.v==='full' ? `${wLo}–${wHi} weeks + build` : `${wLo}–${wHi} weeks`;
-  $('#kvRate').textContent = `${fmt(total/a).replace(/\.00$/,'')} / m²`;
+  $('#kvTime').textContent = weeks(wLo, wHi) + (s.v==='full' ? T(' + build',' + շինարարություն') : '');
+  $('#kvRate').textContent = `${fmt(total/a)} / ${M2()}`;
   lastEstimate = { type:t, area:a, scope:s, level:l, speed:sp, extras:chosen, lo, hi, wLo, wHi };
 }
 function syncRange(){ const p = (area.value-area.min)/(area.max-area.min)*100; area.style.setProperty('--p', p+'%'); }
@@ -964,26 +1164,34 @@ areaNum.addEventListener('input', ()=>{ const v = +areaNum.value; if(v>=20){ are
 areaNum.addEventListener('blur', ()=>{ areaNum.value = Math.max(20, Math.min(5000, +areaNum.value||20)); estimate(); });
 $('#estForm').addEventListener('change', estimate);
 $('#cur').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; currency=b.dataset.c; $$('#cur button').forEach(x=>x.setAttribute('aria-pressed', x===b)); estimate(); });
-syncRange(); estimate();
 
 /* =========================================================
    Contact form
    ========================================================= */
-const planTypes = ['New home','Renovation','Interior','Commercial','Hospitality','Consulting'];
-$('#pillType').innerHTML = planTypes.map((t,i)=>`<label class="pill"><input type="radio" name="ptype" value="${t}" ${i===0?'checked':''}><span>${t}</span></label>`).join('');
+function renderPills(){
+  const cur = ($('#pillType input:checked') || {}).value || planTypes[0][0];
+  $('#pillType').innerHTML = planTypes.map(([en,hy])=>`<label class="pill"><input type="radio" name="ptype" value="${en}" ${en===cur?'checked':''}><span>${T(en,hy)}</span></label>`).join('');
+}
 const typeMap = { new:'New home', reno:'Renovation', interior:'Interior', commercial:'Commercial', hospitality:'Hospitality', landscape:'Consulting' };
 let attachedEstimate = null;
+function attachedText(e){
+  const ex = e.extras.length ? ' + ' + e.extras.map(x=>lbl(x, exKey(x))).join(', ') : '';
+  const fast = e.speed.v==='fast' ? T(', fast-track', ', արագացված') : '';
+  return `📐 ${T('Estimate','Հաշվարկ')}: ${lbl(e.type)}, ${e.area} ${M2()}, ${lbl(e.scope)}, ${lbl(e.level)}${ex}${fast} → ${fmt(e.lo)}–${fmt(e.hi)}, ${weeks(e.wLo, e.wHi)}`;
+}
 
 $('#sendEst').addEventListener('click', ()=>{
   const e = lastEstimate; if(!e) return;
-  attachedEstimate = `Estimate: ${e.type.label}, ${e.area} m², ${e.scope.label}, ${e.level.label}${e.extras.length?' + '+e.extras.map(x=>x.label).join(', '):''}${e.speed.v==='fast'?', fast-track':''} → ${fmt(e.lo)}–${fmt(e.hi)}, ${e.wLo}–${e.wHi} weeks`;
-  $('#attachedTxt').textContent = '📐 ' + attachedEstimate;
+  attachedEstimate = { ...e };
+  $('#attachedTxt').textContent = attachedText(attachedEstimate);
   $('#attached').classList.add('show');
   const r = $(`#pillType input[value="${typeMap[e.type.v]}"]`); if(r) r.checked = true;
-  const msg = $('#f-msg'); if(!msg.value.trim()) msg.value = `Hi Lucy, I'd like a detailed quote for a ${e.area} m² ${e.type.label.toLowerCase()} project.`;
+  const msg = $('#f-msg');
+  if(!msg.value.trim()) msg.value = T(`Hi Lucy, I'd like a detailed quote for a ${e.area} m² ${e.type.label.toLowerCase()} project.`,
+                                      `Բարև Ձեզ, Լյուսի։ Կցանկանայի ստանալ մանրամասն առաջարկ ${e.area} մ² մակերեսով նախագծի համար (${lbl(e.type)})։`);
   document.getElementById('contact').scrollIntoView({ behavior:'smooth' });
   setTimeout(()=>$('#f-name').focus({ preventScroll:true }), 700);
-  toast('Estimate attached to your message');
+  toast(T('Estimate attached to your message','Հաշվարկը կցվեց ձեր նամակին'));
 });
 $('#detach').onclick = ()=>{ attachedEstimate=null; $('#attached').classList.remove('show'); };
 
@@ -991,18 +1199,45 @@ const form = $('#contactForm');
 const rules = { name: v=>v.trim().length>1, email: v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()), message: v=>v.trim().length>4 };
 function check(input){ const ok = rules[input.name](input.value); input.closest('.field').classList.toggle('err', !ok); return ok; }
 Object.keys(rules).forEach(n=>{ const el=form.elements[n]; el.addEventListener('blur', ()=>check(el)); el.addEventListener('input', ()=>{ if(el.closest('.field').classList.contains('err')) check(el); }); });
+const successTitle = () => { const n = form.elements.name.value.trim().split(' ')[0]; $('#successTitle').textContent = T(`Thank you, ${n}!`, `Շնորհակալություն, ${n}։`); };
 form.addEventListener('submit', e=>{
   e.preventDefault();
   const bad = Object.keys(rules).map(n=>form.elements[n]).filter(el=>!check(el));
   if(bad.length){ bad[0].focus(); return; }
-  const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.firstChild.textContent = 'Sending… ';
+  const btn = form.querySelector('button[type=submit]'); btn.disabled = true; textNode(btn).textContent = T('Sending… ','Ուղարկվում է… ');
   setTimeout(()=>{
-    $('#successTitle').textContent = `Thank you, ${form.elements.name.value.trim().split(' ')[0]}!`;
-    form.classList.add('sent'); btn.disabled=false; btn.firstChild.textContent='Send message ';
+    successTitle();
+    form.classList.add('sent'); btn.disabled=false; textNode(btn).textContent = T('Send message ','Ուղարկել ');
     form.scrollIntoView({ behavior:'smooth', block:'center' });
   }, 900);
 });
 $('#again').onclick = ()=>{ form.reset(); form.classList.remove('sent'); $('#attached').classList.remove('show'); attachedEstimate=null; $('#pillType input').checked=true; };
+
+/* =========================================================
+   Switching language
+   ========================================================= */
+const META = {
+  en:{ title:'Lucy Mkhoyan — Architecture & Interiors', desc:'Lucy Mkhoyan is an architect working across homes, interiors and small public buildings in Armenia and beyond. Portfolio, services, a fee estimator and contact.' },
+  hy:{ title:'Լյուսի Մխոյան — Ճարտարապետություն և ինտերիեր', desc:'Լյուսի Մխոյանը ճարտարապետ է, որը նախագծում է տներ, ինտերիերներ և փոքր հանրային շենքեր Հայաստանում և այլուր։ Պորտֆոլիո, ծառայություններ, արժեքի հաշվիչ և կապ։' },
+};
+function setLang(next){
+  lang = next;
+  try { localStorage.setItem('lucy-lang', lang); } catch {}
+  document.documentElement.lang = lang;
+  document.title = META[lang].title;
+  $('meta[name=description]').setAttribute('content', META[lang].desc);
+  $$('.lang button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.l===lang));
+  applyStatic();
+  renderMarquee(); renderPortfolio(); renderSocials(); renderEstOptions(); renderPills();
+  estimate();
+  if($('#modal').classList.contains('open')) openProject(current);
+  if(attachedEstimate) $('#attachedTxt').textContent = attachedText(attachedEstimate);
+  if(form.classList.contains('sent')) successTitle();
+  $$('[data-count]').forEach(el=>{ el.dataset.suffix = el.dataset.suffix ? ' ' + M2() : ''; if(el.dataset.done) el.textContent = (+el.dataset.count).toLocaleString('en-US') + (el.dataset.suffix||''); });
+}
+$$('.lang').forEach(g=>g.addEventListener('click', e=>{ const b = e.target.closest('button'); if(b && b.dataset.l !== lang) setLang(b.dataset.l); }));
+setLang(lang);
+syncRange();
 
 /* =========================================================
    Nav, reveal, counters, toast
@@ -1013,13 +1248,12 @@ addEventListener('scroll', onScroll, { passive:true }); onScroll();
 $('#burger').onclick = ()=>{ const open = document.body.classList.toggle('menu-open'); $('#mobileMenu').classList.toggle('open', open); $('#burger').setAttribute('aria-expanded', open); };
 $$('#mobileMenu a').forEach(a=>a.onclick = ()=>{ document.body.classList.remove('menu-open'); $('#mobileMenu').classList.remove('open'); $('#burger').setAttribute('aria-expanded', false); });
 
-const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold:.12, rootMargin:'0px 0px -40px 0px' });
-$$('.rv').forEach((el,i)=>{ el.style.transitionDelay = (i%4)*70+'ms'; io.observe(el); });
+$$('.rv').forEach((el,i)=>{ el.style.transitionDelay = (i%4)*70+'ms'; if(!el.classList.contains('in')) io.observe(el); });
 
 const cio = new IntersectionObserver(es=>es.forEach(e=>{
   if(!e.isIntersecting) return; cio.unobserve(e.target);
-  const el = e.target, end = +el.dataset.count, suf = el.dataset.suffix||'', t0 = performance.now(), dur = 1400;
-  const tick = now => { const k = Math.min(1,(now-t0)/dur), v = Math.round(end*(1-Math.pow(1-k,3))); el.textContent = v.toLocaleString('en-US') + suf; if(k<1) requestAnimationFrame(tick); };
+  const el = e.target, end = +el.dataset.count, t0 = performance.now(), dur = 1400;
+  const tick = now => { const k = Math.min(1,(now-t0)/dur), v = Math.round(end*(1-Math.pow(1-k,3))); el.textContent = v.toLocaleString('en-US') + (el.dataset.suffix||''); if(k<1) requestAnimationFrame(tick); else el.dataset.done = '1'; };
   requestAnimationFrame(tick);
 }), { threshold:.5 });
 $$('[data-count]').forEach(el=>cio.observe(el));
