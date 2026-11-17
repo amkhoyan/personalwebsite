@@ -88,3 +88,10 @@ Once the domain checks out, tick **Enforce HTTPS**.
 the home page or sitemap). Don't edit it here: in the `gym` repo run `npm run deploy:site`, then commit `gym/` in
 this repo. `404.html` sends deep links such as `/gym/plan` back to the app, and shows a plain "not found" page
 for everything else.
+
+## 3D map at `/yerevan`
+
+`yerevan/index.html` is a standalone interactive 3D map of Yerevan (not linked from the home page). It uses
+[MapLibre GL JS](https://maplibre.org) with OpenStreetMap buildings from [OpenFreeMap](https://openfreemap.org)
+and elevation from AWS Terrain Tiles, so it needs no API key or account. Deep links: `/yerevan/#cascade`,
+`/yerevan/#ararat`, `/yerevan/?lang=hy`. Landmark camera positions are in the `PLACES` list in that file.

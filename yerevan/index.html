@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yerevan in 3D</title>
+<meta name="description" content="An interactive 3D map of Yerevan: OpenStreetMap buildings extruded over real terrain, with a tour of the city's landmarks and a view toward Ararat.">
+<meta property="og:title" content="Yerevan in 3D">
+<meta property="og:description" content="Fly over Yerevan's buildings and hills in your browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231B1F2A'/%3E%3Cpath d='M8 50l16-26 8 12 6-8 18 22z' fill='%23F1E6D6'/%3E%3Crect x='14' y='38' width='6' height='12' fill='%23C9876A'/%3E%3Crect x='24' y='30' width='7' height='20' fill='%23C9876A'/%3E%3Crect x='35' y='40' width='6' height='10' fill='%23C9876A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --panel:rgba(251,248,243,.92); --ink:#1E1B18; --ink-2:#3A342F; --muted:#6F665D; --line:rgba(30,27,24,.12);
+  --accent:#9C5A43; --accent-soft:rgba(201,135,106,.16);
+  --serif:"Instrument Serif", Georgia, serif;
+  --sans:"Manrope", "Noto Sans Armenian", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.06), 0 18px 40px -16px rgba(0,0,0,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --panel:rgba(24,26,33,.9); --ink:#F1ECE4; --ink-2:#D4CCC1; --muted:#9A9289; --line:rgba(255,255,255,.12);
+    --accent:#E0A285; --accent-soft:rgba(224,162,133,.16);
+  }
+}
+:root[data-theme="dark"]{
+  --panel:rgba(24,26,33,.9); --ink:#F1ECE4; --ink-2:#D4CCC1; --muted:#9A9289; --line:rgba(255,255,255,.12);
+  --accent:#E0A285; --accent-soft:rgba(224,162,133,.16);
+}
+*{box-sizing:border-box}
+html,body{margin:0; height:100%; background:#1B1F2A; color:var(--ink); font:15px/1.5 var(--sans); -webkit-font-smoothing:antialiased; overflow:hidden}
+button{font:inherit; color:inherit; cursor:pointer}
+#map{position:fixed; inset:0}
+
+.panel{position:fixed; z-index:5; top:16px; left:16px; width:320px; max-height:calc(100% - 32px); overflow:auto;
+  background:var(--panel); backdrop-filter:blur(14px) saturate(1.3); -webkit-backdrop-filter:blur(14px) saturate(1.3);
+  border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:18px 18px 14px}
+.head{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+h1{font-family:var(--serif); font-weight:400; font-size:34px; line-height:1; margin:0; letter-spacing:-.01em}
+h1 em{color:var(--accent)}
+.sub{color:var(--muted); font-size:13px; margin:6px 0 14px}
+.icon-btn{border:1px solid var(--line); background:transparent; border-radius:999px; height:30px; min-width:30px; padding:0 10px; font-size:12px; font-weight:600; display:inline-flex; align-items:center; justify-content:center}
+.icon-btn:hover{background:var(--accent-soft)}
+.label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; margin:14px 0 8px}
+.places{display:grid; grid-template-columns:1fr 1fr; gap:6px}
+.place{text-align:left; border:1px solid var(--line); background:transparent; border-radius:10px; padding:8px 10px; font-size:13px; font-weight:500; line-height:1.25}
+.place:hover{background:var(--accent-soft)}
+.place.on{border-color:var(--accent); background:var(--accent-soft)}
+.place.wide{grid-column:1 / -1}
+.row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:6px 0}
+.row span{font-size:13.5px; color:var(--ink-2)}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:2px}
+.seg button{border:0; background:transparent; border-radius:999px; padding:4px 10px; font-size:12px; font-weight:600; color:var(--muted)}
+.seg button.on{background:var(--ink); color:var(--panel)}
+input[type=range]{width:150px; accent-color:var(--accent)}
+.switch{position:relative; width:38px; height:22px; border-radius:999px; border:0; background:var(--line); padding:0; flex:none}
+.switch::after{content:""; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.switch[aria-checked="true"]{background:var(--accent)}
+.switch[aria-checked="true"]::after{transform:translateX(16px)}
+.legend{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--muted); margin-top:4px}
+.legend i{flex:1; height:6px; border-radius:3px; background:linear-gradient(90deg,#E9DCC9,#D9A47F,#B4664A,#6E3B3A,#2F2A44)}
+.foot{font-size:11.5px; color:var(--muted); margin-top:12px; border-top:1px solid var(--line); padding-top:10px}
+.foot a{color:inherit}
+.toggle-panel{display:none}
+.info{position:fixed; z-index:5; right:16px; bottom:34px; max-width:260px; background:var(--panel); border:1px solid var(--line);
+  border-radius:12px; box-shadow:var(--shadow); padding:10px 12px; font-size:13px; display:none;
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px)}
+.info b{display:block; font-size:14px}
+.info small{color:var(--muted)}
+.loading{position:fixed; inset:0; display:grid; place-items:center; z-index:4; pointer-events:none; color:#F1ECE4; font-family:var(--serif); font-size:28px; transition:opacity .6s}
+.maplibregl-ctrl-bottom-right{bottom:0}
+
+@media (max-width:640px){
+  .panel{top:auto; bottom:12px; left:12px; right:12px; width:auto; max-height:56%; padding:14px}
+  .panel.collapsed{max-height:none}
+  .panel.collapsed .body{display:none}
+  .panel.collapsed .sub{margin-bottom:0}
+  h1{font-size:28px}
+  .toggle-panel{display:inline-flex}
+  .maplibregl-ctrl-top-right{top:0}
+  .maplibregl-ctrl-bottom-left{display:none}
+  .maplibregl-ctrl-bottom-right{top:0; left:0; right:auto; bottom:auto}
+  .info{left:12px; right:12px; bottom:auto; top:12px; max-width:none}
+}
+</style>
+</head>
+<body>
+<div id="map" role="region" aria-label="3D map of Yerevan"></div>
+<div class="loading" id="loading">Yerevan…</div>
+
+<aside class="panel" id="panel">
+  <div class="head">
+    <div>
+      <h1 data-i18n="title">Yerevan <em>in 3D</em></h1>
+      <p class="sub" data-i18n="sub">Drag to pan · right-drag or two fingers to tilt and rotate</p>
+    </div>
+    <div style="display:flex; gap:6px">
+      <button class="icon-btn" id="lang" aria-label="Switch language">ՀԱՅ</button>
+      <button class="icon-btn toggle-panel" id="collapse" aria-label="Show or hide controls">–</button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="label" data-i18n="fly">Fly to</div>
+    <div class="places" id="places"></div>
+
+    <div class="label" data-i18n="view">View</div>
+    <div class="row"><span data-i18n="tour">Tour the landmarks</span><button class="switch" id="tour" role="switch" aria-checked="false" aria-label="Tour"></button></div>
+    <div class="row"><span data-i18n="orbit">Slow orbit</span><button class="switch" id="orbit" role="switch" aria-checked="false" aria-label="Orbit"></button></div>
+    <div class="row"><span data-i18n="terrain">Terrain</span><button class="switch" id="terrain" role="switch" aria-checked="true" aria-label="Terrain"></button></div>
+    <div class="row"><span data-i18n="time">Time of day</span><input type="range" id="time" min="5" max="21" step="0.25" value="16" aria-label="Time of day"></div>
+    <div class="row"><span data-i18n="color">Buildings</span>
+      <div class="seg" id="colorMode">
+        <button data-mode="height" class="on" data-i18n="byHeight">Height</button>
+        <button data-mode="tuff" data-i18n="tuffMode">Tuff</button>
+        <button data-mode="mono" data-i18n="mono">Mono</button>
+      </div>
+    </div>
+    <div class="legend" id="legend"><span>0 m</span><i></i><span>80 m+</span></div>
+
+    <p class="foot"><span data-i18n="data">Buildings &amp; streets</span>: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a> via <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. <span data-i18n="elev">Elevation</span>: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">AWS Terrain Tiles</a>. <span data-i18n="note">Buildings without a height tag in OSM are shown low.</span></p>
+  </div>
+</aside>
+<div class="info" id="info"></div>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>
+(() => {
+  // ---------- Text (EN / HY) ----------
+  const T = {
+    en: {
+      title: 'Yerevan <em>in 3D</em>', sub: 'Drag to pan · right-drag or two fingers to tilt and rotate',
+      fly: 'Fly to', view: 'View', tour: 'Tour the landmarks', orbit: 'Slow orbit', terrain: 'Terrain',
+      time: 'Time of day', color: 'Buildings', byHeight: 'Height', tuffMode: 'Tuff', mono: 'Mono',
+      data: 'Buildings & streets', elev: 'Elevation', note: 'Buildings without a height tag in OSM are shown low.',
+      building: 'Building', height: 'height', floors: 'floors', unknown: 'height not in OSM'
+    },
+    hy: {
+      title: 'Երևանը <em>3D-ով</em>', sub: 'Քաշեք՝ տեղաշարժելու համար · աջ կոճակով կամ երկու մատով՝ թեքելու և պտտելու',
+      fly: 'Թռչել', view: 'Տեսք', tour: 'Շրջայց տեսարժան վայրերով', orbit: 'Դանդաղ պտույտ', terrain: 'Ռելիեֆ',
+      time: 'Օրվա ժամ', color: 'Շենքեր', byHeight: 'Բարձրություն', tuffMode: 'Տուֆ', mono: 'Մոնո',
+      data: 'Շենքեր և փողոցներ', elev: 'Բարձունքներ', note: 'OSM-ում բարձրություն չունեցող շենքերը ցուցադրվում են ցածր։',
+      building: 'Շենք', height: 'բարձրություն', floors: 'հարկ', unknown: 'բարձրությունը OSM-ում չկա'
+    }
+  };
+
+  // Landmarks: camera presets [lng, lat], zoom, pitch, bearing
+  const PLACES = [
+    { id:'republic', en:'Republic Square', hy:'Հանրապետության հրապարակ', c:[44.5136,40.1772], z:16.6, p:62, b:-20 },
+    { id:'cascade', en:'Cascade', hy:'Կասկադ', c:[44.5155,40.1905], z:16.4, p:66, b:-15 },
+    { id:'opera', en:'Opera House', hy:'Օպերայի թատրոն', c:[44.5145,40.1858], z:16.6, p:60, b:30 },
+    { id:'mother', en:'Mother Armenia', hy:'Մայր Հայաստան', c:[44.5235,40.1950], z:16.2, p:64, b:200 },
+    { id:'matenadaran', en:'Matenadaran', hy:'Մատենադարան', c:[44.5210,40.1918], z:16.8, p:60, b:150 },
+    { id:'mosque', en:'Blue Mosque', hy:'Կապույտ մզկիթ', c:[44.5047,40.1786], z:17, p:58, b:40 },
+    { id:'cathedral', en:'St. Gregory Cathedral', hy:'Սբ. Գրիգոր Լուսավորիչ', c:[44.5178,40.1716], z:16.8, p:60, b:-60 },
+    { id:'tsitsernakaberd', en:'Tsitsernakaberd', hy:'Ծիծեռնակաբերդ', c:[44.4905,40.1856], z:16, p:62, b:90 },
+    { id:'erebuni', en:'Erebuni Fortress', hy:'Էրեբունի', c:[44.5370,40.1403], z:15.8, p:60, b:-30 },
+    { id:'ararat', en:'View toward Ararat', hy:'Տեսարան դեպի Արարատ', c:[44.5150,40.1950], z:12.4, p:77, b:210, wide:true },
+    { id:'overview', en:'Whole city', hy:'Ամբողջ քաղաքը', c:[44.5130,40.1800], z:12.6, p:55, b:-17, wide:true }
+  ];
+
+  let lang = 'en';
+  try { lang = new URLSearchParams(location.search).get('lang') === 'hy' ? 'hy' : (localStorage.getItem('yvn-lang') || 'en'); } catch {}
+
+  // ---------- Map style (OpenMapTiles schema via OpenFreeMap, no API key) ----------
+  const nameExpr = () => lang === 'hy'
+    ? ['coalesce', ['get','name:hy'], ['get','name'], ['get','name:latin']]
+    : ['coalesce', ['get','name:en'], ['get','name_en'], ['get','name:latin'], ['get','name']];
+
+  const style = {
+    version: 8,
+    glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
+    sources: {
+      omt: { type:'vector', url:'https://tiles.openfreemap.org/planet' },
+      dem: {
+        type:'raster-dem', encoding:'terrarium', tileSize:256, maxzoom:14,
+        tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']
+      },
+      shade: {
+        type:'raster-dem', encoding:'terrarium', tileSize:256, maxzoom:14,
+        tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']
+      }
+    },
+    sky: {
+      'sky-color':'#9DB8D3', 'horizon-color':'#F2DCC2', 'fog-color':'#E9D9C6',
+      'sky-horizon-blend':0.6, 'horizon-fog-blend':0.6, 'fog-ground-blend':0.35, 'atmosphere-blend':0.6
+    },
+    terrain: { source:'dem', exaggeration:1.3 },
+    layers: [
+      { id:'bg', type:'background', paint:{ 'background-color':'#EFE6DA' } },
+      { id:'landcover', type:'fill', source:'omt', 'source-layer':'landcover',
+        paint:{ 'fill-color':['match',['get','class'],['wood','forest'],'#C5D3B0',['grass','scrub','farmland'],'#DCE0C3','#E6DFCF'], 'fill-opacity':0.7 } },
+      { id:'park', type:'fill', source:'omt', 'source-layer':'park', paint:{ 'fill-color':'#C9D8B4', 'fill-opacity':0.8 } },
+      { id:'landuse', type:'fill', source:'omt', 'source-layer':'landuse',
+        filter:['in',['get','class'],['literal',['residential','commercial','industrial','university','school','hospital','cemetery','stadium','pitch']]],
+        paint:{ 'fill-color':['match',['get','class'],'cemetery','#D3D9C2',['stadium','pitch'],'#CFDCB9',['industrial'],'#E2DAD0','#EAE0D3'], 'fill-opacity':0.55 } },
+      { id:'hillshade', type:'hillshade', source:'shade',
+        paint:{ 'hillshade-shadow-color':'#6B5646', 'hillshade-highlight-color':'#FFF8EE', 'hillshade-accent-color':'#8A7462', 'hillshade-exaggeration':0.35 } },
+      { id:'water', type:'fill', source:'omt', 'source-layer':'water', paint:{ 'fill-color':'#9EC3D6' } },
+      { id:'waterway', type:'line', source:'omt', 'source-layer':'waterway', paint:{ 'line-color':'#9EC3D6', 'line-width':['interpolate',['linear'],['zoom'],10,1,16,4] } },
+      { id:'roads-minor', type:'line', source:'omt', 'source-layer':'transportation', minzoom:13,
+        filter:['in',['get','class'],['literal',['minor','service','track','path']]],
+        layout:{ 'line-cap':'round', 'line-join':'round' },
+        paint:{ 'line-color':'#FFFBF5', 'line-width':['interpolate',['exponential',1.6],['zoom'],13,0.5,18,8], 'line-opacity':0.9 } },
+      { id:'roads-major', type:'line', source:'omt', 'source-layer':'transportation',
+        filter:['in',['get','class'],['literal',['motorway','trunk','primary','secondary','tertiary']]],
+        layout:{ 'line-cap':'round', 'line-join':'round' },
+        paint:{ 'line-color':['match',['get','class'],['motorway','trunk','primary'],'#F4CFA8','#FFF4E4'],
+                'line-width':['interpolate',['exponential',1.6],['zoom'],10,0.8,18,18] } },
+      { id:'rail', type:'line', source:'omt', 'source-layer':'transportation', minzoom:12,
+        filter:['==',['get','class'],'rail'], paint:{ 'line-color':'#B8A99A', 'line-width':1.2, 'line-dasharray':[3,2] } },
+      { id:'buildings', type:'fill-extrusion', source:'omt', 'source-layer':'building', minzoom:12,
+        paint:{
+          'fill-extrusion-color': '#D9A47F',
+          'fill-extrusion-height':['interpolate',['linear'],['zoom'],12,0,12.5,['coalesce',['get','render_height'],6]],
+          'fill-extrusion-base':['coalesce',['get','render_min_height'],0],
+          'fill-extrusion-opacity':0.94,
+          'fill-extrusion-vertical-gradient':true
+        } },
+      { id:'road-labels', type:'symbol', source:'omt', 'source-layer':'transportation_name', minzoom:14,
+        layout:{ 'symbol-placement':'line', 'text-field':nameExpr(), 'text-font':['Noto Sans Regular'], 'text-size':11.5 },
+        paint:{ 'text-color':'#5C5046', 'text-halo-color':'#FFFBF5', 'text-halo-width':1.4 } },
+      { id:'poi-labels', type:'symbol', source:'omt', 'source-layer':'poi', minzoom:15,
+        filter:['<=',['get','rank'],8],
+        layout:{ 'text-field':nameExpr(), 'text-font':['Noto Sans Regular'], 'text-size':11.5, 'text-max-width':8, 'text-variable-anchor':['top','bottom'] },
+        paint:{ 'text-color':'#6E3B3A', 'text-halo-color':'#FFFBF5', 'text-halo-width':1.4 } },
+      { id:'place-labels', type:'symbol', source:'omt', 'source-layer':'place',
+        filter:['in',['get','class'],['literal',['city','town','suburb','quarter','neighbourhood','village']]],
+        layout:{ 'text-field':nameExpr(), 'text-font':['Noto Sans Bold'],
+                 'text-size':['match',['get','class'],'city',20,['town','suburb'],14,12],
+                 'text-transform':['match',['get','class'],['suburb','quarter'],'uppercase','none'], 'text-letter-spacing':0.06 },
+        paint:{ 'text-color':'#2F2A44', 'text-halo-color':'rgba(255,251,245,.9)', 'text-halo-width':1.6 } }
+    ]
+  };
+
+  const COLORS = {
+    height: ['interpolate',['linear'],['coalesce',['get','render_height'],6], 0,'#E9DCC9', 12,'#D9A47F', 25,'#B4664A', 45,'#6E3B3A', 80,'#2F2A44'],
+    tuff: ['match',['%',['coalesce',['id'],0],4], 0,'#D5947A', 1,'#C78165', 2,'#E0B49B', '#B9725B'],
+    mono: '#EDE6DC'
+  };
+
+  const start = PLACES.find(p => p.id === 'overview');
+  const map = new maplibregl.Map({
+    container:'map', style, center:start.c, zoom:start.z, pitch:start.p, bearing:start.b,
+    maxPitch:85, minZoom:9, maxBounds:[[43.9,39.6],[45.2,40.6]], attributionControl:{ compact:true },
+    canvasContextAttributes:{ antialias:true }
+  });
+  map.addControl(new maplibregl.NavigationControl({ visualizePitch:true }), 'top-right');
+  map.addControl(new maplibregl.ScaleControl({ unit:'metric' }), 'bottom-left');
+
+  // Style is ready before every tile has arrived: set up lighting/colours then.
+  map.once('style.load', () => {
+    setColorMode('height');
+    setTime(+timeInput.value);
+  });
+  const hideLoading = () => {
+    const l = document.getElementById('loading'); if (!l) return;
+    l.style.opacity = 0; setTimeout(() => l.remove(), 700);
+  };
+  map.once('load', hideLoading);
+  setTimeout(hideLoading, 8000);
+  map.on('error', e => console.warn('[map]', e && e.error && e.error.message));
+
+  // ---------- UI ----------
+  const $ = id => document.getElementById(id);
+  const placesEl = $('places');
+  let activePlace = 'overview';
+
+  function renderPlaces(){
+    placesEl.innerHTML = '';
+    PLACES.forEach(p => {
+      const b = document.createElement('button');
+      b.className = 'place' + (p.wide ? ' wide' : '') + (p.id === activePlace ? ' on' : '');
+      b.textContent = p[lang];
+      b.onclick = () => { stopTour(); flyTo(p); };
+      placesEl.appendChild(b);
+    });
+  }
+
+  function flyTo(p, opts = {}){
+    activePlace = p.id; renderPlaces();
+    map.flyTo({ center:p.c, zoom:p.z, pitch:p.p, bearing:p.b, duration:opts.duration || 4200, essential:true, curve:1.3 });
+  }
+
+  function applyLang(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = T[lang][el.dataset.i18n]; if (v) el.innerHTML = v;
+    });
+    $('lang').textContent = lang === 'en' ? 'ՀԱՅ' : 'EN';
+    document.title = lang === 'en' ? 'Yerevan in 3D' : 'Երևանը 3D-ով';
+    renderPlaces();
+    if (map.isStyleLoaded()) ['road-labels','poi-labels','place-labels'].forEach(id => map.setLayoutProperty(id, 'text-field', nameExpr()));
+  }
+  $('lang').onclick = () => {
+    lang = lang === 'en' ? 'hy' : 'en';
+    try { localStorage.setItem('yvn-lang', lang); } catch {}
+    applyLang();
+  };
+  $('collapse').onclick = () => {
+    const c = $('panel').classList.toggle('collapsed');
+    $('collapse').textContent = c ? '+' : '–';
+  };
+
+  function setSwitch(el, on){ el.setAttribute('aria-checked', String(on)); }
+
+  // Terrain
+  $('terrain').onclick = () => {
+    const on = $('terrain').getAttribute('aria-checked') !== 'true';
+    setSwitch($('terrain'), on);
+    map.setTerrain(on ? { source:'dem', exaggeration:1.3 } : null);
+    map.setLayoutProperty('hillshade', 'visibility', on ? 'visible' : 'none');
+  };
+
+  // Building colours
+  function setColorMode(mode){
+    document.querySelectorAll('#colorMode button').forEach(b => b.classList.toggle('on', b.dataset.mode === mode));
+    $('legend').style.visibility = mode === 'height' ? 'visible' : 'hidden';
+    if (map.getLayer('buildings')) map.setPaintProperty('buildings', 'fill-extrusion-color', COLORS[mode]);
+  }
+  document.querySelectorAll('#colorMode button').forEach(b => b.onclick = () => setColorMode(b.dataset.mode));
+
+  // Time of day: moves the light and tints sky/ground
+  const timeInput = $('time');
+  const mix = (a, b, t) => {
+    const pa = a.match(/\w\w/g).map(h => parseInt(h,16)), pb = b.match(/\w\w/g).map(h => parseInt(h,16));
+    return '#' + pa.map((v,i) => Math.round(v + (pb[i]-v)*t).toString(16).padStart(2,'0')).join('');
+  };
+  function setTime(h){
+    // sun elevation: 0 at 6h and 20h, peak at 13h
+    const day = Math.max(0, Math.sin(Math.PI * (h - 6) / 14));
+    const warm = Math.max(0, 1 - Math.abs(day - 0.25) * 4) * (day < 0.6 ? 1 : 0);
+    const azimuth = 90 + (h - 6) * (180 / 14);          // east → south → west
+    const polar = 90 - day * 70;                         // degrees from zenith
+    map.setLight({
+      anchor:'map', position:[1.4, azimuth, polar],
+      color: mix('#FFFFFF', '#FFB27A', warm), intensity: 0.25 + day * 0.35
+    });
+    const night = 1 - Math.min(1, day * 3);
+    map.setSky({
+      'sky-color': mix(mix('#9DB8D3', '#E59A6A', warm * 0.6), '#121A33', night),
+      'horizon-color': mix(mix('#F2DCC2', '#F7A970', warm), '#2A2C4A', night),
+      'fog-color': mix(mix('#E9D9C6', '#E9B48E', warm), '#1E2238', night),
+      'sky-horizon-blend':0.6, 'horizon-fog-blend':0.6, 'fog-ground-blend':0.35, 'atmosphere-blend':0.6
+    });
+    map.setPaintProperty('bg', 'background-color', mix('#EFE6DA', '#3A3A4E', night * 0.85));
+  }
+  timeInput.oninput = () => map.isStyleLoaded() && setTime(+timeInput.value);
+
+  // Orbit
+  let orbitOn = false, orbitFrame = 0;
+  function orbitStep(){
+    if (!orbitOn) return;
+    map.setBearing(map.getBearing() + 0.06);
+    orbitFrame = requestAnimationFrame(orbitStep);
+  }
+  function setOrbit(on){
+    orbitOn = on; setSwitch($('orbit'), on);
+    cancelAnimationFrame(orbitFrame);
+    if (on) orbitStep();
+  }
+  $('orbit').onclick = () => { stopTour(); setOrbit(!orbitOn); };
+  map.on('mousedown', () => { setOrbit(false); stopTour(); });
+  map.on('touchstart', () => { setOrbit(false); stopTour(); });
+
+  // Tour
+  let tourTimer = 0, tourIdx = 0;
+  const tourStops = PLACES.filter(p => !p.wide);
+  function nextStop(){
+    const p = tourStops[tourIdx++ % tourStops.length];
+    flyTo(p, { duration:5200 });
+    tourTimer = setTimeout(nextStop, 9000);
+  }
+  function stopTour(){ clearTimeout(tourTimer); tourTimer = 0; setSwitch($('tour'), false); }
+  $('tour').onclick = () => {
+    if (tourTimer) return stopTour();
+    setOrbit(false); setSwitch($('tour'), true); nextStop();
+  };
+
+  // Building info on click
+  const info = $('info');
+  map.on('click', 'buildings', e => {
+    const f = e.features && e.features[0]; if (!f) return;
+    const h = f.properties.render_height;
+    const known = h != null && h > 6;
+    info.innerHTML = `<b>${f.properties.name || T[lang].building}</b>` +
+      `<small>${known ? `${T[lang].height} ≈ ${Math.round(h)} m · ~${Math.max(1, Math.round(h / 3.2))} ${T[lang].floors}` : T[lang].unknown}</small>`;
+    info.style.display = 'block';
+    clearTimeout(info._t); info._t = setTimeout(() => info.style.display = 'none', 5000);
+  });
+  map.on('mouseenter', 'buildings', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'buildings', () => map.getCanvas().style.cursor = '');
+
+  // Deep link: /yerevan/#cascade
+  const hashPlace = PLACES.find(p => p.id === location.hash.slice(1));
+  if (hashPlace) map.once('style.load', () => flyTo(hashPlace, { duration:2500 }));
+
+  if (matchMedia('(max-width:640px)').matches) { $('panel').classList.add('collapsed'); $('collapse').textContent = '+'; }
+  applyLang();
+  window.__map = map;
+})();
+</script>
+</body>
+</html>
